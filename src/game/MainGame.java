@@ -2,8 +2,10 @@ package game;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -21,6 +23,8 @@ public class MainGame extends BasicGame {
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
+		g.setBackground(Color.white);
+		g.setColor(Color.black);
 		g.drawString("Howdy!", 100, 100);
 	}
 
@@ -28,7 +32,8 @@ public class MainGame extends BasicGame {
 		try	{
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new MainGame("RunnerMan"));
-			appgc.setDisplayMode(640, 480, false);
+			appgc.setDisplayMode(800, 500, false);
+			appgc.setShowFPS(false);
 			appgc.start();
 		}
 		catch (SlickException ex) {
