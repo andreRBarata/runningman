@@ -33,7 +33,7 @@ public class MainGame extends BasicGame {
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new MainGame("RunnerMan"));
 			appgc.setDisplayMode(800, 500, false);
-			appgc.setShowFPS(false);
+			//appgc.setShowFPS(false);
 			appgc.start();
 		}
 		catch (SlickException ex) {
