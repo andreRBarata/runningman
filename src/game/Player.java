@@ -8,15 +8,12 @@ import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
-class Player implements Entity {
-	private Vector2f position;
-	private Shape sprite;
-	
+class Player extends Drawable {
 	private TreeMap<String, Character> keyBinds;
 	private int index;
 	private char[] name;
 	
-	Player() {
+	public Player() {
 		this.sprite = new Polygon(
 			new float[] {
 				-50,	-50,
@@ -33,8 +30,5 @@ class Player implements Entity {
 		
 		localized.setLocation(position);
 		g.fill(localized);
-	}
-	
-	public void update() {
 	}
 }
