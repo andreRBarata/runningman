@@ -10,14 +10,29 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Polygon;
 
 public class MainGame extends BasicGame {
+	Polygon map;
+	Player player;
+	
 	public MainGame(String gamename) {
 		super(gamename);
 	}
 	
 	@Override
-	public void init(GameContainer gc) throws SlickException {}
+	public void init(GameContainer gc) throws SlickException {
+		map = new Polygon(
+				new float[] {
+						0, gc.getHeight()/2,
+						gc.getWidth(), gc.getHeight()/2,
+						gc.getWidth(), gc.getHeight(),
+						0, gc.getHeight()
+				}
+		);
+		
+		player = new Player();
+	}
 
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {}
@@ -25,8 +40,11 @@ public class MainGame extends BasicGame {
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		g.setBackground(Color.white);
+
+		g.setColor(Color.green);
+		g.fill(map);
 		g.setColor(Color.black);
-		g.drawString("Howdy!", 100, 100);
+		player.display(g);
 	}
 
 	public static void main(String[] args) {
