@@ -8,7 +8,9 @@ public class Droppable extends Drawable {
 	
 	public Droppable(Vector2f position, Shape sprite) {
 		super(position, sprite);
-		// TODO Auto-generated constructor stub
 	}
 
+	public void update() {
+		
+	}
 }

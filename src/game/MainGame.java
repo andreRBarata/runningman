@@ -82,7 +82,7 @@ public class MainGame extends BasicGame {
 		}
 		
 		g.setColor(Color.green);
-		//g.fill(map);
+		g.fill(map);
 		g.setColor(Color.black);
 		//player.display(g);
 	}

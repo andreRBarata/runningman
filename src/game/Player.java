@@ -8,7 +8,7 @@ import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
-class Player extends Drawable {
+class Player extends Droppable {
 	private TreeMap<String, Character> keyBinds;
 	private int index;
 	private char[] name;
