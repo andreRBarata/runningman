@@ -6,8 +6,8 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 public class Drawable {
-	protected Vector2f position;
-	protected Shape sprite;	
+	private Vector2f position;
+	private Shape sprite;	
 	
 	public Drawable(Vector2f position, Shape sprite) {
 		this.position = position;

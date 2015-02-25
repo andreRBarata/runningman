@@ -17,6 +17,8 @@ import org.newdawn.slick.util.FontUtils;
 Button button = new Button(
 	new PVector(width/2, height/2),
 	"button",
+	50,
+	50,
 	new CallBack() {
 		public void run() {
 			println("teste");
@@ -102,8 +104,8 @@ public class Button extends Drawable {
 					false
 			),
 			text,
-			(int)position.x,
-			(int)position.y - 10,
+			(int)super.getPosition().x,
+			(int)super.getPosition().y - 10,
 			0,
 			Color.black
 		);

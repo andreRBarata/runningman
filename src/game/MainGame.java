@@ -61,9 +61,9 @@ public class MainGame extends BasicGame {
 	        
 	        for (Button button: buttons) {
 	    		Shape spriteInSpace = new MorphShape(
-	    			button.sprite
+	    			button.getSprite()
 	    		);
-	    		spriteInSpace.setLocation(button.position);
+	    		spriteInSpace.setLocation(button.getPosition());
 	    		
 	    		if (spriteInSpace.contains(x,y)) {
 	    			button.setClicked(true);

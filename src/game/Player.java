@@ -28,9 +28,9 @@ class Player extends Drawable {
 	}
 	
 	public void display(Graphics g) {
-		Shape localized = new MorphShape(sprite);
+		Shape localized = new MorphShape(super.getSprite());
 		
-		localized.setLocation(position);
+		localized.setLocation(super.getPosition());
 		g.fill(localized);
 	}
 }
