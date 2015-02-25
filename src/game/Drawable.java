@@ -7,6 +7,13 @@ import org.newdawn.slick.geom.Vector2f;
 
 public class Drawable {
 	protected Vector2f position;
+	protected Shape sprite;	
+	
+	public Drawable(Vector2f position, Shape sprite) {
+		this.position = position;
+		this.sprite = sprite;
+	}
+	
 	public Vector2f getPosition() {
 		return position;
 	}
@@ -22,13 +29,13 @@ public class Drawable {
 	public void setSprite(Shape sprite) {
 		this.sprite = sprite;
 	}
-
-	protected Shape sprite;	
-
+	
 	public void display(Graphics g) {
 		Shape localized = new MorphShape(sprite);
 		
-		localized.setLocation(position);
+		localized.setLocation(
+			position
+		);
 		g.fill(localized);
 	}
 	

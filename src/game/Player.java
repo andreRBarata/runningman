@@ -14,15 +14,17 @@ class Player extends Drawable {
 	private char[] name;
 	
 	public Player() {
-		this.sprite = new Polygon(
-			new float[] {
-				-50,	-50,
-				50,	-50,
-				50,	50,
-				-50,	50
-			}
+		super(
+			new Vector2f(0,0),
+			new Polygon(
+				new float[] {
+					-50,	-50,
+					50,	-50,
+					50,	50,
+					-50,	50
+				}
+			)
 		);
-		this.position = new Vector2f(0,0);
 	}
 	
 	public void display(Graphics g) {
