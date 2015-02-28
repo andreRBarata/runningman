@@ -1,15 +1,16 @@
 package game;
 
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.MorphShape;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 public class Drawable {
+	protected Context context;
 	private Vector2f position;
 	private Shape sprite;	
 	
-	public Drawable(Vector2f position, Shape sprite) {
+	public Drawable(Context context, Vector2f position, Shape sprite) {
+		this.context = context;
 		this.position = position;
 		this.sprite = sprite;
 	}
@@ -30,13 +31,13 @@ public class Drawable {
 		this.sprite = sprite;
 	}
 	
-	public void display(Graphics g) {
+	public void display() {
 		Shape localized = new MorphShape(sprite);
 		
 		localized.setLocation(
 			position
 		);
-		g.fill(localized);
+		context.getG().fill(localized);
 	}
 	
 }

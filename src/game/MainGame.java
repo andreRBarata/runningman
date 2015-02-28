@@ -18,6 +18,7 @@ import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.geom.MorphShape;
 
 public class MainGame extends BasicGame {
+	Context context;
 	Polygon map;
 	Player player;
 	ArrayList<Button> buttons;
@@ -36,9 +37,16 @@ public class MainGame extends BasicGame {
 						0, gc.getHeight()
 				}
 		);
+		context = new Context(
+			gc,
+			gc.getGraphics(),
+			map
+		);
+		
 		buttons = new ArrayList<Button>();
 		buttons.add(
 			new Button(
+				context,
 				new Vector2f(150,150),
 				"teste",
 				35,
@@ -50,7 +58,7 @@ public class MainGame extends BasicGame {
 				}
 			)
 		);
-		player = new Player();
+		player = new Player(context);
 	}
 
 	@Override
@@ -78,13 +86,14 @@ public class MainGame extends BasicGame {
 		g.setBackground(Color.white);
 		
 		for (Button button: buttons) {
-			button.display(g);
+			//button.display(g);
 		}
 		
 		g.setColor(Color.green);
 		g.fill(map);
 		g.setColor(Color.black);
-		//player.display(g);
+		player.update();
+		player.display();
 	}
 
 	public static void main(String[] args) {
@@ -93,7 +102,6 @@ public class MainGame extends BasicGame {
 			appgc = new AppGameContainer(new MainGame("RunnerMan"));
 			appgc.setDisplayMode(800, 500, false);
 			//appgc.setShowFPS(false);
-
 			appgc.start();
 		}
 		catch (SlickException ex) {
