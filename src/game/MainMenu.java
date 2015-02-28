@@ -17,7 +17,7 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 public class MainMenu extends BasicGame {
-
+	Context context;
 	int height;
 	int width;
 	int divideBy = 2;
@@ -42,10 +42,14 @@ public class MainMenu extends BasicGame {
 		halfHeight = gc.getHeight() / divideBy;
 		height = gc.getHeight();
 		width = gc.getWidth();
-
+		context = new Context(
+			gc,
+			gc.getGraphics()
+		);
+		
 		buttons = new ArrayList<Button>();
-		buttons.add(new Button(new Vector2f(halfWidth - width / 10, halfHeight
-				- height / 5), "teste", 35, 20, new CallBack() {
+		buttons.add(new Button(context, new Vector2f(halfWidth - width / 10, halfHeight
+				- height / 5), "teste", new CallBack() {
 			public void run() {
 				options = true;
 				mainMenu = false;
@@ -55,8 +59,8 @@ public class MainMenu extends BasicGame {
 
 	//	buttons = new ArrayList<Button>();
 		buttons.add(new Button(
-				new Vector2f(halfWidth - width / 10, halfHeight), "tasty", 35,
-				20, new CallBack() {
+				context,
+				new Vector2f(halfWidth - width / 10, halfHeight), "tasty", new CallBack() {
 					public void run() {
 						options = true;
 						mainMenu = false;
@@ -66,9 +70,9 @@ public class MainMenu extends BasicGame {
 
 	//	buttons = new ArrayList<Button>();
 		buttons.add(new Button(
+				context,
 				new Vector2f(halfWidth - width / 10, halfHeight
-						+ height / 5), "tastier", 35,
-				20, new CallBack() {
+						+ height / 5), "tastier", new CallBack() {
 					public void run() {
 						options = true;
 						mainMenu = false;
@@ -105,8 +109,8 @@ public class MainMenu extends BasicGame {
 		g.setBackground(Color.black);
 
 		if (mainMenu) {
-			g.setFont(new TrueTypeFont(new Font("TimesRoman", Font.PLAIN,
-					height / 10), false));
+			//g.setFont(new TrueTypeFont(new Font("TimesRoman", Font.PLAIN,
+			//		height / 10), false));
 
 			g.setColor(Color.yellow);
 			g.drawString("Start", halfWidth - width / 10, halfHeight - height
@@ -134,7 +138,7 @@ public class MainMenu extends BasicGame {
 		}
 
 		for (Button button : buttons) {
-			button.display(g);
+			button.display();
 		}
 
 	}

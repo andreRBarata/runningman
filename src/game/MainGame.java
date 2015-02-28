@@ -49,8 +49,6 @@ public class MainGame extends BasicGame {
 				context,
 				new Vector2f(150,150),
 				"teste",
-				35,
-				20,
 				new CallBack() {
 					public void run() {
 						System.out.println("teste");

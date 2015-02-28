@@ -32,23 +32,25 @@ public class Button extends Drawable {
 	private boolean clicked;
 	
 	
-	public Button(Context context, Vector2f position, String text, Shape sprite, CallBack callback) {
-		super(context, position, sprite);
-		this.clicked = false;
-		this.callback = callback;
-		this.text = text;
-	}
-	
-	public Button(Context context, Vector2f position, String text, float width, float height, CallBack callback) {
+	public Button(Context context, Vector2f position, String text, CallBack callback) {
 		super(
 				context,
 				position,
 				new Polygon(
 					new float[] {
-						-width,	-height,
-						width,	-height,
-						width,	height,
-						-width,	height
+						0,	0,
+						context.getG()
+							.getFont()
+							.getWidth(text), 0,
+						context.getG()
+							.getFont()
+							.getWidth(text),
+						context.getG()
+							.getFont()
+							.getHeight(text),
+						0,	context.getG()
+							.getFont()
+							.getHeight(text)
 					}
 				)
 		);
@@ -56,7 +58,7 @@ public class Button extends Drawable {
 		this.callback = callback;
 		this.text = text;
 	}
-	
+
 	public boolean isClicked() {
 		return clicked;
 	}
@@ -83,11 +85,10 @@ public class Button extends Drawable {
 			context.getG().setColor(new Color(20,20,200));
 		}
 		
-		super.display();
-		/*g.getFont().drawString(
-			(int)super.getPosition().x - g.getFont().getWidth(text)/2,
+		context.getG().getFont().drawString(
+			(int)super.getPosition().x,
 			(int)super.getPosition().y - 10,
 			text
-		);*/
+		);
 	}
 }
