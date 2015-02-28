@@ -1,7 +1,6 @@
 package game;
 
 import java.awt.Font;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,17 +13,23 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.MorphShape;
-import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 public class MainMenu extends BasicGame {
+
+	int height;
+	int width;
+	int divideBy = 2;
+	int halfWidth;
+	int halfHeight;
 
 	ArrayList<Button> buttons;
 
 	// void resize(500,500);
 	boolean mainMenu = true;
 	boolean options = false;
+	boolean instructions = false;
 
 	public MainMenu(String gamename) {
 		super(gamename);
@@ -33,9 +38,37 @@ public class MainMenu extends BasicGame {
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 
+		halfWidth = gc.getWidth() / divideBy;
+		halfHeight = gc.getHeight() / divideBy;
+		height = gc.getHeight();
+		width = gc.getWidth();
+
 		buttons = new ArrayList<Button>();
-		buttons.add(new Button(new Vector2f(150, 150), "teste", 35, 20,
-				new CallBack() {
+		buttons.add(new Button(new Vector2f(halfWidth - width / 10, halfHeight
+				- height / 5), "teste", 35, 20, new CallBack() {
+			public void run() {
+				options = true;
+				mainMenu = false;
+				System.out.println("teste");
+			}
+		}));
+
+	//	buttons = new ArrayList<Button>();
+		buttons.add(new Button(
+				new Vector2f(halfWidth - width / 10, halfHeight), "tasty", 35,
+				20, new CallBack() {
+					public void run() {
+						options = true;
+						mainMenu = false;
+						System.out.println("teste");
+					}
+				}));
+
+	//	buttons = new ArrayList<Button>();
+		buttons.add(new Button(
+				new Vector2f(halfWidth - width / 10, halfHeight
+						+ height / 5), "tastier", 35,
+				20, new CallBack() {
 					public void run() {
 						options = true;
 						mainMenu = false;
@@ -68,13 +101,8 @@ public class MainMenu extends BasicGame {
 	@Override
 	public void render(GameContainer gc, org.newdawn.slick.Graphics g)
 			throws SlickException {
-		int height = gc.getHeight();
-		int width = gc.getWidth();
-		int divideBy = 2;
-		int halfWidth = gc.getWidth() / divideBy;
-		int halfHeight = gc.getHeight() / divideBy;
 
-		 g.setBackground(Color.black);
+		g.setBackground(Color.black);
 
 		if (mainMenu) {
 			g.setFont(new TrueTypeFont(new Font("TimesRoman", Font.PLAIN,
@@ -103,6 +131,10 @@ public class MainMenu extends BasicGame {
 			g.setColor(Color.red);
 			g.drawString("Back", halfWidth - width / 10, halfHeight + height
 					/ 5);
+		}
+
+		for (Button button : buttons) {
+			button.display(g);
 		}
 
 	}
