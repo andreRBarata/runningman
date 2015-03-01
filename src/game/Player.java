@@ -2,14 +2,16 @@ package game;
 
 import java.util.TreeMap;
 
+import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.MorphShape;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
+import org.newdawn.slick.geom.Transform;
 import org.newdawn.slick.geom.Vector2f;
 
 class Player extends Droppable {
-	private TreeMap<String, Character> keyBinds;
+	private TreeMap<String, Integer> keyBinds;
 	private int index;
 	private char[] name;
 	
@@ -55,12 +57,37 @@ class Player extends Droppable {
 				}
 			)
 		);
+		
+		keyBinds = new TreeMap<String, Integer>();
+		keyBinds.put("jump", Keyboard.KEY_SPACE);
+		keyBinds.put("move", Keyboard.KEY_RIGHT);
 	}
 	
-	public void display() {
-		Shape localized = new MorphShape(super.getSprite());
-		localized.setLocation(super.getPosition());
+	public void update() {
+		Shape localized = new MorphShape(this.getSprite());
 		
-		context.getG().fill(localized);
+		localized.setLocation(
+			this.getPosition()
+		);
+		super.update();
+		
+		if (localized.intersects(this.context.getMap())) {
+			if (Keyboard.isKeyDown(keyBinds.get("jump"))) {
+				this.setPosition(
+					this.getPosition().add(
+						new Vector2f(0,-2)
+					)
+				);
+				this.setSpeed(
+					this.getSpeed().add(
+						new Vector2f(0, context.playerJump)
+					)
+				);
+			}
+			
+			if (Keyboard.isKeyDown(keyBinds.get("move"))) {
+				
+			}
+		}
 	}
 }

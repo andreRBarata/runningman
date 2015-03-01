@@ -37,6 +37,7 @@ public class Drawable {
 		localized.setLocation(
 			position
 		);
+		
 		context.getG().fill(localized);
 	}
 	

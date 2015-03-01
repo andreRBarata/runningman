@@ -1,6 +1,7 @@
 package game;
 
 import org.newdawn.slick.geom.MorphShape;
+import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -21,15 +22,24 @@ public class Droppable extends Drawable {
 		localized.setLocation(nextposition);
 		
 		if (context.getMap().intersects(localized)) {
-			speed.y = -speed.y;
+			speed.y = -speed.y/2;
 		}
-		
-		speed.add(new Vector2f(0.0f,0.2f));
+		else {
+			speed.add(new Vector2f(0.0f,context.gravity));
+		}
 		
 		nextposition.add(speed);
 		
 		this.setPosition(
 			nextposition
 		);
+	}
+
+	public Vector2f getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(Vector2f speed) {
+		this.speed = speed;
 	}
 }
