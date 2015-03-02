@@ -2,12 +2,9 @@ package game;
 
 import java.awt.Font;
 
-import org.newdawn.slick.AngelCodeFont;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.UnicodeFont;
-import org.newdawn.slick.geom.MorphShape;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
@@ -32,36 +29,36 @@ buttons.add(button);
 public class Button extends Drawable {
 	private CallBack callback;
 	private String text;
-	private int timer;
 	private boolean clicked;
 	
 	
-	public Button(Vector2f position, String text, Shape sprite, CallBack callback) {
-		super(position, sprite);
-		this.clicked = false;
-		this.callback = callback;
-		this.text = text;
-		this.timer = 0;
-	}
-	
-	public Button(Vector2f position, String text, float width, float height, CallBack callback) {
+	public Button(Context context, Vector2f position, String text, CallBack callback) {
 		super(
+				context,
 				position,
 				new Polygon(
 					new float[] {
-						-width,	-height,
-						width,	-height,
-						width,	height,
-						-width,	height
+						0,	0,
+						context.getG()
+							.getFont()
+							.getWidth(text), 0,
+						context.getG()
+							.getFont()
+							.getWidth(text),
+						context.getG()
+							.getFont()
+							.getHeight(text),
+						0,	context.getG()
+							.getFont()
+							.getHeight(text)
 					}
 				)
 		);
 		this.clicked = false;
 		this.callback = callback;
 		this.text = text;
-		this.timer = 0;
 	}
-	
+
 	public boolean isClicked() {
 		return clicked;
 	}
@@ -79,35 +76,19 @@ public class Button extends Drawable {
 		return text;
 	}
 
-	public void display(Graphics g) {
+	public void display() {
+			
 		if (!clicked) {
-			g.setColor(new Color(255));
-			if (timer != 0) {
-				timer--;
-				System.out.println("teste4" + timer);
-			}
-			else {
-				clicked = false;
-			}
+			context.getG().setColor(new Color(255));
 		}
 		else {
-			g.setColor(new Color(20,20,200));
-			if (timer == 0) {
-				timer = 10000;
-			}
+			context.getG().setColor(new Color(20,20,200));
 		}
 		
-		super.display(g);
-		FontUtils.drawCenter(
-			new TrueTypeFont(
-					new Font("Verdana", Font.BOLD, 20),
-					false
-			),
-			text,
+		context.getG().getFont().drawString(
 			(int)super.getPosition().x,
 			(int)super.getPosition().y - 10,
-			0,
-			Color.black
+			text
 		);
 	}
 }
