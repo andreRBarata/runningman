@@ -53,6 +53,8 @@ public class MainMenu extends BasicGame {
 			public void run() {
 				options = true;
 				mainMenu = false;
+				MainGame mainGame = new MainGame("RunnerMan");
+				MainGame.start();
 				System.out.println("teste");
 			}
 		}));
