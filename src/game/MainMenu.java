@@ -1,6 +1,5 @@
 package game;
 
-import java.awt.Font;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,8 +9,8 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.MorphShape;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
@@ -38,49 +37,46 @@ public class MainMenu extends BasicGame {
 	@Override
 	public void init(GameContainer gc) throws SlickException {
 
+		buttons(gc);
+	}
+
+	public void buttons(GameContainer gc) throws SlickException {
 		halfWidth = gc.getWidth() / divideBy;
 		halfHeight = gc.getHeight() / divideBy;
 		height = gc.getHeight();
 		width = gc.getWidth();
-		context = new Context(
-			gc,
-			gc.getGraphics()
-		);
-		
+		context = new Context(gc, gc.getGraphics());
+
 		buttons = new ArrayList<Button>();
-		buttons.add(new Button(context, new Vector2f(halfWidth - width / 10, halfHeight
-				- height / 5), "teste", new CallBack() {
+		buttons.add(new Button(context, new Vector2f(halfWidth - width / 10,
+				halfHeight - height / 5), "teste", new CallBack() {
 			public void run() {
 				options = true;
 				mainMenu = false;
-				MainGame mainGame = new MainGame("RunnerMan");
 				MainGame.start();
 				System.out.println("teste");
 			}
 		}));
 
-	//	buttons = new ArrayList<Button>();
-		buttons.add(new Button(
-				context,
-				new Vector2f(halfWidth - width / 10, halfHeight), "tasty", new CallBack() {
-					public void run() {
-						options = true;
-						mainMenu = false;
-						System.out.println("teste");
-					}
-				}));
+		// buttons = new ArrayList<Button>();
+		buttons.add(new Button(context, new Vector2f(halfWidth - width / 10,
+				halfHeight), "tasty", new CallBack() {
+			public void run() {
+				options = true;
+				mainMenu = false;
+				System.out.println("teste");
+			}
+		}));
 
-	//	buttons = new ArrayList<Button>();
-		buttons.add(new Button(
-				context,
-				new Vector2f(halfWidth - width / 10, halfHeight
-						+ height / 5), "tastier", new CallBack() {
-					public void run() {
-						options = true;
-						mainMenu = false;
-						System.out.println("teste");
-					}
-				}));
+		// buttons = new ArrayList<Button>();
+		buttons.add(new Button(context, new Vector2f(halfWidth - width / 10,
+				halfHeight + height / 5), "tastier", new CallBack() {
+			public void run() {
+				options = true;
+				mainMenu = false;
+				System.out.println("teste");
+			}
+		}));
 	}
 
 	@Override
@@ -101,18 +97,30 @@ public class MainMenu extends BasicGame {
 		}
 	}
 
-	// System.out.println("Width: " + getWidth() / 2);
-	// System.out.println("Height: " + getHeight() / 2);
-
+	public void drawImage(GameContainer gc, org.newdawn.slick.Graphics g)
+			throws SlickException
+	{
+		float scale = 0.3f;
+		
+		//g.scale(2,2);
+		Image img = new Image("/src/Images/image.png");
+		int imgWidth = img.getWidth();
+		int imgHeight = img.getHeight();
+		img.draw(halfWidth - width / 10, halfHeight - height / 5, imgWidth * scale , imgHeight * scale);
+		//get width and height of the image and multiply it by the scale, scale should be a global variable and should effect everything
+		//Image = new Image("image.png", false, Image.FILTER_NEAREST);
+	}
+	
 	@Override
 	public void render(GameContainer gc, org.newdawn.slick.Graphics g)
 			throws SlickException {
-
+			drawImage(gc, g);
+			g.scale(1, 1);
 		g.setBackground(Color.black);
 
 		if (mainMenu) {
-			//g.setFont(new TrueTypeFont(new Font("TimesRoman", Font.PLAIN,
-			//		height / 10), false));
+			// g.setFont(new TrueTypeFont(new Font("TimesRoman", Font.PLAIN,
+			// height / 10), false));
 
 			g.setColor(Color.yellow);
 			g.drawString("Start", halfWidth - width / 10, halfHeight - height
