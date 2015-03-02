@@ -55,7 +55,7 @@ public class Context {
 		this.setMap(
 			(Polygon)this.getMap().transform(
 				Transform.createTranslateTransform(
-					-this.playerSpeed * (gc.getFPS()/60),
+					(-this.playerSpeed * gc.getFPS())/60,
 					0
 				)
 			)
@@ -63,7 +63,7 @@ public class Context {
 		
 		mapPath = (Polygon)mapPath.transform(
 			Transform.createTranslateTransform(
-				-this.playerSpeed * (gc.getFPS()/60),
+					(-this.playerSpeed * gc.getFPS())/60,
 				0
 			)
 		);

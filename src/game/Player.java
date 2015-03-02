@@ -73,11 +73,10 @@ class Player extends Droppable {
 		
 		if (localized.intersects(this.context.getMap())) {
 			Vector2f nextposition = this.getPosition();
-			nextposition.x -= context.playerSpeed * (
-				context
-					.getGc()
-					.getFPS()/60
-			);
+			nextposition.x -= (context.playerSpeed * context
+						.getGc()
+						.getFPS()
+					)/60;
 			
 			localized.setLocation(
 				nextposition
