@@ -29,17 +29,21 @@ public class MainGame extends BasicGame {
 			new Polygon(
 					new float[] {
 							0, gc.getHeight()/2,
-							gc.getWidth(), gc.getHeight()/2,
-							gc.getWidth(), gc.getHeight(),
 							0, gc.getHeight()
 					}
 			)
 		);
+		context.generateChunk();
 		player = new Player(context);
 	}
 
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {
+		context.sideScroll();
+		
+		if (context.getMap().getMaxX() <= gc.getWidth()) {
+			context.generateChunk();
+		}
 	}
 
 	@Override
@@ -52,7 +56,7 @@ public class MainGame extends BasicGame {
 		player.update();
 		player.display();
 		
-		context.sideScroll();
+		
 	}
 
 	public static void main(String[] args) {
