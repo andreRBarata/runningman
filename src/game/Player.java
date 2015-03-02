@@ -72,6 +72,24 @@ class Player extends Droppable {
 		super.update();
 		
 		if (localized.intersects(this.context.getMap())) {
+			Vector2f nextposition = this.getPosition();
+			nextposition.x -= context.playerSpeed;
+			
+			localized.setLocation(
+				nextposition
+			);
+			
+			if (!localized.intersects(this.context.getMap())) {
+				this.setPosition(nextposition);
+			}
+			else {
+				localized.setLocation(
+					this.getPosition()
+				);
+			}
+		}
+		
+		if (localized.intersects(this.context.getMap())) {
 			if (Keyboard.isKeyDown(keyBinds.get("jump"))) {
 				this.setPosition(
 					this.getPosition().add(
