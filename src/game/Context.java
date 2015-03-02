@@ -54,12 +54,18 @@ public class Context {
 	public void sideScroll() {
 		this.setMap(
 			(Polygon)this.getMap().transform(
-				Transform.createTranslateTransform(-this.playerSpeed,0)
+				Transform.createTranslateTransform(
+					-this.playerSpeed * (gc.getFPS()/60),
+					0
+				)
 			)
 		);
 		
 		mapPath = (Polygon)mapPath.transform(
-			Transform.createTranslateTransform(-this.playerSpeed,0)
+			Transform.createTranslateTransform(
+				-this.playerSpeed * (gc.getFPS()/60),
+				0
+			)
 		);
 	}
 	
@@ -76,7 +82,7 @@ public class Context {
 		mapPath.addPoint(
 			map.getMaxX() + this.chunkSize, map.getMinY() - random
 		);
-				
+		
 		map = new Polygon();
 		
 		map.addPoint(
