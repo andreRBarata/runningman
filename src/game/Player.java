@@ -60,43 +60,75 @@ class Player extends Droppable {
 		
 		keyBinds = new TreeMap<String, Integer>();
 		keyBinds.put("jump", Keyboard.KEY_SPACE);
-		keyBinds.put("move", Keyboard.KEY_RIGHT);
+		keyBinds.put("right", Keyboard.KEY_RIGHT);
+		keyBinds.put("left", Keyboard.KEY_LEFT);
 	}
 	
 	public void update() {
 		Shape localized = new MorphShape(this.getSprite());
-		
 		localized.setLocation(
 			this.getPosition()
 		);
+		
+		Polygon fullbound = new Polygon(
+			new float[] {
+					localized.getMinX(),
+					localized.getCenterY(),
+					localized.getMaxX(),
+					localized.getCenterY()
+			}
+		);
+		
+		Polygon leftbound = new Polygon(
+			new float[] {
+					localized.getMinX(),
+					localized.getCenterY(),
+					localized.getCenterX(),
+					localized.getCenterY()
+			}
+		);
+		Polygon rightbound = new Polygon(
+			new float[] {
+					localized.getMaxX(),
+					localized.getCenterY(),
+					localized.getCenterX(),
+					localized.getCenterY()
+			}
+		);
+		Polygon bottombound = new Polygon(
+			new float[] {
+					localized.getCenterX(),
+					localized.getMaxY(),
+					localized.getCenterX(),
+					localized.getCenterY()
+			}
+		);
+		
 		super.update();
 		
-		if (localized.intersects(this.context.getMap())) {
-			Vector2f nextposition = this.getPosition();
-			nextposition.x -= (context.playerSpeed * context
-						.getGc()
-						.getFPS()
-					)/60;
-			
-			localized.setLocation(
-				nextposition
+		if (context.getMap().intersects(rightbound)) {
+			this.setSpeed(
+				new Vector2f(
+					-context.playerSpeed * 1.5f,
+					this.getSpeed().y
+				)
 			);
-			
-			if (!localized.intersects(this.context.getMap())) {
-				this.setPosition(nextposition);
-			}
-			else {
-				localized.setLocation(
-					this.getPosition()
-				);
-			}
 		}
 		
-		if (localized.intersects(this.context.getMap())) {
+		if (context.getMap().intersects(leftbound)) {
+			this.setSpeed(
+				new Vector2f(
+					0,
+					this.getSpeed().y
+				)
+			);
+		}
+		
+		if (context.getMap().intersects(bottombound)) {
 			if (Keyboard.isKeyDown(keyBinds.get("jump"))) {
 				this.setPosition(
 					this.getPosition().add(
-						new Vector2f(0,-2)
+						new Vector2f(0,-5)
 					)
 				);
 				this.setSpeed(
@@ -106,9 +138,48 @@ class Player extends Droppable {
 				);
 			}
 			
-			if (Keyboard.isKeyDown(keyBinds.get("move"))) {
-				
+			
+			
+			if (Keyboard.isKeyDown(keyBinds.get("right"))) {
+				if (!context.getMap().intersects(rightbound)) {
+					this.setSpeed(
+						new Vector2f(
+							context.playerSpeed/2,
+							this.getSpeed().y
+						)
+					);
+				}
 			}
+			
+			if (Keyboard.isKeyDown(keyBinds.get("left"))) {
+				if (!context.getMap().intersects(leftbound)) {
+					this.setSpeed(
+						new Vector2f(
+							-context.playerSpeed/2,
+							this.getSpeed().y
+						)
+					);
+				}
+			}
+			
+			if (this.getPosition().x > context.getGc().getWidth()/2) {
+				this.setSpeed(
+					new Vector2f(
+						0,
+						this.getSpeed().y
+					)
+				);
+			}
+			
+			if (!localized.intersects(this.context.getMap())) {
+				this.setSpeed(
+					new Vector2f(
+						this.getSpeed().x/2,
+						this.getSpeed().y
+					)
+				);
+			}
+			
 		}
 	}
 }
