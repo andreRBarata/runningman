@@ -50,23 +50,35 @@ public class MainGame extends BasicGame {
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		g.drawImage((new Image("/src/Tiles/testBackground.png")), 0, 0);
-
-		g.setColor(new Color(70,155,70));
+		if (!gc.isPaused()) {
+			g.drawImage((new Image("/src/Tiles/testBackground.png")), 0, 0);
+			g.setColor(new Color(70,155,70));
+			
+			g.fill(context.getMap());
+			/*g.texture(context.getMap(),
+				(new Image("/src/Tiles/testTile.png")),
+				5,
+				0.5f,
+				true
+			);*/
+			
+			g.setColor(new Color(255, 140, 0));
+			
+			player.update();
+			player.display();
+		}
 		
-		g.fill(context.getMap());
-		/*g.texture(context.getMap(),
-			(new Image("/src/Tiles/testTile.png")),
-			5,
-			0.5f,
-			true
-		);*/
-		
-		g.setColor(new Color(255, 140, 0));
-		
-		player.update();
-		player.display();
-
+		if (player.getPosition().x < 0) {
+			context.getG().setBackground(Color.white);
+			context.getG().setColor(Color.black);
+			
+			context.getG().drawString(
+				"End",
+				context.getGc().getWidth()/2,
+				context.getGc().getHeight()/2
+			);
+			context.getGc().pause();
+		}
 	}
 
 	public static void start() {
