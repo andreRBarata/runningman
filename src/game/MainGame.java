@@ -4,6 +4,8 @@ package game;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.Display;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
@@ -31,18 +33,23 @@ public class MainGame extends BasicGame {
 
 	@Override
 	public void update(GameContainer gc, int i) throws SlickException {
+		Display.sync(70);
+		
 		context.sideScroll();
-
+		
 		if (context.getMap().getMaxX() <= gc.getWidth()) {
 			context.generateChunk();
+		}
+			
+		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+			context.getGc().exit();
 		}
 	}
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		g.setBackground(Color.white);
-
-		g.setColor(Color.green);
+		
 		g.fill(context.getMap());
 		g.setColor(Color.black);
 		player.update();
@@ -52,20 +59,18 @@ public class MainGame extends BasicGame {
 
 	public static void start() {
 		try {
-
 			AppGameContainer appgc;
 			appgc = new AppGameContainer(new MainGame("RunnerMan"));
-			appgc.setDisplayMode(800, 500, false);
+			//appgc.setFullscreen(true);
+			//setDisplayMode(800, 500, false);
 			// appgc.setShowFPS(false);
 			appgc.start();
 		} catch (SlickException ex) {
-			Logger.getLogger(MainGame.class.getName()).log(Level.SEVERE, null,
-					ex);
+			Logger.getLogger(MainGame.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 
 	public static void main(String[] args) {
-
 		start();
 	}
 }

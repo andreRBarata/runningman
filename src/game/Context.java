@@ -9,7 +9,7 @@ public class Context {
 	public final float playerJump = -5;
 	public final float playerSpeed = 2;
 	public final float gravity = 0.2f;
-	public final float chunkSize = 50;
+	public final float chunkSize = 100;
 	
 	private GameContainer gc;
 	private Graphics g;
@@ -55,7 +55,7 @@ public class Context {
 		this.setMap(
 			(Polygon)this.getMap().transform(
 				Transform.createTranslateTransform(
-					(-this.playerSpeed * gc.getFPS())/60,
+					-this.playerSpeed,
 					0
 				)
 			)
@@ -63,14 +63,14 @@ public class Context {
 		
 		mapPath = (Polygon)mapPath.transform(
 			Transform.createTranslateTransform(
-					(-this.playerSpeed * gc.getFPS())/60,
+					-this.playerSpeed,
 				0
 			)
 		);
 	}
 	
 	public void generateChunk() {
-		float random = (Math.round(Math.random()) * this.chunkSize);
+		float random = (Math.round(Math.random()) * this.chunkSize/2);
 		
 		if (Math.random() < 0.5 || map.getMinY() < gc.getHeight()/2) {
 			random = -random;
