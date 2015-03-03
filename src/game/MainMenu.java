@@ -47,56 +47,82 @@ public class MainMenu extends BasicGame {
 		halfHeight = gc.getHeight() / divideBy;
 		height = gc.getHeight();
 		width = gc.getWidth();
+
+		float heightOffset = 0;
+		float heightIncr = 100f;
 		context = new Context(gc, gc.getGraphics());
 
 		buttons = new ArrayList<Button>();
 
-		buttons.add(new Button(context,
-				new Vector2f(width / 2, height / 2 + 50), "testing",
-				new CallBack() {
-					public void run() {
-						options = true;
-						mainMenu = false;
-						MainGame.start();
-						Audio.playSound("test.wav");
-						System.out.println("test");
-					}
-				}, "start.png", "highStart.png"));
+		Button startBtn = new Button(context, new Vector2f(width / 2 - 75, 150f),
+				GetImage("start.png"), GetImage("highStart.png"));
+		startBtn.onClick(() -> {
+			options = true;
+			mainMenu = false;
+			MainGame.start();
+			Audio.playSound("test.wav");
+			System.out.println("test");
+		});
+		
+		Button scoresBtn = new Button(context, new Vector2f(width / 2 - 75, 250f),
+				GetImage("highScores.png"), GetImage("highHighScores.png"));
+		scoresBtn.onClick(() -> {
+			options = true;
+			mainMenu = false;
+			MainGame.start();
+			Audio.playSound("test.wav");
+			System.out.println("test");
+		});
+		
+		Button optionsBtn = new Button(context, new Vector2f(width / 2 - 75, 350f),
+				GetImage("options.png"), GetImage("highOptions.png"));
+		optionsBtn.onClick(() -> {
+			options = true;
+			mainMenu = false;
+			MainGame.start();
+			Audio.playSound("test.wav");
+			System.out.println("test");
+		});
+		
+		Button instructionsBtn = new Button(context, new Vector2f(width / 2 - 75, 450f),
+				GetImage("instructions.png"), GetImage("highInstructions.png"));
+		instructionsBtn.onClick(() -> {
+			options = true;
+			mainMenu = false;
+			MainGame.start();
+			Audio.playSound("test.wav");
+			System.out.println("test");
+		});
 
-		// buttons = new ArrayList<Button>();
-		buttons.add(new Button(context,
-				new Vector2f(width / 2, height / 2 - 10), "test",
-				new CallBack() {
-					public void run() {
-						options = true;
-						mainMenu = false;
-						Audio.playSound("test.wav");
-						System.out.println("test");
-					}
-				}, "highScores.png", "highHighScores.png"));
-
-		// buttons = new ArrayList<Button>();
-		buttons.add(new Button(context, new Vector2f(halfWidth - width / 10),
-				"test", new CallBack() {
-					public void run() {
-						options = true;
-						mainMenu = false;
-						Audio.playSound("test.wav");
-						System.out.println("test");
-					}
-				}, "options.png", "highOptions.png"));
-
-		// buttons = new ArrayList<Button>();
-		buttons.add(new Button(context,
-				new Vector2f(width / 2, height / 2 - 10), "test",
-				new CallBack() {
-					public void run() {
-						options = true;
-						mainMenu = false;
-						Audio.playSound("test.wav");
-						System.out.println("test");
-					}
-				}, "instructions.png", "highInstructions.png"));
+		buttons.add(startBtn);
+		buttons.add(scoresBtn);
+		buttons.add(optionsBtn);
+		buttons.add(instructionsBtn);
+		
+		/*
+		 * buttons.add(new Button(context, new Vector2f((width / 2), (height /
+		 * 4)), "testing", new CallBack() { public void run() { options = true;
+		 * mainMenu = false; MainGame.start(); Audio.playSound("test.wav");
+		 * System.out.println("test"); } }, "start.png", "highStart.png"));
+		 * 
+		 * // buttons = new ArrayList<Button>(); buttons.add(new Button(context,
+		 * new Vector2f((width / 2) + 50, height / 2), "test", new CallBack() {
+		 * public void run() { options = true; mainMenu = false;
+		 * Audio.playSound("test.wav"); System.out.println("test"); } },
+		 * "highScores.png", "highHighScores.png"));
+		 * 
+		 * // buttons = new ArrayList<Button>(); buttons.add(new Button(context,
+		 * new Vector2f(width / 2, 50), "test", new CallBack() { public void
+		 * run() { options = true; mainMenu = false;
+		 * Audio.playSound("test.wav"); System.out.println("test"); } },
+		 * "options.png", "highOptions.png"));
+		 * 
+		 * // buttons = new ArrayList<Button>(); buttons.add(new Button(context,
+		 * new Vector2f(width / 2, height / 2 - 10), "test", new CallBack() {
+		 * public void run() { options = true; mainMenu = false;
+		 * Audio.playSound("test.wav"); System.out.println("test"); } },
+		 * "instructions.png", "highInstructions.png"));
+		 */
 	}
 
 	@Override
@@ -106,20 +132,18 @@ public class MainMenu extends BasicGame {
 		int y = gc.getHeight() - Mouse.getY();
 
 		for (Button button : buttons) {
-			Shape spriteInSpace = new MorphShape(button.getSprite());
-			spriteInSpace.setLocation(button.getPosition());
 
-			if (spriteInSpace.contains(x, y)) {
+			System.out.println(button.getPosition() + " x: " + x + " y: " + y);
+
+			if (button.containsPoint(x, y)) {
 				button.SetMouseOver(true);
 			} else
 				button.SetMouseOver(false);
 
-			if (Mouse.isButtonDown(0)) {
-				if (spriteInSpace.contains(x, y)) {
-					button.setClicked(true);
-					button.getCallback().run();
-				}
-			}
+			/*
+			 * if (Mouse.isButtonDown(0)) { if (spriteInSpace.contains(x, y)) {
+			 * button.setClicked(true); button.getCallback().run(); } }
+			 */
 		}
 
 	}
@@ -169,7 +193,7 @@ public class MainMenu extends BasicGame {
 
 		g.scale(1, 1);
 		g.setBackground(Color.black);
-	
+
 		background(gc, g, "testBackground.png");
 		background(gc, g, "testTitle.png");
 		// g.drawImage((new Image("/src/Tiles/testBackground.png")), 0, 0);
@@ -219,6 +243,18 @@ public class MainMenu extends BasicGame {
 		} catch (SlickException ex) {
 			Logger.getLogger(MainGame.class.getName()).log(Level.SEVERE, null,
 					ex);
+		}
+	}
+
+	public static Image GetImage(String url) {
+		Image img = null;
+		try {
+			img = new Image("/src/Images/" + url);
+			return img;
+		} catch (SlickException ex) {
+			Logger.getLogger(MainGame.class.getName()).log(Level.WARNING, null,
+					ex);
+			return null;
 		}
 	}
 
