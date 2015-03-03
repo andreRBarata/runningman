@@ -11,8 +11,10 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Polygon;
+import org.newdawn.slick.geom.ShapeRenderer;
 import org.newdawn.slick.geom.Transform;
 
 public class MainGame extends BasicGame {
@@ -48,10 +50,20 @@ public class MainGame extends BasicGame {
 
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
-		g.setBackground(Color.white);
+		g.drawImage((new Image("/src/Tiles/testBackground.png")), 0, 0);
+		
+		g.setColor(new Color(70,155,70));
 		
 		g.fill(context.getMap());
-		g.setColor(Color.black);
+		/*g.texture(context.getMap(),
+			(new Image("/src/Tiles/testTile.png")),
+			5,
+			0.5f,
+			true
+		);*/
+		
+		g.setColor(new Color(255, 140, 0));
+		
 		player.update();
 		player.display();
 

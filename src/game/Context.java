@@ -1,9 +1,12 @@
 package game;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Transform;
+import org.newdawn.slick.geom.Vector2f;
 
 public class Context {
 	public final float playerJump = -5;
@@ -14,12 +17,12 @@ public class Context {
 	
 	private GameContainer gc;
 	private Graphics g;
-	private Polygon mapPath;
+	private ArrayList<Vector2f> mapPath;
 	private Polygon map;
 	
 	public Context(GameContainer gc, Graphics g, Polygon map) {
 		super();
-		this.mapPath = new Polygon();
+		this.mapPath = new ArrayList<Vector2f>();
 		this.gc = gc;
 		this.g = g;
 		this.map = map;
@@ -27,7 +30,7 @@ public class Context {
 	
 	public Context(GameContainer gc, Graphics g) {
 		super();
-		this.mapPath = new Polygon();
+		this.mapPath = new ArrayList<Vector2f>();
 		this.gc = gc;
 		this.g = g;
 	}
@@ -48,7 +51,7 @@ public class Context {
 		this.map = map;
 	}
 	
-	public Polygon getMapPath() {
+	public ArrayList<Vector2f> getMapPath() {
 		return mapPath;
 	}
 	
@@ -62,12 +65,9 @@ public class Context {
 			)
 		);
 		
-		mapPath = (Polygon)mapPath.transform(
-			Transform.createTranslateTransform(
-					-this.playerSpeed,
-				0
-			)
-		);
+		for (int i = 0; i < mapPath.size(); i++) {
+			mapPath.get(i).x -= this.playerSpeed;
+		}
 	}
 	
 	public void generateChunk() {
@@ -77,11 +77,11 @@ public class Context {
 			random = -random;
 		}
 		
-		mapPath.addPoint(
-			map.getMaxX(), map.getMinY() - random
+		mapPath.add(
+			new Vector2f(map.getMaxX(), map.getMinY() - random)
 		);
-		mapPath.addPoint(
-			map.getMaxX() + this.chunkSize, map.getMinY() - random
+		mapPath.add(
+			new Vector2f(map.getMaxX() + this.chunkSize, map.getMinY() - random)
 		);
 		
 		map = new Polygon();
@@ -91,15 +91,15 @@ public class Context {
 			gc.getHeight()
 		);
 		
-		for (int i = 0; i < mapPath.getPointCount(); i++) {
+		for (int i = 0; i < mapPath.size(); i++) {
 			map.addPoint(
-				mapPath.getPoint(i)[0],
-				mapPath.getPoint(i)[1]
+				mapPath.get(i).x,
+				mapPath.get(i).y
 			);
 		}
 		
 		map.addPoint(
-			mapPath.getMaxX(),
+			map.getMaxX(),
 			gc.getHeight()
 		);
 	}

@@ -47,6 +47,7 @@ public class MainMenu extends BasicGame {
 		context = new Context(gc, gc.getGraphics());
 
 		buttons = new ArrayList<Button>();
+
 		buttons.add(new Button(context, new Vector2f(width / 2, height / 2 + 50), "testing", new CallBack() {
 			public void run() {
 				options = true;
@@ -75,7 +76,7 @@ public class MainMenu extends BasicGame {
 				Audio.playSound("test.wav");
 				System.out.println("test");
 			}
-		},"Options.png", "highOptions.png"));
+		},"options.png", "highOptions.png"));
 		
 		// buttons = new ArrayList<Button>();
 				buttons.add(new Button(context, new Vector2f(width / 2, height / 2 - 10), "test", new CallBack() {
