@@ -154,6 +154,7 @@ class Player extends Droppable {
 		
 		if (context.getMap().intersects(bottombound)) {
 			if (Keyboard.isKeyDown(keyBinds.get("jump"))) {
+				Audio.playSound("jump.wav");
 				this.setPosition(
 					this.getPosition().add(
 						new Vector2f(0,-5)

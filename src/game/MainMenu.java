@@ -60,7 +60,7 @@ public class MainMenu extends BasicGame {
 			options = true;
 			mainMenu = false;
 			MainGame.start();
-			Audio.playSound("test.wav");
+			Audio.playSound("testSample.wav");
 			System.out.println("test");
 		});
 		
@@ -70,7 +70,7 @@ public class MainMenu extends BasicGame {
 			options = true;
 			mainMenu = false;
 			MainGame.start();
-			Audio.playSound("test.wav");
+			Audio.playSound("testSample.wav");
 			System.out.println("test");
 		});
 		
@@ -80,7 +80,7 @@ public class MainMenu extends BasicGame {
 			options = true;
 			mainMenu = false;
 			MainGame.start();
-			Audio.playSound("test.wav");
+			Audio.playSound("testSample.wav");
 			System.out.println("test");
 		});
 		
