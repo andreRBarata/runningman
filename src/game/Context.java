@@ -9,7 +9,7 @@ import org.newdawn.slick.geom.Transform;
 import org.newdawn.slick.geom.Vector2f;
 
 public class Context {
-	public final float playerJump = -5;
+	public final float playerJump = -7;
 	public final float playerSpeed = 2;
 	public final float gravity = 0.2f;
 	public final float chunkSize = 100;
@@ -71,11 +71,15 @@ public class Context {
 	}
 	
 	public void generateChunk() {
-		float random = (Math.round(Math.random()) * this.chunkSize/2);
+		float random = (Math.round(Math.random()) * this.chunkSize/1.5f);
 		
-		if (Math.random() < 0.5 || map.getMinY() < gc.getHeight()/2) {
+		if (map.getMinY() < gc.getHeight()/2) {
 			random = -random;
 		}
+		
+		/*if (Math.random() < 0.1) {
+			random = -gc.getHeight();
+		}*/
 		
 		mapPath.add(
 			new Vector2f(map.getMaxX(), map.getMinY() - random)

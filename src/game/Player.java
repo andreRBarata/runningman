@@ -101,7 +101,36 @@ class Player extends Droppable {
 			}
 		);
 		
-		super.update();
+		if (context.getMap().intersects(bottombound)) {
+			this.setSpeed(
+				new Vector2f(
+					this.getSpeed().x/1.2f,
+					this.getSpeed().y
+				)
+			);
+		}
+		
+		if (Keyboard.isKeyDown(keyBinds.get("right"))) {
+			if (!context.getMap().intersects(rightbound)) {
+				this.setSpeed(
+					new Vector2f(
+						context.playerSpeed/2,
+						this.getSpeed().y
+					)
+				);
+			}
+		}
+		
+		if (Keyboard.isKeyDown(keyBinds.get("left"))) {
+			if (!context.getMap().intersects(leftbound)) {
+				this.setSpeed(
+					new Vector2f(
+						-context.playerSpeed/2,
+						this.getSpeed().y
+					)
+				);
+			}
+		}
 		
 		if (context.getMap().intersects(rightbound)) {
 			this.setSpeed(
@@ -131,52 +160,22 @@ class Player extends Droppable {
 					)
 				);
 				this.setSpeed(
-					this.getSpeed().add(
-						new Vector2f(0, context.playerJump)
-					)
+					new Vector2f(this.getSpeed().x, context.playerJump)
 				);
 			}
 		}	
-			
-			
-		if (Keyboard.isKeyDown(keyBinds.get("right"))) {
-			if (!context.getMap().intersects(rightbound)) {
-				this.setSpeed(
-					new Vector2f(
-						context.playerSpeed/2,
-						this.getSpeed().y
-					)
-				);
-			}
-		}
-		
-		if (Keyboard.isKeyDown(keyBinds.get("left"))) {
-			if (!context.getMap().intersects(leftbound)) {
-				this.setSpeed(
-					new Vector2f(
-						-context.playerSpeed/2,
-						this.getSpeed().y
-					)
-				);
-			}
-		}
 		
 		if (this.getPosition().x > context.getGc().getWidth()/2) {
-			this.setSpeed(
-				new Vector2f(
-					0,
-					this.getSpeed().y
-				)
-			);
+			if (this.getSpeed().x > 0) {
+				this.setSpeed(
+					new Vector2f(
+						0,
+						this.getSpeed().y
+					)
+				);
+			}
 		}
 		
-		if (!localized.intersects(this.context.getMap())) {
-			this.setSpeed(
-				new Vector2f(
-					this.getSpeed().x/2,
-					this.getSpeed().y
-				)
-			);
-		}
+		super.update();
 	}
 }

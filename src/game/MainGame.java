@@ -51,7 +51,7 @@ public class MainGame extends BasicGame {
 	@Override
 	public void render(GameContainer gc, Graphics g) throws SlickException {
 		g.drawImage((new Image("/src/Tiles/testBackground.png")), 0, 0);
-		
+
 		g.setColor(new Color(70,155,70));
 		
 		g.fill(context.getMap());
