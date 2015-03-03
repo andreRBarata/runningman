@@ -10,6 +10,7 @@ public class Context {
 	public final float playerSpeed = 2;
 	public final float gravity = 0.2f;
 	public final float chunkSize = 100;
+	public final float scale = 0.3f;
 	
 	private GameContainer gc;
 	private Graphics g;
