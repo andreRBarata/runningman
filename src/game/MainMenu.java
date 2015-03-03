@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,6 +12,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.MorphShape;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
@@ -24,6 +26,7 @@ public class MainMenu extends BasicGame {
 	int halfHeight;
 	float scale = 0.3f;
 	ArrayList<Button> buttons;
+	TrueTypeFont font;
 
 	// void resize(500,500);
 	boolean mainMenu = true;
@@ -48,45 +51,52 @@ public class MainMenu extends BasicGame {
 
 		buttons = new ArrayList<Button>();
 
-		buttons.add(new Button(context, new Vector2f(width / 2, height / 2 + 50), "testing", new CallBack() {
-			public void run() {
-				options = true;
-				mainMenu = false;
-				MainGame.start();
-				Audio.playSound("test.wav");
-				System.out.println("test");
-			}
-		}, "start.png", "highStart.png"));
+		buttons.add(new Button(context,
+				new Vector2f(width / 2, height / 2 + 50), "testing",
+				new CallBack() {
+					public void run() {
+						options = true;
+						mainMenu = false;
+						MainGame.start();
+						Audio.playSound("test.wav");
+						System.out.println("test");
+					}
+				}, "start.png", "highStart.png"));
 
 		// buttons = new ArrayList<Button>();
-		buttons.add(new Button(context, new Vector2f(width / 2, height / 2 - 10), "test", new CallBack() {
-			public void run() {
-				options = true;
-				mainMenu = false;
-				Audio.playSound("test.wav");
-				System.out.println("test");
-			}
-		},"highScores.png", "highHighScores.png"));
-
-		// buttons = new ArrayList<Button>();
-		buttons.add(new Button(context, new Vector2f(halfWidth - width / 10), "test", new CallBack() {
-			public void run() {
-				options = true;
-				mainMenu = false;
-				Audio.playSound("test.wav");
-				System.out.println("test");
-			}
-		},"options.png", "highOptions.png"));
-		
-		// buttons = new ArrayList<Button>();
-				buttons.add(new Button(context, new Vector2f(width / 2, height / 2 - 10), "test", new CallBack() {
+		buttons.add(new Button(context,
+				new Vector2f(width / 2, height / 2 - 10), "test",
+				new CallBack() {
 					public void run() {
 						options = true;
 						mainMenu = false;
 						Audio.playSound("test.wav");
 						System.out.println("test");
 					}
-				},"instructions.png", "highInstructions.png"));
+				}, "highScores.png", "highHighScores.png"));
+
+		// buttons = new ArrayList<Button>();
+		buttons.add(new Button(context, new Vector2f(halfWidth - width / 10),
+				"test", new CallBack() {
+					public void run() {
+						options = true;
+						mainMenu = false;
+						Audio.playSound("test.wav");
+						System.out.println("test");
+					}
+				}, "options.png", "highOptions.png"));
+
+		// buttons = new ArrayList<Button>();
+		buttons.add(new Button(context,
+				new Vector2f(width / 2, height / 2 - 10), "test",
+				new CallBack() {
+					public void run() {
+						options = true;
+						mainMenu = false;
+						Audio.playSound("test.wav");
+						System.out.println("test");
+					}
+				}, "instructions.png", "highInstructions.png"));
 	}
 
 	@Override
@@ -99,12 +109,11 @@ public class MainMenu extends BasicGame {
 			Shape spriteInSpace = new MorphShape(button.getSprite());
 			spriteInSpace.setLocation(button.getPosition());
 
-			if(spriteInSpace.contains(x, y)){
+			if (spriteInSpace.contains(x, y)) {
 				button.SetMouseOver(true);
-			}
-			else
+			} else
 				button.SetMouseOver(false);
-			
+
 			if (Mouse.isButtonDown(0)) {
 				if (spriteInSpace.contains(x, y)) {
 					button.setClicked(true);
@@ -132,6 +141,20 @@ public class MainMenu extends BasicGame {
 		// Image = new Image("image.png", false, Image.FILTER_NEAREST);
 	}
 
+	public void background(GameContainer gc, org.newdawn.slick.Graphics g,
+			final String url) throws SlickException {
+
+		Image img = new Image("/src/Tiles/" + url);
+
+		// MainMenu.class.getResourceAsStream("/Samples/" + url);
+		float imgWidth = img.getWidth();
+		float imgHeight = img.getHeight();
+		float scaleWidth = imgWidth * context.scale + 20;
+		float scaleHeight = imgHeight * context.scale;
+
+		img.draw(0, 0, scaleWidth * 3, scaleHeight * 3);
+	}
+
 	@Override
 	public void render(GameContainer gc, org.newdawn.slick.Graphics g)
 			throws SlickException {
@@ -146,6 +169,12 @@ public class MainMenu extends BasicGame {
 
 		g.scale(1, 1);
 		g.setBackground(Color.black);
+	
+		background(gc, g, "testBackground.png");
+		background(gc, g, "testTitle.png");
+		// g.drawImage((new Image("/src/Tiles/testBackground.png")), 0, 0);
+		// font.drawString(width / 2 - 125, (height / 2) * scale,
+		// "PLACE HOLDER TITLE", Color.yellow);
 
 		// if (mainMenu) {
 		// g.setFont(new TrueTypeFont(new Font("TimesRoman", Font.PLAIN,
