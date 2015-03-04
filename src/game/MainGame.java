@@ -26,7 +26,7 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 public class MainGame extends BasicGameState {
 	Context context;
 	Player player;
-	ArrayList<Button> buttons;
+	ArrayList<Button> buttons = new ArrayList<Button>();
 
 
 	@Override
@@ -40,6 +40,7 @@ public class MainGame extends BasicGameState {
 	
 	public void buttons(GameContainer gc, StateBasedGame game) throws SlickException
 	{
+		
 		float width;
 		float height;
 		height = gc.getHeight();
@@ -47,7 +48,7 @@ public class MainGame extends BasicGameState {
 		
 		context = new Context(gc, gc.getGraphics());
 
-		buttons = new ArrayList<Button>();
+	//	buttons = new ArrayList<Button>();
 
 		Button gameOverBtn = new Button(context, new Vector2f(width / 2 - 75, 150f),
 				MainMenu.GetImage("start.png"), MainMenu.GetImage("highStart.png"));
@@ -56,6 +57,8 @@ public class MainGame extends BasicGameState {
 			game.enterState(1, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
 				
 		});
+		
+		buttons.add(gameOverBtn);
 	}
 
 	@Override
@@ -101,14 +104,13 @@ public class MainGame extends BasicGameState {
 			
 			context.getG().drawString(
 					
-				"End",
-			
-				
+				"End",				
 				context.getGc().getWidth()/2,
 				context.getGc().getHeight()/2
 				
 				
 			);
+			//buttons(gc,game);
 			context.getGc().pause();
 			
 		
