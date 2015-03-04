@@ -27,7 +27,7 @@ public class MainGame extends BasicGameState {
 	float gameTimer;
 	Context context;
 	Player player;
-	ArrayList<Button> buttons = new ArrayList<Button>();
+	ArrayList<Button> buttons;
 
 
 	@Override
@@ -35,6 +35,7 @@ public class MainGame extends BasicGameState {
 		context = new Context(gc, gc.getGraphics(), new Polygon(new float[] {
 				0, gc.getHeight() / 2, 0, gc.getHeight() }));
 		
+		buttons = new ArrayList<Button>();
 		gameTimer = 0;
 		context.generateChunk();
 		player = new Player(context);
@@ -71,7 +72,7 @@ public class MainGame extends BasicGameState {
 			gameTimer += i;
 			
 			if ((int)(gameTimer/1000) > (int)((gameTimer - i)/1000)) {
-				context.playerSpeed += 0.1;
+				context.playerSpeed = (float) (context.playerSpeed + 0.1 % 20);
 			}
 			
 			context.sideScroll();

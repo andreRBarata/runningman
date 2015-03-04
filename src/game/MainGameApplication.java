@@ -23,7 +23,7 @@ public class MainGameApplication extends StateBasedGame {
  int screenWidth = gd.getDisplayMode().getWidth();
  int screenHeight = gd.getDisplayMode().getHeight();*/
 		
-		Audio.playSound("testMusic.wav");
+//		Audio.playSound("testMusic.wav");
 		try {
 			appgc = new AppGameContainer(
 					new MainGameApplication("Turtle Dash"));

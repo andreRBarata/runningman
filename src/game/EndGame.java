@@ -41,45 +41,54 @@ public class EndGame extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame game) throws SlickException {
 		context = new Context(gc, gc.getGraphics());
+		buttons = new ArrayList<Button>();
+		
 		Button startBtn = new Button(context,
 				new Vector2f(gc.getWidth() / 2 - 75, 150f), Context.getImage("start.png"),
 				Context.getImage("highStart.png"));
+		
 		startBtn.onClick(() -> {
 			Audio.playSound("testSample.wav");
 			game.enterState(0, new FadeOutTransition(Color.black),
 					new FadeInTransition(Color.black));
 		});
 		
+		buttons.add(startBtn);
+		
 		centX = gc.getWidth()/2;
 		centY = gc.getHeight()/2;
 		
-		buttons = new ArrayList<Button>();
 		
 		
 	}
 
 	@Override
-	public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {}
+	public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
+		for (Button button : buttons) {
+
+			if (button.containsPoint(Mouse.getX(), gc.getHeight() - Mouse.getY())) {
+				button.SetMouseOver(true);
+
+				if (Mouse.isButtonDown(0)) {
+					button.setClicked(true);
+				}
+				else {
+					button.setClicked(false);
+				}
+
+			}
+			else {
+				button.SetMouseOver(false);
+				button.setClicked(false);
+			}
+		}
+	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
 		
 		for (Button button : buttons) {
-
-			if (button.containsPoint(Mouse.getX(), Mouse.getY())) {
-				button.SetMouseOver(true);
-
-				if (Mouse.isButtonDown(0))
-					button.setClicked(true);
-
-				else
-					button.setClicked(false);
-
-			} else {
-				button.SetMouseOver(false);
-				button.setClicked(false);
-			}
-
+			button.display();
 		}
 		
 		//how can i run specific functions, here not just always the one
