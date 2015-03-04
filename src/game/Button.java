@@ -75,6 +75,8 @@ public class Button extends Drawable {
 	}
 
 	public void setClicked(boolean clicked) {
+		if (!this.clicked && clicked)
+			callback.run();
 		this.clicked = clicked;
 	}
 
@@ -87,8 +89,8 @@ public class Button extends Drawable {
 	}
 
 	public boolean containsPoint(Vector2f point) {
-		return new Rectangle(getPosition().x, getPosition().y, scaleWidth, scaleHeight)
-				.contains(point.x, point.y);
+		return new Rectangle(getPosition().x, getPosition().y, scaleWidth,
+				scaleHeight).contains(point.x, point.y);
 	}
 
 	public boolean containsPoint(float x, float y) {
@@ -132,4 +134,5 @@ public class Button extends Drawable {
 		 * (int) super.getPosition().y - 10, text);
 		 */
 	}
+
 }

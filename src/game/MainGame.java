@@ -16,17 +16,16 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.ShapeRenderer;
 import org.newdawn.slick.geom.Transform;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
 
-public class MainGame extends BasicGame {
+public class MainGame extends BasicGameState {
 	Context context;
 	Player player;
 
-	public MainGame(String gamename) {
-		super(gamename);
-	}
 
 	@Override
-	public void init(GameContainer gc) throws SlickException {
+	public void init(GameContainer gc, StateBasedGame game) throws SlickException {
 		context = new Context(gc, gc.getGraphics(), new Polygon(new float[] {
 				0, gc.getHeight() / 2, 0, gc.getHeight() }));
 		context.generateChunk();
@@ -34,10 +33,13 @@ public class MainGame extends BasicGame {
 	}
 
 	@Override
-	public void update(GameContainer gc, int i) throws SlickException {
+	public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
 		Display.sync(70);
 		
 		context.sideScroll();
+		
+		player.update();
+
 		
 		if (context.getMap().getMaxX() <= gc.getWidth()) {
 			context.generateChunk();
@@ -49,7 +51,7 @@ public class MainGame extends BasicGame {
 	}
 
 	@Override
-	public void render(GameContainer gc, Graphics g) throws SlickException {
+	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
 		if (!gc.isPaused()) {
 			g.drawImage((new Image("/src/Tiles/testBackground.png")), 0, 0);
 			g.setColor(new Color(70,155,70));
@@ -64,7 +66,6 @@ public class MainGame extends BasicGame {
 			
 			g.setColor(new Color(255, 140, 0));
 			
-			player.update();
 			player.display();
 		}
 		
@@ -81,20 +82,26 @@ public class MainGame extends BasicGame {
 		}
 	}
 
-	public static void start() {
-		try {
-			AppGameContainer appgc;
-			appgc = new AppGameContainer(new MainGame("RunnerMan"));
-			//appgc.setFullscreen(true);
-			//setDisplayMode(800, 500, false);
-			// appgc.setShowFPS(false);
-			appgc.start();
-		} catch (SlickException ex) {
-			Logger.getLogger(MainGame.class.getName()).log(Level.SEVERE, null, ex);
-		}
+	@Override
+	public int getID() {
+		// TODO Auto-generated method stub
+		return 1;
 	}
 
-	public static void main(String[] args) {
-		start();
-	}
+//	public static void start() {
+//		try {
+//			AppGameContainer appgc;
+//			appgc = new AppGameContainer(new MainGame("RunnerMan"));
+//			appgc.setFullscreen(false);
+//			appgc.setDisplayMode(800, 500, false);
+//			// appgc.setShowFPS(false);
+//			appgc.start();
+//		} catch (SlickException ex) {
+//			Logger.getLogger(MainGame.class.getName()).log(Level.SEVERE, null, ex);
+//		}
+//	}
+
+//	public static void main(String[] args) {
+//		start();
+//	}
 }

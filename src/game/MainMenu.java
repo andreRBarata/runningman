@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
@@ -16,8 +17,12 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.MorphShape;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 
-public class MainMenu extends BasicGame {
+public class MainMenu extends BasicGameState {
 	Context context;
 	int height;
 	int width;
@@ -32,14 +37,13 @@ public class MainMenu extends BasicGame {
 	boolean mainMenu = true;
 	boolean options = false;
 	boolean instructions = false;
+	StateBasedGame game;
 
-	public MainMenu(String gamename) {
-		super(gamename);
-	}
 
 	@Override
-	public void init(GameContainer gc) throws SlickException {
+	public void init(GameContainer gc, StateBasedGame game) throws SlickException {
 		buttons(gc);
+		this.game = game;
 	}
 
 	public void buttons(GameContainer gc) throws SlickException {
@@ -59,9 +63,8 @@ public class MainMenu extends BasicGame {
 		startBtn.onClick(() -> {
 			options = true;
 			mainMenu = false;
-			MainGame.start();
 			Audio.playSound("testSample.wav");
-			System.out.println("test");
+			game.enterState(1, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
 		});
 		
 		Button scoresBtn = new Button(context, new Vector2f(width / 2 - 75, 250f),
@@ -69,7 +72,6 @@ public class MainMenu extends BasicGame {
 		scoresBtn.onClick(() -> {
 			options = true;
 			mainMenu = false;
-			MainGame.start();
 			Audio.playSound("testSample.wav");
 			System.out.println("test");
 		});
@@ -79,7 +81,6 @@ public class MainMenu extends BasicGame {
 		optionsBtn.onClick(() -> {
 			options = true;
 			mainMenu = false;
-			MainGame.start();
 			Audio.playSound("testSample.wav");
 			System.out.println("test");
 		});
@@ -87,11 +88,10 @@ public class MainMenu extends BasicGame {
 		Button instructionsBtn = new Button(context, new Vector2f(width / 2 - 75, 450f),
 				GetImage("instructions.png"), GetImage("highInstructions.png"));
 		instructionsBtn.onClick(() -> {
+			System.out.println("testggg");
 			options = true;
 			mainMenu = false;
-			MainGame.start();
 			Audio.playSound("test.wav");
-			System.out.println("test");
 		});
 
 		buttons.add(startBtn);
@@ -126,24 +126,26 @@ public class MainMenu extends BasicGame {
 	}
 
 	@Override
-	public void update(GameContainer gc, int i) throws SlickException {
+	public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
 
 		int x = Mouse.getX();
 		int y = gc.getHeight() - Mouse.getY();
 
 		for (Button button : buttons) {
 
-			System.out.println(button.getPosition() + " x: " + x + " y: " + y);
-
 			if (button.containsPoint(x, y)) {
 				button.SetMouseOver(true);
-			} else
+				
+				if(Mouse.isButtonDown(0))
+					button.setClicked(true);
+				else
+					button.setClicked(false);
+				
+			} else{
 				button.SetMouseOver(false);
-
-			/*
-			 * if (Mouse.isButtonDown(0)) { if (spriteInSpace.contains(x, y)) {
-			 * button.setClicked(true); button.getCallback().run(); } }
-			 */
+				button.setClicked(false);
+			}
+			 
 		}
 
 	}
@@ -180,7 +182,7 @@ public class MainMenu extends BasicGame {
 	}
 
 	@Override
-	public void render(GameContainer gc, org.newdawn.slick.Graphics g)
+	public void render(GameContainer gc, StateBasedGame game, org.newdawn.slick.Graphics g)
 			throws SlickException {
 
 		/*
@@ -232,19 +234,18 @@ public class MainMenu extends BasicGame {
 
 	}
 
-	public static void main(String[] args) {
-		try {
-			AppGameContainer appgc;
-			appgc = new AppGameContainer(new MainMenu("RunnerMan"));
-			appgc.setDisplayMode(800, 600, false);
-			// appgc.setShowFPS(false);
-
-			appgc.start();
-		} catch (SlickException ex) {
-			Logger.getLogger(MainGame.class.getName()).log(Level.SEVERE, null,
-					ex);
-		}
-	}
+//	public static void main(String[] args) {
+//		try {
+//			AppGameContainer appgc = new AppGameContainer(new MainMenu("RunnerMan"));
+//			appgc.setDisplayMode(800, 600, false);
+//			// appgc.setShowFPS(false);
+//
+//			appgc.start();
+//		} catch (SlickException ex) {
+//			Logger.getLogger(MainGame.class.getName()).log(Level.SEVERE, null,
+//					ex);
+//		}
+//	}
 
 	public static Image GetImage(String url) {
 		Image img = null;
@@ -256,6 +257,11 @@ public class MainMenu extends BasicGame {
 					ex);
 			return null;
 		}
+	}
+
+	@Override
+	public int getID() {
+		return 0;
 	}
 
 }
