@@ -3,25 +3,26 @@ package game;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
 
-public class EndGame extends BasicGame {
+public class EndGame extends BasicGameState {
 	
 	private boolean hi = false;
 	private float score;
 	public float centX;
 	public float centY;
 	int location = 0;
-	
+	private String playerName = new String("AAA");
 	
 	Leaderboards l = new Leaderboards();
 	
 	EndGame(float score)  {
-		super("Running Man");
 		
 		l.getScores();
 		if(l.beatScore(score) != -1)  {
@@ -30,35 +31,58 @@ public class EndGame extends BasicGame {
 		this.score = score;
 	}
 	@Override
-	public void init(GameContainer gc) throws SlickException {
+	public void init(GameContainer gc, StateBasedGame game) throws SlickException {
 		centX = gc.getWidth()/2;
 		centY = gc.getHeight()/2;
 		
 	}
 
 	@Override
-	public void update(GameContainer gc, int i) throws SlickException {}
+	public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {}
 
 	@Override
-	public void render(GameContainer gc, Graphics g) throws SlickException {
+	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
 
 		//how can i run specific functions, here not just always the one
 		
-		if(hi)  {
+		String playerScore = new String(Float.toString(score));
+		
+		
+		showPlayerScore(gc, g, playerScore);
+		if(!hi)  {
 			askName(gc, g);
+			
 		}
 		
 		//showScores();
 	}
 	
+	
 	public void showScores()  {
 		
+	}
+	
+	public void showPlayerScore(GameContainer gc, Graphics g, String playerScore)  {
+		g.drawString(playerScore, centX, centY);
 	}
 	
 	public void askName(GameContainer gc, Graphics g)  {
 		
 		
+		g.drawString(playerName, centX, centY-20);
 		
+		
+	}
+	
+	public void keyPressed(int key, char c)  {
+		
+		
+		Keyboard.KEY_LEFT
+		
+		//203 LEFT
+		//205 RIGHT
+		//200 UP
+		//208 DOWN
 	}
 	
 	
@@ -79,28 +103,14 @@ public class EndGame extends BasicGame {
 	 */
 	
 	
-	
-	
-	public static void start() {
-		try	{
-			AppGameContainer appgc;
-			appgc = new AppGameContainer(new EndGame(1));
-			appgc.setDisplayMode(800, 500, false);
-			//appgc.setShowFPS(false);
-			appgc.start();
-		}
-		catch (SlickException ex) {
-			Logger.getLogger(MainGame.class.getName()).log(Level.SEVERE, null, ex);
-		}
-	}
-	
-	public static void main(String[] args)  {
-		start();
-	}
-	
-	
 	public boolean getHi()  {
 		return hi;
+	}
+	
+	@Override
+	public int getID() {
+		// TODO Auto-generated method stub
+		return 2;
 	}
 	
 }
