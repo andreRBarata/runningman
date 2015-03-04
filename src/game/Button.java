@@ -62,7 +62,7 @@ public class Button extends Drawable {
 		this.hoverImg = hoverImg;
 		this.width = img.getWidth();
 		this.height = img.getHeight();
-		this.scaleWidth = width * context.scale + 20;
+		this.scaleWidth = width * context.scale;
 		this.scaleHeight = height * context.scale;
 	}
 

@@ -163,6 +163,29 @@ public class MainMenu extends BasicGameState {
 			Audio.playSound("testSample.wav");
 
 		});
+		
+		Button audioPlusBtn = new Button(context, new Vector2f(width / 2 - 150,
+				200f), Context.getImage("plus.png"),
+				Context.getImage("plus.png"));
+		audioPlusBtn.onClick(() -> {
+			options = true;
+			mainMenu = false;
+			Audio.playSound("testSample.wav");
+			//Context.fullScreen = true;
+			System.out.println("true");
+		});
+		
+		Button audioMinusBtn = new Button(context, new Vector2f(width / 2 + 150,
+				200f), Context.getImage("minus.png"),
+				Context.getImage("minus.png"));
+		audioMinusBtn.onClick(() -> {
+			options = true;
+			mainMenu = false;
+			Audio.playSound("testSample.wav");
+			//Context.fullScreen = true;
+			System.out.println("true");
+		});
+		
 
 		// populate arraylist
 
@@ -176,7 +199,9 @@ public class MainMenu extends BasicGameState {
 		optionsButtons.add(optionsBackBtn);
 
 		audioButtons.add(audioBackBtn);
-		audioButtons.add(audioBarBtn);
+		audioButtons.add(audioPlusBtn);
+		audioButtons.add(audioMinusBtn);
+	//	audioButtons.add(audioBarBtn);
 
 		/*
 		 * buttons.add(new Button(context, new Vector2f((width / 2), (height /
