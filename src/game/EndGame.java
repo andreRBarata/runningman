@@ -76,9 +76,6 @@ public class EndGame extends BasicGameState {
 	
 	public void keyPressed(int key, char c)  {
 		
-		
-		Keyboard.KEY_LEFT
-		
 		//203 LEFT
 		//205 RIGHT
 		//200 UP

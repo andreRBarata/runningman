@@ -99,24 +99,13 @@ public class MainGame extends BasicGameState {
 		}
 		
 		if (player.getPosition().x < 0) {
-			context.getG().setBackground(Color.white);
-			context.getG().setColor(Color.black);
 			
-			context.getG().drawString(
-					
-				"End",				
-				context.getGc().getWidth()/2,
-				context.getGc().getHeight()/2
-				
-				
-			);
-			//buttons(gc,game);
 			context.getGc().pause();
 			
-		
-			//	buttons.add(gameOverBtn);
-			}
+			game.addState(new EndGame(3));
+			game.enterState(2);
 		}
+	}
 	
 
 	@Override
