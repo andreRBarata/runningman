@@ -100,12 +100,6 @@ public class MainGame extends BasicGameState {
 				)/2,
 				g.getFont().getLineHeight()
 			);
-			/*g.texture(context.getMap(),
-				(new Image("/src/Tiles/testTile.png")),
-				5,
-				0.5f,
-				true
-			);*/
 			
 			g.setColor(new Color(255, 140, 0));
 			
@@ -116,7 +110,10 @@ public class MainGame extends BasicGameState {
 			
 			context.getGc().pause();
 			
-			game.addState(new EndGame(gameTimer));
+			game.addState(new EndGame(
+					(float)Math.floor(gameTimer/1000)
+				)
+			);
 			game.enterState(2);
 		}
 	}

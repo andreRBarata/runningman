@@ -49,7 +49,7 @@ public class EndGame extends BasicGameState {
 		
 		
 		showPlayerScore(gc, g, playerScore);
-		if(!hi)  {
+		if(hi)  {
 			askName(gc, g);
 			
 		}
@@ -87,7 +87,7 @@ public class EndGame extends BasicGameState {
 	    String output;
 			if(hi)  {
 				output = new String("You got a Highscore of: " + score);
-			}
+			}2
 			else  {
 				output = new String("You Scored: " + score);
 			}
