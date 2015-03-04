@@ -70,6 +70,10 @@ public class MainGame extends BasicGameState {
 			Display.sync(70);
 			gameTimer += i;
 			
+			if ((int)(gameTimer/1000) > (int)((gameTimer - i)/1000)) {
+				context.playerSpeed += 0.1;
+			}
+			
 			context.sideScroll();
 			player.update();
 	
