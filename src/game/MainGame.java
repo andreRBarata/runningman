@@ -1,6 +1,7 @@
 //test
 package game;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,12 +17,16 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.ShapeRenderer;
 import org.newdawn.slick.geom.Transform;
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class MainGame extends BasicGameState {
 	Context context;
 	Player player;
+	ArrayList<Button> buttons;
 
 
 	@Override
@@ -74,12 +79,51 @@ public class MainGame extends BasicGameState {
 			context.getG().setColor(Color.black);
 			
 			context.getG().drawString(
+					
 				"End",
+			
+				
 				context.getGc().getWidth()/2,
 				context.getGc().getHeight()/2
+				
+				
 			);
 			context.getGc().pause();
+			
+	/*		float width;
+			float height;
+			height = gc.getHeight();
+			width = gc.getWidth();
+			
+			context = new Context(gc, gc.getGraphics());
+
+		//	buttons = new ArrayList<Button>();
+
+			Button gameOverBtn = new Button(context, new Vector2f(width / 2 - 75, 150f),
+					MainMenu.GetImage("start.png"), MainMenu.GetImage("highStart.png"));
+			gameOverBtn.onClick(() -> {
+				Audio.playSound("testSample.wav");
+				game.enterState(1, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+				
+				buttons.add(gameOverBtn);
+			});*/
 		}
+		
+	/*	float width;
+		float height;
+		height = gc.getHeight();
+		width = gc.getWidth();
+		
+		context = new Context(gc, gc.getGraphics());
+
+		buttons = new ArrayList<Button>();
+
+		Button startBtn = new Button(context, new Vector2f(width / 2 - 75, 150f),
+				MainMenu.GetImage("start.png"), MainMenu.GetImage("highStart.png"));
+		startBtn.onClick(() -> {
+			Audio.playSound("testSample.wav");
+			game.enterState(1, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+		});*/
 	}
 
 	@Override
@@ -87,6 +131,7 @@ public class MainGame extends BasicGameState {
 		// TODO Auto-generated method stub
 		return 1;
 	}
+
 
 //	public static void start() {
 //		try {

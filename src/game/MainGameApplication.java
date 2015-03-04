@@ -19,6 +19,7 @@ public class MainGameApplication extends StateBasedGame {
 	}
 
 	public static void main(String[] args) {
+		Audio.playSound("testMusic.wav");
 		try {
 			 appgc = new AppGameContainer(
 					new MainGameApplication("RunnerMan"));
