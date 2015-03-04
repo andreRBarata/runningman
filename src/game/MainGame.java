@@ -66,45 +66,51 @@ public class MainGame extends BasicGameState {
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
-		Display.sync(70);
-		
-		gameTimer += i;
-		
-		context.sideScroll();
-		player.update();
-
-		
-		if (context.getMap().getMaxX() <= gc.getWidth()) {
-			context.generateChunk();
-		}
+		if (!gc.isPaused()) {
+			Display.sync(70);
+			gameTimer += i;
 			
-		if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
-			context.getGc().exit();
+			context.sideScroll();
+			player.update();
+	
+			
+			if (context.getMap().getMaxX() <= gc.getWidth()) {
+				context.generateChunk();
+			}
+				
+			if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+				context.getGc().exit();
+			}
 		}
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
-		if (!gc.isPaused()) {
-			g.drawImage((new Image("/src/Tiles/testBackground.png")), 0, 0);
-			g.setColor(new Color(70,155,70));
+		
+		g.drawImage((new Image("/src/Tiles/testBackground.png")), 0, 0);
+		g.setColor(new Color(70,155,70));
+		
+		g.fill(context.getMap());
+		
+		g.setColor(Color.black);
+		
+		g.drawString(
+			Integer.toString((int)gameTimer/1000),
+			gc.getWidth()/2 - g.getFont().getWidth(
+				Integer.toString((int)gameTimer/1000)
+			)/2,
+			g.getFont().getLineHeight()
+		);
+		
+		g.setColor(new Color(255, 140, 0));
+		
+		player.display();
+		
+		/*for (Button button: buttons) {
+			button.display();
+		}*/
 			
-			g.fill(context.getMap());
 			
-			g.setColor(Color.black);
-			
-			g.drawString(
-				Integer.toString((int)gameTimer/1000),
-				gc.getWidth()/2 - g.getFont().getWidth(
-					Integer.toString((int)gameTimer/1000)
-				)/2,
-				g.getFont().getLineHeight()
-			);
-			
-			g.setColor(new Color(255, 140, 0));
-			
-			player.display();
-		}
 		
 		if (player.getPosition().x < 0) {
 			
