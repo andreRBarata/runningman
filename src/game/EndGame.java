@@ -1,20 +1,26 @@
 package game;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class EndGame extends BasicGameState {
-	
+	private ArrayList<Button> buttons;
 	private boolean hi = false;
+	private Context context;
 	private float score;
 	public float centX;
 	public float centY;
@@ -34,10 +40,22 @@ public class EndGame extends BasicGameState {
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame game) throws SlickException {
+		context = new Context(gc, gc.getGraphics());
+		Button startBtn = new Button(context,
+				new Vector2f(gc.getWidth() / 2 - 75, 150f), Context.getImage("start.png"),
+				Context.getImage("highStart.png"));
+		startBtn.onClick(() -> {
+			Audio.playSound("testSample.wav");
+			game.enterState(0, new FadeOutTransition(Color.black),
+					new FadeInTransition(Color.black));
+		});
+		
 		centX = gc.getWidth()/2;
 		centY = gc.getHeight()/2;
 		
-		System.out.println("teste");
+		buttons = new ArrayList<Button>();
+		
+		
 	}
 
 	@Override
@@ -45,7 +63,25 @@ public class EndGame extends BasicGameState {
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
+		
+		for (Button button : buttons) {
 
+			if (button.containsPoint(Mouse.getX(), Mouse.getY())) {
+				button.SetMouseOver(true);
+
+				if (Mouse.isButtonDown(0))
+					button.setClicked(true);
+
+				else
+					button.setClicked(false);
+
+			} else {
+				button.SetMouseOver(false);
+				button.setClicked(false);
+			}
+
+		}
+		
 		//how can i run specific functions, here not just always the one
 		g.setColor(Color.orange);
 		String playerScore = new String(Float.toString(score));

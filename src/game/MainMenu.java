@@ -58,8 +58,8 @@ public class MainMenu extends BasicGameState {
 		// buttons =
 
 		Button audioBtn = new Button(context,
-				new Vector2f(width / 2 - 75, 150f), GetImage("audio.png"),
-				GetImage("highAudio.png"));
+				new Vector2f(width / 2 - 75, 150f), Context.getImage("audio.png"),
+				Context.getImage("highAudio.png"));
 		audioBtn.onClick(() -> {
 			options = true;
 			mainMenu = false;
@@ -70,8 +70,8 @@ public class MainMenu extends BasicGameState {
 		});
 
 		Button screenBtn = new Button(context, new Vector2f(width / 2 - 75,
-				250f), GetImage("screenSize.png"),
-				GetImage("highScreenSize.png"));
+				250f), Context.getImage("screenSize.png"),
+				Context.getImage("highScreenSize.png"));
 		screenBtn.onClick(() -> {
 			options = true;
 			mainMenu = false;
@@ -79,8 +79,8 @@ public class MainMenu extends BasicGameState {
 		});
 
 		Button optionsBackBtn = new Button(context,
-				new Vector2f(width / 2 - 75, 450f), GetImage("back.png"),
-				GetImage("highBack.png"));
+				new Vector2f(width / 2 - 75, 450f), Context.getImage("back.png"),
+				Context.getImage("highBack.png"));
 		optionsBackBtn.onClick(() -> {
 			options = false;
 			mainMenu = true;
@@ -93,8 +93,8 @@ public class MainMenu extends BasicGameState {
 		});
 		
 		Button audioBackBtn = new Button(context,
-				new Vector2f(width / 2 - 75, 350f), GetImage("back.png"),
-				GetImage("highBack.png"));
+				new Vector2f(width / 2 - 75, 350f), Context.getImage("back.png"),
+				Context.getImage("highBack.png"));
 		audioBackBtn.onClick(() -> {
 			options = false;
 			mainMenu = true;
@@ -107,8 +107,8 @@ public class MainMenu extends BasicGameState {
 		});
 		
 		Button startBtn = new Button(context,
-				new Vector2f(width / 2 - 75, 150f), GetImage("start.png"),
-				GetImage("highStart.png"));
+				new Vector2f(width / 2 - 75, 150f), Context.getImage("start.png"),
+				Context.getImage("highStart.png"));
 		startBtn.onClick(() -> {
 			options = true;
 			mainMenu = false;
@@ -118,8 +118,8 @@ public class MainMenu extends BasicGameState {
 		});
 
 		Button scoresBtn = new Button(context, new Vector2f(width / 2 - 75,
-				250f), GetImage("highScores.png"),
-				GetImage("highHighScores.png"));
+				250f), Context.getImage("highScores.png"),
+				Context.getImage("highHighScores.png"));
 		scoresBtn.onClick(() -> {
 			options = true;
 			mainMenu = false;
@@ -128,7 +128,7 @@ public class MainMenu extends BasicGameState {
 		});
 
 		Button optionsBtn = new Button(context, new Vector2f(width / 2 - 75,
-				350f), GetImage("options.png"), GetImage("highOptions.png"));
+				350f), Context.getImage("options.png"), Context.getImage("highOptions.png"));
 		optionsBtn.onClick(() -> {
 			options = true;
 			mainMenu = false;
@@ -145,8 +145,8 @@ public class MainMenu extends BasicGameState {
 		});
 
 		Button instructionsBtn = new Button(context, new Vector2f(
-				width / 2 - 75, 450f), GetImage("instructions.png"),
-				GetImage("highInstructions.png"));
+				width / 2 - 75, 450f), Context.getImage("instructions.png"),
+				Context.getImage("highInstructions.png"));
 		instructionsBtn.onClick(() -> {
 			System.out.println("testggg");
 			options = true;
@@ -156,8 +156,8 @@ public class MainMenu extends BasicGameState {
 		
 		
 		Button audioBarBtn = new Button(context,
-				new Vector2f(width / 2 - 75, 550f), GetImage("audioBar.png"),
-				GetImage("audioBar.png"));
+				new Vector2f(width / 2 - 75, 550f), Context.getImage("audioBar.png"),
+				Context.getImage("audioBar.png"));
 		audioBarBtn.onClick(() -> {
 		
 			Audio.playSound("testSample.wav");
@@ -333,17 +333,7 @@ public class MainMenu extends BasicGameState {
 	// }
 	// }
 
-	public static Image GetImage(String url) {
-		Image img = null;
-		try {
-			img = new Image("/src/Images/" + url);
-			return img;
-		} catch (SlickException ex) {
-			Logger.getLogger(MainGame.class.getName()).log(Level.WARNING, null,
-					ex);
-			return null;
-		}
-	}
+	
 
 	@Override
 	public int getID() {

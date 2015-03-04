@@ -54,7 +54,7 @@ public class MainGame extends BasicGameState {
 	//	buttons = new ArrayList<Button>();
 
 		Button gameOverBtn = new Button(context, new Vector2f(width / 2 - 75, 150f),
-				MainMenu.GetImage("start.png"), MainMenu.GetImage("highStart.png"));
+				Context.getImage("start.png"), Context.getImage("highStart.png"));
 		gameOverBtn.onClick(() -> {
 			Audio.playSound("testSample.wav");
 			game.enterState(1, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));

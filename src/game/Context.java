@@ -1,9 +1,13 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Transform;
 import org.newdawn.slick.geom.Vector2f;
@@ -107,5 +111,17 @@ public class Context {
 			map.getMaxX(),
 			gc.getHeight()
 		);
+	}
+	
+	public static Image getImage(String url) {
+		Image img = null;
+		try {
+			img = new Image("/src/Images/" + url);
+			return img;
+		} catch (SlickException ex) {
+			Logger.getLogger(MainGame.class.getName()).log(Level.WARNING, null,
+					ex);
+			return null;
+		}
 	}
 }
