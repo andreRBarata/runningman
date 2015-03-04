@@ -24,6 +24,7 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class MainGame extends BasicGameState {
+	float gameTimer;
 	Context context;
 	Player player;
 	ArrayList<Button> buttons = new ArrayList<Button>();
@@ -33,6 +34,8 @@ public class MainGame extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame game) throws SlickException {
 		context = new Context(gc, gc.getGraphics(), new Polygon(new float[] {
 				0, gc.getHeight() / 2, 0, gc.getHeight() }));
+		
+		gameTimer = 0;
 		context.generateChunk();
 		player = new Player(context);
 		//buttons(gc,game);
@@ -65,8 +68,9 @@ public class MainGame extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
 		Display.sync(70);
 		
-		context.sideScroll();
+		gameTimer += i;
 		
+		context.sideScroll();
 		player.update();
 
 		
@@ -86,6 +90,16 @@ public class MainGame extends BasicGameState {
 			g.setColor(new Color(70,155,70));
 			
 			g.fill(context.getMap());
+			
+			g.setColor(Color.black);
+			
+			g.drawString(
+				Integer.toString((int)gameTimer/1000),
+				gc.getWidth()/2 - g.getFont().getWidth(
+					Integer.toString((int)gameTimer/1000)
+				)/2,
+				g.getFont().getLineHeight()
+			);
 			/*g.texture(context.getMap(),
 				(new Image("/src/Tiles/testTile.png")),
 				5,
@@ -102,7 +116,7 @@ public class MainGame extends BasicGameState {
 			
 			context.getGc().pause();
 			
-			game.addState(new EndGame(3));
+			game.addState(new EndGame(gameTimer));
 			game.enterState(2);
 		}
 	}
