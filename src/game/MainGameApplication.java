@@ -20,7 +20,7 @@ public class MainGameApplication extends StateBasedGame {
 		Audio.playSound("testMusic.wav");
 		try {
 			appgc = new AppGameContainer(
-					new MainGameApplication("RunnerMan"));
+					new MainGameApplication("Turtle Dash"));
 			appgc.setDisplayMode(800, 600, false);
 			// appgc.setShowFPS(false);
 			appgc.start();
@@ -32,8 +32,8 @@ public class MainGameApplication extends StateBasedGame {
 
 	@Override
 	public void initStatesList(GameContainer arg0) throws SlickException {
-		addState(new MainMenu());
-		addState(new MainGame());
+		this.addState(new MainMenu());
+		this.addState(new MainGame());
 	}
 
 

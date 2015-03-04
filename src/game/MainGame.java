@@ -114,6 +114,8 @@ public class MainGame extends BasicGameState {
 					(float)Math.floor(gameTimer/1000)
 				)
 			);
+			
+			game.getState(2).init(gc, game);
 			game.enterState(2);
 		}
 	}
