@@ -27,11 +27,13 @@ public class MainMenu extends BasicGameState {
 	ArrayList<Button> mainButtons = new ArrayList<Button>();
 	ArrayList<Button> optionsButtons = new ArrayList<Button>();
 	ArrayList<Button> currentButtons = new ArrayList<Button>();
+	ArrayList<Button> audioButtons = new ArrayList<Button>();
 	TrueTypeFont font;
 
 	// void resize(500,500);
 	boolean mainMenu = true;
 	boolean options = false;
+	boolean audioMenu = false;
 	boolean instructions = false;
 	StateBasedGame game;
 
@@ -51,39 +53,57 @@ public class MainMenu extends BasicGameState {
 		float heightOffset = 0;
 		float heightIncr = 100f;
 		context = new Context(gc, gc.getGraphics());
-		
+
 		currentButtons = mainButtons;
 		// buttons =
-		
+
 		Button audioBtn = new Button(context,
 				new Vector2f(width / 2 - 75, 150f), GetImage("audio.png"),
 				GetImage("highAudio.png"));
 		audioBtn.onClick(() -> {
 			options = true;
 			mainMenu = false;
+			audioMenu = true;
 			Audio.playSound("testSample.wav");
+
+				currentButtons = audioButtons;
 		});
-		
-		Button screenBtn = new Button(context,
-				new Vector2f(width / 2 - 75, 250f), GetImage("screenSize.png"),
+
+		Button screenBtn = new Button(context, new Vector2f(width / 2 - 75,
+				250f), GetImage("screenSize.png"),
 				GetImage("highScreenSize.png"));
 		screenBtn.onClick(() -> {
 			options = true;
 			mainMenu = false;
 			Audio.playSound("testSample.wav");
 		});
-		
-		Button backBtn = new Button(context,
+
+		Button optionsBackBtn = new Button(context,
 				new Vector2f(width / 2 - 75, 450f), GetImage("back.png"),
 				GetImage("highBack.png"));
-		backBtn.onClick(() -> {
+		optionsBackBtn.onClick(() -> {
 			options = false;
 			mainMenu = true;
 			Audio.playSound("testSample.wav");
 			
-			currentButtons = mainButtons;
-		//	buttons.add(startBtn);
+				currentButtons = mainButtons;
+			
+			// buttons.add(startBtn);
+
+		});
 		
+		Button audioBackBtn = new Button(context,
+				new Vector2f(width / 2 - 75, 350f), GetImage("back.png"),
+				GetImage("highBack.png"));
+		audioBackBtn.onClick(() -> {
+			options = false;
+			mainMenu = true;
+			Audio.playSound("testSample.wav");
+			
+			currentButtons = optionsButtons;
+			
+			// buttons.add(startBtn);
+
 		});
 		
 		Button startBtn = new Button(context,
@@ -113,12 +133,12 @@ public class MainMenu extends BasicGameState {
 			options = true;
 			mainMenu = false;
 			if (options) {
-				/*buttons = new ArrayList<Button>();
-				buttons.add(audioBtn);
-				buttons.add(screenBtn);
-				buttons.add(backBtn);*/
+				/*
+				 * buttons = new ArrayList<Button>(); buttons.add(audioBtn);
+				 * buttons.add(screenBtn); buttons.add(backBtn);
+				 */
 				currentButtons = optionsButtons;
-				//currentButtons = new ArrayList<Button>();
+				// currentButtons = new ArrayList<Button>();
 			}
 			Audio.playSound("testSample.wav");
 			System.out.println("test");
@@ -133,17 +153,30 @@ public class MainMenu extends BasicGameState {
 			mainMenu = false;
 			Audio.playSound("test.wav");
 		});
-		/*
-		 * if(mainMenu) {
-		 */
+		
+		
+		Button audioBarBtn = new Button(context,
+				new Vector2f(width / 2 - 75, 550f), GetImage("audioBar.png"),
+				GetImage("audioBar.png"));
+		audioBarBtn.onClick(() -> {
+		
+			Audio.playSound("testSample.wav");
+
+		});
+
+		// populate arraylist
+
 		mainButtons.add(startBtn);
 		mainButtons.add(scoresBtn);
 		mainButtons.add(optionsBtn);
 		mainButtons.add(instructionsBtn);
-		
+
 		optionsButtons.add(audioBtn);
 		optionsButtons.add(screenBtn);
-		optionsButtons.add(backBtn);
+		optionsButtons.add(optionsBackBtn);
+
+		audioButtons.add(audioBackBtn);
+		audioButtons.add(audioBarBtn);
 
 		/*
 		 * buttons.add(new Button(context, new Vector2f((width / 2), (height /
@@ -170,19 +203,16 @@ public class MainMenu extends BasicGameState {
 		 * "instructions.png", "highInstructions.png"));
 		 */
 	}
-	
 
 	public void makeButtons(GameContainer gc) throws SlickException {
-	
-		
-		
+
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame game, int i)
 			throws SlickException {
 		// }
-		
+
 		int x = Mouse.getX();
 		int y = gc.getHeight() - Mouse.getY();
 
@@ -193,7 +223,7 @@ public class MainMenu extends BasicGameState {
 
 				if (Mouse.isButtonDown(0))
 					button.setClicked(true);
-				
+
 				else
 					button.setClicked(false);
 
