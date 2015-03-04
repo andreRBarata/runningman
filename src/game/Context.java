@@ -12,7 +12,7 @@ public class Context {
 	public final float playerJump = -7;
 	public final float playerSpeed = 2;
 	public final float gravity = 0.2f;
-	public final float chunkSize = 100;
+	public final float chunkSize = 90;
 	public final float scale = 0.3f;
 	
 	private GameContainer gc;
@@ -73,7 +73,7 @@ public class Context {
 	public void generateChunk() {
 		float random = (Math.round(Math.random()) * this.chunkSize/1.5f);
 		
-		if (map.getMinY() < gc.getHeight()/2) {
+		if (map.getMinY() < gc.getHeight()) {
 			random = -random;
 		}
 		
