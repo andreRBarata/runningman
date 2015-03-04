@@ -35,6 +35,27 @@ public class MainGame extends BasicGameState {
 				0, gc.getHeight() / 2, 0, gc.getHeight() }));
 		context.generateChunk();
 		player = new Player(context);
+		//buttons(gc,game);
+	}
+	
+	public void buttons(GameContainer gc, StateBasedGame game) throws SlickException
+	{
+		float width;
+		float height;
+		height = gc.getHeight();
+		width = gc.getWidth();
+		
+		context = new Context(gc, gc.getGraphics());
+
+		buttons = new ArrayList<Button>();
+
+		Button gameOverBtn = new Button(context, new Vector2f(width / 2 - 75, 150f),
+				MainMenu.GetImage("start.png"), MainMenu.GetImage("highStart.png"));
+		gameOverBtn.onClick(() -> {
+			Audio.playSound("testSample.wav");
+			game.enterState(1, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+				
+		});
 	}
 
 	@Override
@@ -90,41 +111,11 @@ public class MainGame extends BasicGameState {
 			);
 			context.getGc().pause();
 			
-	/*		float width;
-			float height;
-			height = gc.getHeight();
-			width = gc.getWidth();
-			
-			context = new Context(gc, gc.getGraphics());
-
-		//	buttons = new ArrayList<Button>();
-
-			Button gameOverBtn = new Button(context, new Vector2f(width / 2 - 75, 150f),
-					MainMenu.GetImage("start.png"), MainMenu.GetImage("highStart.png"));
-			gameOverBtn.onClick(() -> {
-				Audio.playSound("testSample.wav");
-				game.enterState(1, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
-				
-				buttons.add(gameOverBtn);
-			});*/
+		
+			//	buttons.add(gameOverBtn);
+			}
 		}
-		
-	/*	float width;
-		float height;
-		height = gc.getHeight();
-		width = gc.getWidth();
-		
-		context = new Context(gc, gc.getGraphics());
-
-		buttons = new ArrayList<Button>();
-
-		Button startBtn = new Button(context, new Vector2f(width / 2 - 75, 150f),
-				MainMenu.GetImage("start.png"), MainMenu.GetImage("highStart.png"));
-		startBtn.onClick(() -> {
-			Audio.playSound("testSample.wav");
-			game.enterState(1, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
-		});*/
-	}
+	
 
 	@Override
 	public int getID() {

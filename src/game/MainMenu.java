@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
@@ -30,7 +29,7 @@ public class MainMenu extends BasicGameState {
 	int halfWidth;
 	int halfHeight;
 	float scale = 0.3f;
-	ArrayList<Button> buttons;
+	ArrayList<Button> buttons = new ArrayList<Button>();
 	TrueTypeFont font;
 
 	// void resize(500,500);
@@ -39,9 +38,9 @@ public class MainMenu extends BasicGameState {
 	boolean instructions = false;
 	StateBasedGame game;
 
-
 	@Override
-	public void init(GameContainer gc, StateBasedGame game) throws SlickException {
+	public void init(GameContainer gc, StateBasedGame game)
+			throws SlickException {
 		buttons(gc);
 		this.game = game;
 	}
@@ -56,37 +55,74 @@ public class MainMenu extends BasicGameState {
 		float heightIncr = 100f;
 		context = new Context(gc, gc.getGraphics());
 
-		buttons = new ArrayList<Button>();
-
-		Button startBtn = new Button(context, new Vector2f(width / 2 - 75, 150f),
-				GetImage("start.png"), GetImage("highStart.png"));
+		// buttons =
+		
+		Button soundBtn = new Button(context,
+				new Vector2f(width / 2 - 75, 150f), GetImage("start.png"),
+				GetImage("highStart.png"));
+		soundBtn.onClick(() -> {
+			options = true;
+			mainMenu = false;
+			Audio.playSound("testSample.wav");
+		});
+		
+		Button screenBtn = new Button(context,
+				new Vector2f(width / 2 - 75, 250f), GetImage("start.png"),
+				GetImage("highStart.png"));
+		screenBtn.onClick(() -> {
+			options = true;
+			mainMenu = false;
+			Audio.playSound("testSample.wav");
+		});
+		
+		Button backBtn = new Button(context,
+				new Vector2f(width / 2 - 75, 450f), GetImage("start.png"),
+				GetImage("highStart.png"));
+		backBtn.onClick(() -> {
+			options = true;
+			mainMenu = false;
+			Audio.playSound("testSample.wav");
+		});
+		
+		Button startBtn = new Button(context,
+				new Vector2f(width / 2 - 75, 150f), GetImage("start.png"),
+				GetImage("highStart.png"));
 		startBtn.onClick(() -> {
 			options = true;
 			mainMenu = false;
 			Audio.playSound("testSample.wav");
-			game.enterState(1, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+			game.enterState(1, new FadeOutTransition(Color.black),
+					new FadeInTransition(Color.black));
 		});
-		
-		Button scoresBtn = new Button(context, new Vector2f(width / 2 - 75, 250f),
-				GetImage("highScores.png"), GetImage("highHighScores.png"));
+
+		Button scoresBtn = new Button(context, new Vector2f(width / 2 - 75,
+				250f), GetImage("highScores.png"),
+				GetImage("highHighScores.png"));
 		scoresBtn.onClick(() -> {
 			options = true;
 			mainMenu = false;
 			Audio.playSound("testSample.wav");
 			System.out.println("test");
 		});
-		
-		Button optionsBtn = new Button(context, new Vector2f(width / 2 - 75, 350f),
-				GetImage("options.png"), GetImage("highOptions.png"));
+
+		Button optionsBtn = new Button(context, new Vector2f(width / 2 - 75,
+				350f), GetImage("options.png"), GetImage("highOptions.png"));
 		optionsBtn.onClick(() -> {
 			options = true;
 			mainMenu = false;
+			if (options) {
+				buttons = new ArrayList<Button>();
+				buttons.add(soundBtn);
+				buttons.add(screenBtn);
+				buttons.add(backBtn);
+			}
 			Audio.playSound("testSample.wav");
 			System.out.println("test");
 		});
-		
-		Button instructionsBtn = new Button(context, new Vector2f(width / 2 - 75, 450f),
-				GetImage("instructions.png"), GetImage("highInstructions.png"));
+
+		Button instructionsBtn = new Button(context, new Vector2f(
+				width / 2 - 75, 450f), GetImage("instructions.png"),
+				GetImage("highInstructions.png"));
 		instructionsBtn.onClick(() -> {
 			System.out.println("testggg");
 			options = true;
@@ -94,11 +130,17 @@ public class MainMenu extends BasicGameState {
 			Audio.playSound("test.wav");
 		});
 
+		/*
+		 * if(mainMenu) {
+		 */
 		buttons.add(startBtn);
 		buttons.add(scoresBtn);
 		buttons.add(optionsBtn);
 		buttons.add(instructionsBtn);
+
+		// }
 		
+
 		/*
 		 * buttons.add(new Button(context, new Vector2f((width / 2), (height /
 		 * 4)), "testing", new CallBack() { public void run() { options = true;
@@ -126,8 +168,10 @@ public class MainMenu extends BasicGameState {
 	}
 
 	@Override
-	public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
-
+	public void update(GameContainer gc, StateBasedGame game, int i)
+			throws SlickException {
+		// }
+		
 		int x = Mouse.getX();
 		int y = gc.getHeight() - Mouse.getY();
 
@@ -135,17 +179,18 @@ public class MainMenu extends BasicGameState {
 
 			if (button.containsPoint(x, y)) {
 				button.SetMouseOver(true);
-				
-				if(Mouse.isButtonDown(0))
+
+				if (Mouse.isButtonDown(0))
 					button.setClicked(true);
+				
 				else
 					button.setClicked(false);
-				
-			} else{
+
+			} else {
 				button.SetMouseOver(false);
 				button.setClicked(false);
 			}
-			 
+
 		}
 
 	}
@@ -182,8 +227,8 @@ public class MainMenu extends BasicGameState {
 	}
 
 	@Override
-	public void render(GameContainer gc, StateBasedGame game, org.newdawn.slick.Graphics g)
-			throws SlickException {
+	public void render(GameContainer gc, StateBasedGame game,
+			org.newdawn.slick.Graphics g) throws SlickException {
 
 		/*
 		 * if (mainMenu) { drawImage(gc, g, 1, "start.png"); drawImage(gc, g, 4,
@@ -234,18 +279,18 @@ public class MainMenu extends BasicGameState {
 
 	}
 
-//	public static void main(String[] args) {
-//		try {
-//			AppGameContainer appgc = new AppGameContainer(new MainMenu("RunnerMan"));
-//			appgc.setDisplayMode(800, 600, false);
-//			// appgc.setShowFPS(false);
-//
-//			appgc.start();
-//		} catch (SlickException ex) {
-//			Logger.getLogger(MainGame.class.getName()).log(Level.SEVERE, null,
-//					ex);
-//		}
-//	}
+	// public static void main(String[] args) {
+	// try {
+	// AppGameContainer appgc = new AppGameContainer(new MainMenu("RunnerMan"));
+	// appgc.setDisplayMode(800, 600, false);
+	// // appgc.setShowFPS(false);
+	//
+	// appgc.start();
+	// } catch (SlickException ex) {
+	// Logger.getLogger(MainGame.class.getName()).log(Level.SEVERE, null,
+	// ex);
+	// }
+	// }
 
 	public static Image GetImage(String url) {
 		Image img = null;
