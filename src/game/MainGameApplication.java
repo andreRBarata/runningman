@@ -36,6 +36,20 @@ public class MainGameApplication extends StateBasedGame {
 					ex);
 		}
 	}
+	
+	public static void toggleFullScreen(){
+		try{
+			// Set the windowed screen otherwise set it to full screen
+
+		
+		appgc.setFullscreen(!appgc.isFullscreen());
+
+		
+		}catch(SlickException ex){
+			Logger.getLogger(MainGame.class.getName()).log(Level.SEVERE, null,
+					ex);
+		}
+	}
 
 	@Override
 	public void initStatesList(GameContainer arg0) throws SlickException {

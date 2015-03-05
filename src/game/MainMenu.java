@@ -76,11 +76,7 @@ public class MainMenu extends BasicGameState {
 			options = true;
 			mainMenu = false;
 			Audio.playSound("testSample.wav");
-			try {
-				MainGameApplication.appgc.setFullscreen(!MainGameApplication.appgc.isFullscreen());
-			} catch (Exception e) {
-				System.out.println("couldnt set full screen");
-			}
+			MainGameApplication.toggleFullScreen();
 		});
 
 		Button optionsBackBtn = new Button(context,
@@ -253,92 +249,23 @@ public class MainMenu extends BasicGameState {
 
 		img.draw((width / 2) - (scaleWidth / 2), (scaleHeight / 2) * x,
 				scaleWidth, scaleHeight);
-		// get width and height of the image and multiply it by the scale, scale
-		// should be a global variable and should effect everything
-		// Image = new Image("image.png", false, Image.FILTER_NEAREST);
-	}
-
-	public void background(GameContainer gc, org.newdawn.slick.Graphics g,
-			final String url) throws SlickException {
-
-		Image img = new Image("/src/Tiles/" + url);
-
-		// MainMenu.class.getResourceAsStream("/Samples/" + url);
-		float imgWidth = img.getWidth();
-		float imgHeight = img.getHeight();
-		float scaleWidth = imgWidth * context.scale + 20;
-		float scaleHeight = imgHeight * context.scale;
-
-		img.draw(0, 0, scaleWidth * 3, scaleHeight * 3);
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame game,
 			org.newdawn.slick.Graphics g) throws SlickException {
 
-		/*
-		 * if (mainMenu) { drawImage(gc, g, 1, "start.png"); drawImage(gc, g, 4,
-		 * "options.png"); drawImage(gc, g, 7, "instructions.png"); }
-		 * 
-		 * if (options) { drawImage(gc, g, 1, "highStart.png"); drawImage(gc, g,
-		 * 4, "options.png"); drawImage(gc, g, 7, "instructions.png"); }
-		 */
-
 		g.scale(1, 1);
 		g.setBackground(Color.black);
 
-		background(gc, g, "testBackground.png");
-		background(gc, g, "testTitle.png");
-		// g.drawImage((new Image("/src/Tiles/testBackground.png")), 0, 0);
-		// font.drawString(width / 2 - 125, (height / 2) * scale,
-		// "PLACE HOLDER TITLE", Color.yellow);
-
-		// if (mainMenu) {
-		// g.setFont(new TrueTypeFont(new Font("TimesRoman", Font.PLAIN,
-		// height / 10), false));
-
-		/*
-		 * g.setColor(Color.yellow); g.drawString("Start", halfWidth - width /
-		 * 10, halfHeight - height / 5);
-		 * 
-		 * g.setColor(Color.white); g.drawString("Options", halfWidth - width /
-		 * 10, halfHeight);
-		 * 
-		 * g.setColor(Color.red); g.drawString("Instructions", halfWidth - width
-		 * / 10, halfHeight + height / 5);
-		 */
-		// }
-		/*
-		 * if (options) { g.setColor(Color.yellow); g.drawString("Sound",
-		 * halfWidth - width / 10, halfHeight - height / 5);
-		 * 
-		 * g.setColor(Color.white); g.drawString("Controls", halfWidth - width /
-		 * 10, halfHeight);
-		 * 
-		 * g.setColor(Color.red); g.drawString("Back", halfWidth - width / 10,
-		 * halfHeight + height / 5); }
-		 */
+		context.background(gc, g, "testBackground.png");
+		context.background(gc, g, "testTitle.png");
 
 		for (Button button : currentButtons) {
 			button.display();
 		}
 
 	}
-
-	// public static void main(String[] args) {
-	// try {
-	// AppGameContainer appgc = new AppGameContainer(new MainMenu("RunnerMan"));
-	// appgc.setDisplayMode(800, 600, false);
-	// // appgc.setShowFPS(false);
-	//
-	// appgc.start();
-	// } catch (SlickException ex) {
-	// Logger.getLogger(MainGame.class.getName()).log(Level.SEVERE, null,
-	// ex);
-	// }
-	// }
-
-	
 
 	@Override
 	public int getID() {

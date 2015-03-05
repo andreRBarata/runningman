@@ -127,4 +127,18 @@ public class Context {
 			return null;
 		}
 	}
+	
+	public void background(GameContainer gc, org.newdawn.slick.Graphics g,
+			final String url) throws SlickException {
+
+		Image img = new Image("/src/Tiles/" + url);
+
+		// MainMenu.class.getResourceAsStream("/Samples/" + url);
+		float imgWidth = img.getWidth();
+		float imgHeight = img.getHeight();
+		float scaleWidth = imgWidth * scale + 20;
+		float scaleHeight = imgHeight * scale;
+
+		img.draw(0, 0, scaleWidth * 3, scaleHeight * 3);
+	}
 }

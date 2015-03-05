@@ -43,18 +43,18 @@ public class EndGame extends BasicGameState {
 		context = new Context(gc, gc.getGraphics());
 		buttons = new ArrayList<Button>();
 		
-		Button startBtn = new Button(context,
-				new Vector2f(gc.getWidth() / 2 - 75, 150f), Context.getImage("start.png"),
-				Context.getImage("highStart.png"));
+		Button backBtn = new Button(context,
+				new Vector2f(gc.getWidth() / 2 - 75, 350f), Context.getImage("back.png"),
+				Context.getImage("highBack.png"));
 		
-		startBtn.onClick(() -> {
+		backBtn.onClick(() -> {
 			Audio.playSound("testSample.wav");
 			
 			game.enterState(0, new FadeOutTransition(Color.black),
 					new FadeInTransition(Color.black));
 		});
 		
-		buttons.add(startBtn);
+		buttons.add(backBtn);
 		
 		centX = gc.getWidth()/2;
 		centY = gc.getHeight()/2;
@@ -84,6 +84,8 @@ public class EndGame extends BasicGameState {
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
+		context.background(gc, g, "testBackground.png");
+		context.background(gc, g, "testTitle.png");
 		
 		for (Button button : buttons) {
 			button.display();
