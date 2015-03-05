@@ -49,6 +49,7 @@ public class EndGame extends BasicGameState {
 		
 		startBtn.onClick(() -> {
 			Audio.playSound("testSample.wav");
+			
 			game.enterState(0, new FadeOutTransition(Color.black),
 					new FadeInTransition(Color.black));
 		});
@@ -57,9 +58,6 @@ public class EndGame extends BasicGameState {
 		
 		centX = gc.getWidth()/2;
 		centY = gc.getHeight()/2;
-		
-		
-		
 	}
 
 	@Override

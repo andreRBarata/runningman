@@ -76,6 +76,11 @@ public class MainMenu extends BasicGameState {
 			options = true;
 			mainMenu = false;
 			Audio.playSound("testSample.wav");
+			try {
+				MainGameApplication.appgc.setFullscreen(!MainGameApplication.appgc.isFullscreen());
+			} catch (Exception e) {
+				System.out.println("couldnt set full screen");
+			}
 		});
 
 		Button optionsBackBtn = new Button(context,
@@ -202,31 +207,6 @@ public class MainMenu extends BasicGameState {
 		audioButtons.add(audioPlusBtn);
 		audioButtons.add(audioMinusBtn);
 	//	audioButtons.add(audioBarBtn);
-
-		/*
-		 * buttons.add(new Button(context, new Vector2f((width / 2), (height /
-		 * 4)), "testing", new CallBack() { public void run() { options = true;
-		 * mainMenu = false; MainGame.start(); Audio.playSound("test.wav");
-		 * System.out.println("test"); } }, "start.png", "highStart.png"));
-		 * 
-		 * // buttons = new ArrayList<Button>(); buttons.add(new Button(context,
-		 * new Vector2f((width / 2) + 50, height / 2), "test", new CallBack() {
-		 * public void run() { options = true; mainMenu = false;
-		 * Audio.playSound("test.wav"); System.out.println("test"); } },
-		 * "highScores.png", "highHighScores.png"));
-		 * 
-		 * // buttons = new ArrayList<Button>(); buttons.add(new Button(context,
-		 * new Vector2f(width / 2, 50), "test", new CallBack() { public void
-		 * run() { options = true; mainMenu = false;
-		 * Audio.playSound("test.wav"); System.out.println("test"); } },
-		 * "options.png", "highOptions.png"));
-		 * 
-		 * // buttons = new ArrayList<Button>(); buttons.add(new Button(context,
-		 * new Vector2f(width / 2, height / 2 - 10), "test", new CallBack() {
-		 * public void run() { options = true; mainMenu = false;
-		 * Audio.playSound("test.wav"); System.out.println("test"); } },
-		 * "instructions.png", "highInstructions.png"));
-		 */
 	}
 
 	public void makeButtons(GameContainer gc) throws SlickException {

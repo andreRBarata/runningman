@@ -10,7 +10,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class MainGameApplication extends StateBasedGame {
 
-	private static AppGameContainer appgc;
+	public static AppGameContainer appgc;
 
 	public MainGameApplication(String title) {
 		super(title);
@@ -28,6 +28,7 @@ public class MainGameApplication extends StateBasedGame {
 			appgc = new AppGameContainer(
 					new MainGameApplication("Turtle Dash"));
 			appgc.setDisplayMode(800, 600, false);
+			appgc.setFullscreen(false);
 			// appgc.setShowFPS(false);
 			appgc.start();
 		} catch (SlickException ex) {

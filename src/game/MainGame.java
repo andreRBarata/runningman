@@ -36,11 +36,17 @@ public class MainGame extends BasicGameState {
 				0, gc.getHeight() / 2, 0, gc.getHeight() }));
 		
 		buttons = new ArrayList<Button>();
+
+	}
+	
+	@Override
+	   public void enter(GameContainer gc, StateBasedGame game)
+	         throws SlickException {
 		gameTimer = 0;
 		context.generateChunk();
 		player = new Player(context);
-		//buttons(gc,game);
-	}
+		gc.setPaused(false);
+	   }
 	
 	public void buttons(GameContainer gc, StateBasedGame game) throws SlickException
 	{
@@ -58,7 +64,7 @@ public class MainGame extends BasicGameState {
 				Context.getImage("start.png"), Context.getImage("highStart.png"));
 		gameOverBtn.onClick(() -> {
 			Audio.playSound("testSample.wav");
-			game.enterState(1, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
+			game.enterState(0, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
 				
 		});
 		
@@ -68,6 +74,17 @@ public class MainGame extends BasicGameState {
 	@Override
 	public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
 		if (!gc.isPaused()) {
+			
+			if(isPlayerDead()){				
+				game.addState(new EndGame(
+						(float)Math.floor(gameTimer/1000)
+					)
+				);
+				
+				game.getState(2).init(gc, game);
+				game.enterState(2);
+			}
+			
 			Display.sync(70);
 			gameTimer += i;
 			
@@ -116,22 +133,17 @@ public class MainGame extends BasicGameState {
 		}*/
 			
 			
+
+	}
+
+	public boolean isPlayerDead(){
 		
 		if (player.getPosition().x < 0) {
-			
-			context.getGc().pause();
-			
-			game.addState(new EndGame(
-					(float)Math.floor(gameTimer/1000)
-				)
-			);
-			
-			game.getState(2).init(gc, game);
-			game.enterState(2);
+			return true;
 		}
+		return false;
 	}
 	
-
 	@Override
 	public int getID() {
 		// TODO Auto-generated method stub
