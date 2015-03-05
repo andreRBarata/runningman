@@ -28,7 +28,6 @@ public class Context {
 	public ArrayList<Drawable> objects;
 	
 	public Context(GameContainer gc, Graphics g, Polygon map) {
-		super();
 		this.mapPath = new ArrayList<Vector2f>();
 		this.gc = gc;
 		this.g = g;
@@ -37,7 +36,6 @@ public class Context {
 	}
 	
 	public Context(GameContainer gc, Graphics g) {
-		super();
 		this.mapPath = new ArrayList<Vector2f>();
 		this.gc = gc;
 		this.g = g;
@@ -85,9 +83,9 @@ public class Context {
 			random = -this.chunkSize/2f;
 		}
 		
-		/*if (Math.random() < 0.1) {
-			random = -(map.getMaxY() - map.getMinY() - 10);
-		}*/
+		if (Math.random() < 0.1) {
+			random = -(this.chunkSize/2);
+		}
 		
 		mapPath.add(
 			new Vector2f(map.getMaxX(), map.getMinY() - random)

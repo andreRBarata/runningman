@@ -2,8 +2,11 @@ package game;
 
 import java.util.TreeMap;
 
+import javafx.scene.shape.Rectangle;
+
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.MorphShape;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
@@ -12,6 +15,7 @@ import org.newdawn.slick.geom.Vector2f;
 
 class Player extends Droppable {
 	private TreeMap<String, Integer> keyBinds;
+	private Image imgFill;
 	private int index;
 	private char[] name;
 	
@@ -23,46 +27,12 @@ class Player extends Droppable {
 				0
 			),
 			new Polygon(
-				new float[] {
-						16,44,
-						20,43,
-						15,39,
-						15,23,
-						20,19,
-						31,19,
-						34,22,
-						36,25,
-						36,20,
-						35,9,
-						37,7,
-						41,4,
-						44,7,
-						46,9,
-						46,16,
-						48,17,
-						47,27,
-						45,29,
-						42,23,
-						40,23,
-						41,26,
-						43,31,
-						44,33,
-						42,34,
-						42,36,
-						40,37,
-						40,40,
-						45,44,
-						45,46,
-						39,46,
-						36,44,
-						28,44,
-						25,43,
-						25,46,
-						18,46,
-						15,45
-				}
+				//new float[] {-30,-30,30,-30,30,30,-30,30}
+				new float[] {4.5f, 15, 6.5f, 10, 12.5f, 10, 14.5f, 10, 16.5f, 13, 16.5f, 16, 19.5f, 19, 20.5f, 24, 18.5f, 26, 15.5f, 29, 12.5f, 28, 10.5f, 30, 13.5f, 32, 14.5f, 35, 14.5f, 38, 14.5f, 41, 10.5f, 41, 9.5f, 42, 10.5f, 44, 12.5f, 46, 14.5f, 47, 12.5f, 49, 6.5f, 49, 5.5f, 43, -1.5f, 44, -0.5f, 46, 0.5f, 49, -6.5f, 49, -9.5f, 45, -8.5f, 42, -6.5f, 38, -8.5f, 34, -6.5f, 30, -2.5f, 26, 0.5f, 24, -1.5f, 21, 2.5f, 16}
 			)
 		);
+		
+		imgFill = Context.getImage("player.png");
 		
 		keyBinds = new TreeMap<String, Integer>();
 		keyBinds.put("jump", Keyboard.KEY_SPACE);
@@ -149,5 +119,18 @@ class Player extends Droppable {
 		}
 		
 		super.update();
+	}
+	
+	public void display() {
+		context.getG().pushTransform();
+		
+		context.getG().translate(
+			this.getPosition().x,
+			this.getPosition().y
+		);
+		context.getG().fill(this.getSprite());
+
+		context.getG().popTransform();
+		
 	}
 }

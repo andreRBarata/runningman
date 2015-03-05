@@ -109,7 +109,7 @@ public class MainGame extends BasicGameState {
 				context.getGc().exit();
 			}
 			
-			if (Math.random() < 0.001) {
+			/*if (Math.random() < 0.001) {
 				context.objects.add(
 					new Catchable(
 						context,
@@ -121,7 +121,7 @@ public class MainGame extends BasicGameState {
 						"heart"
 					)
 				);
-			}
+			}*/
 
 		}
 	}
