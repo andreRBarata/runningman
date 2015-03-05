@@ -15,7 +15,7 @@ import org.newdawn.slick.geom.Vector2f;
 public class Context {
 	public final float playerJump = -7;
 	public final float gravity = 0.2f;
-	public final float chunkSize = 130;
+	public final float chunkSize = 128;
 	public final float scale = 0.3f;
 	
 	public float playerSpeed = 2;

@@ -29,12 +29,14 @@ public class MainGame extends BasicGameState {
 	Context context;
 	Player player;
 	ArrayList<Button> buttons;
+	BackgroundObject skyBackground;
+	BackgroundObject grassBackground;
 
-
+	
 	@Override
 	public void init(GameContainer gc, StateBasedGame game) throws SlickException {
 		context = new Context(gc, gc.getGraphics(), new Polygon(new float[] {
-				0, gc.getHeight() / 2, 0, gc.getHeight() }));
+				0, gc.getHeight() / 1.25f, 0, gc.getHeight() }));
 		
 		
 		
@@ -48,6 +50,9 @@ public class MainGame extends BasicGameState {
 		gameTimer = 0;
 		context.generateChunk();
 		player = new Player(context);
+		context.playerSpeed = 2f;
+		skyBackground = new BackgroundObject(gc, new Image("/src/Tiles/sky.png"), new Vector2f(0f, 0f), 1f);
+		grassBackground = new BackgroundObject(gc, new Image("/src/Tiles/grass.png"), new Vector2f(0f, 0f), 3f);
 
 		gc.setPaused(false);
 	   }
@@ -79,6 +84,9 @@ public class MainGame extends BasicGameState {
 	@Override
 	public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
 		if (!gc.isPaused()) {
+			
+			skyBackground.update();
+			grassBackground.update();
 			
 			if(isPlayerDead()){				
 				game.addState(new EndGame(
@@ -129,7 +137,9 @@ public class MainGame extends BasicGameState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
 		
-		g.drawImage((new Image("/src/Tiles/testBackground.png")), 0, 0);
+	//	g.drawImage((new Image("/src/Tiles/testBackground.png")), 0, 0);
+		skyBackground.render(gc, game, g);
+		grassBackground.render(gc, game, g);
 		g.setColor(new Color(70,155,70));
 		
 		g.fill(context.getMap());
