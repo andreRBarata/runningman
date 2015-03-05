@@ -1,5 +1,6 @@
 package game;
 
+import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.geom.MorphShape;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Shape;
@@ -20,6 +21,60 @@ public class Droppable extends Drawable {
 		);
 		Shape localized = new MorphShape(super.getSprite());
 		localized.setLocation(nextposition);
+		
+		Polygon leftbound = new Polygon(
+			new float[] {
+					localized.getMinX() + this.getSpeed().x,
+					localized.getCenterY(),
+					localized.getCenterX(),
+					localized.getCenterY()
+			}
+		);
+		Polygon rightbound = new Polygon(
+			new float[] {
+					localized.getMaxX() + this.getSpeed().x,
+					localized.getCenterY(),
+					localized.getCenterX(),
+					localized.getCenterY()
+			}
+		);
+		Polygon bottombound = new Polygon(
+			new float[] {
+					localized.getCenterX(),
+					localized.getMaxY() + this.getSpeed().y,
+					localized.getCenterX(),
+					localized.getCenterY()
+			}
+		);
+		
+		if (context.getMap().intersects(bottombound)) {
+			this.setSpeed(
+				new Vector2f(
+					this.getSpeed().x/1.2f,
+					this.getSpeed().y
+				)
+			);
+		}
+		
+		if (context.getMap().intersects(rightbound)) {
+			this.setSpeed(
+				new Vector2f(
+					(context.getMap().intersects(bottombound))?
+						-context.playerSpeed:
+						-context.playerSpeed * 1.5f,
+					this.getSpeed().y
+				)
+			);
+		}
+		
+		if (context.getMap().intersects(leftbound)) {
+			this.setSpeed(
+				new Vector2f(
+					0,
+					this.getSpeed().y
+				)
+			);
+		}
 		
 		if (context.getMap().intersects(localized)) {
 			speed.y = -speed.y/2;
