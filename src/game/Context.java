@@ -15,7 +15,7 @@ import org.newdawn.slick.geom.Vector2f;
 public class Context {
 	public final float playerJump = -7;
 	public final float gravity = 0.2f;
-	public final float chunkSize = 90;
+	public final float chunkSize = 130;
 	public final float scale = 0.3f;
 	
 	public float playerSpeed = 2;
@@ -25,12 +25,15 @@ public class Context {
 	private ArrayList<Vector2f> mapPath;
 	private Polygon map;
 	
+	public ArrayList<Drawable> objects;
+	
 	public Context(GameContainer gc, Graphics g, Polygon map) {
 		super();
 		this.mapPath = new ArrayList<Vector2f>();
 		this.gc = gc;
 		this.g = g;
 		this.map = map;
+		this.objects = new ArrayList<Drawable>();
 	}
 	
 	public Context(GameContainer gc, Graphics g) {
@@ -76,14 +79,14 @@ public class Context {
 	}
 	
 	public void generateChunk() {
-		float random = (Math.round(Math.random()) * this.chunkSize/1.5f);
+		float random = 0;
 		
-		if (map.getMinY() < gc.getHeight()) {
-			random = -random;
+		if (Math.random() < 0.5) {
+			random = -this.chunkSize/2f;
 		}
 		
 		/*if (Math.random() < 0.1) {
-			random = -gc.getHeight();
+			random = -(map.getMaxY() - map.getMinY() - 10);
 		}*/
 		
 		mapPath.add(

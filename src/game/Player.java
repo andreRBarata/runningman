@@ -78,7 +78,7 @@ class Player extends Droppable {
 		
 		Polygon leftbound = new Polygon(
 			new float[] {
-					localized.getMinX(),
+					localized.getMinX() + this.getSpeed().x,
 					localized.getCenterY(),
 					localized.getCenterX(),
 					localized.getCenterY()
@@ -86,7 +86,7 @@ class Player extends Droppable {
 		);
 		Polygon rightbound = new Polygon(
 			new float[] {
-					localized.getMaxX(),
+					localized.getMaxX() + this.getSpeed().x,
 					localized.getCenterY(),
 					localized.getCenterX(),
 					localized.getCenterY()
@@ -95,20 +95,11 @@ class Player extends Droppable {
 		Polygon bottombound = new Polygon(
 			new float[] {
 					localized.getCenterX(),
-					localized.getMaxY(),
+					localized.getMaxY() + this.getSpeed().y,
 					localized.getCenterX(),
 					localized.getCenterY()
 			}
 		);
-		
-		if (context.getMap().intersects(bottombound)) {
-			this.setSpeed(
-				new Vector2f(
-					this.getSpeed().x/1.2f,
-					this.getSpeed().y
-				)
-			);
-		}
 		
 		if (Keyboard.isKeyDown(keyBinds.get("right"))) {
 			if (!context.getMap().intersects(rightbound)) {
@@ -130,26 +121,6 @@ class Player extends Droppable {
 					)
 				);
 			}
-		}
-		
-		if (context.getMap().intersects(rightbound)) {
-			this.setSpeed(
-				new Vector2f(
-					(context.getMap().intersects(bottombound))?
-						-context.playerSpeed:
-						-context.playerSpeed * 1.5f,
-					this.getSpeed().y
-				)
-			);
-		}
-		
-		if (context.getMap().intersects(leftbound)) {
-			this.setSpeed(
-				new Vector2f(
-					0,
-					this.getSpeed().y
-				)
-			);
 		}
 		
 		if (context.getMap().intersects(bottombound)) {
