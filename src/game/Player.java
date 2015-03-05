@@ -15,9 +15,11 @@ import org.newdawn.slick.geom.Vector2f;
 
 class Player extends Droppable {
 	private TreeMap<String, Integer> keyBinds;
-	private Image imgFill;
+	private Image img1;
+	private Image img2;
 	private int index;
 	private char[] name;
+	private float timer;
 	
 	public Player(Context context) {
 		super(
@@ -28,12 +30,25 @@ class Player extends Droppable {
 			),
 			new Polygon(
 				//new float[] {-30,-30,30,-30,30,30,-30,30}
-				new float[] {4.5f, 15, 6.5f, 10, 12.5f, 10, 14.5f, 10, 16.5f, 13, 16.5f, 16, 19.5f, 19, 20.5f, 24, 18.5f, 26, 15.5f, 29, 12.5f, 28, 10.5f, 30, 13.5f, 32, 14.5f, 35, 14.5f, 38, 14.5f, 41, 10.5f, 41, 9.5f, 42, 10.5f, 44, 12.5f, 46, 14.5f, 47, 12.5f, 49, 6.5f, 49, 5.5f, 43, -1.5f, 44, -0.5f, 46, 0.5f, 49, -6.5f, 49, -9.5f, 45, -8.5f, 42, -6.5f, 38, -8.5f, 34, -6.5f, 30, -2.5f, 26, 0.5f, 24, -1.5f, 21, 2.5f, 16}
 			)
 		);
 		
-		imgFill = Context.getImage("player.png");
+		img1 = Context.getImage("player01.png").getScaledCopy(0.5f);
+		img2 = Context.getImage("player02.png").getScaledCopy(0.5f);
 		
+		this.setSprite(
+			new Polygon(
+				new float[] {
+					0,0,
+					img1.getWidth(),0,
+					img1.getWidth(), img1.getHeight(),
+					0, img1.getHeight()
+				}
+			)
+		);
+		
+		
+		timer = 0;
 		keyBinds = new TreeMap<String, Integer>();
 		keyBinds.put("jump", Keyboard.KEY_SPACE);
 		keyBinds.put("right", Keyboard.KEY_RIGHT);
@@ -95,15 +110,17 @@ class Player extends Droppable {
 		
 		if (context.getMap().intersects(bottombound)) {
 			if (Keyboard.isKeyDown(keyBinds.get("jump"))) {
-				Audio.playSound("jump.wav");
-				this.setPosition(
-					this.getPosition().add(
-						new Vector2f(0,-5)
-					)
-				);
-				this.setSpeed(
-					new Vector2f(this.getSpeed().x, context.playerJump)
-				);
+				if (this.getSpeed().y <= 0) {
+					Audio.playSound("jump.wav");
+					this.setPosition(
+						this.getPosition().add(
+							new Vector2f(0,-5)
+						)
+					);
+					this.setSpeed(
+						new Vector2f(this.getSpeed().x, context.playerJump)
+					);
+				}
 			}
 		}	
 		
@@ -128,9 +145,17 @@ class Player extends Droppable {
 			this.getPosition().x,
 			this.getPosition().y
 		);
-		context.getG().fill(this.getSprite());
+		
+		if (timer < 15) {
+			img2.draw();
+		}
+		else {
+			img1.draw();
+			
+		}
 
 		context.getG().popTransform();
 		
+		timer = ((timer + 1) % 30);
 	}
 }
