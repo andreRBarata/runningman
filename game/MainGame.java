@@ -15,7 +15,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Polygon;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.ShapeRenderer;
 import org.newdawn.slick.geom.Transform;
 import org.newdawn.slick.geom.Vector2f;
@@ -36,8 +35,6 @@ public class MainGame extends BasicGameState {
 		context = new Context(gc, gc.getGraphics(), new Polygon(new float[] {
 				0, gc.getHeight() / 2, 0, gc.getHeight() }));
 		
-		
-		
 		buttons = new ArrayList<Button>();
 
 	}
@@ -48,14 +45,12 @@ public class MainGame extends BasicGameState {
 		gameTimer = 0;
 		context.generateChunk();
 		player = new Player(context);
-
 		gc.setPaused(false);
 	   }
-
+	
+	public void buttons(GameContainer gc, StateBasedGame game) throws SlickException
+	{
 		
-		//buttons(gc,game);	
-
-	public void buttons(GameContainer gc, StateBasedGame game) throws SlickException {
 		float width;
 		float height;
 		height = gc.getHeight();
@@ -94,7 +89,7 @@ public class MainGame extends BasicGameState {
 			gameTimer += i;
 			
 			if ((int)(gameTimer/1000) > (int)((gameTimer - i)/1000)) {
-				context.playerSpeed = (float) (context.playerSpeed + 0.1 % 10);
+				context.playerSpeed = (float) (context.playerSpeed + 0.1 % 20);
 			}
 			
 			context.sideScroll();
@@ -108,21 +103,6 @@ public class MainGame extends BasicGameState {
 			if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 				context.getGc().exit();
 			}
-			
-			if (Math.random() < 0.001) {
-				context.objects.add(
-					new Catchable(
-						context,
-						new Vector2f(
-							gc.getWidth() - 40,
-							gc.getHeight()/2
-						),
-						new Rectangle(0,0,9,9),
-						"heart"
-					)
-				);
-			}
-
 		}
 	}
 
@@ -148,13 +128,9 @@ public class MainGame extends BasicGameState {
 		
 		player.display();
 		
-		for (Drawable drawable: context.objects) {
-			drawable.display();
-			
-			if (drawable instanceof Droppable) {
-				((Droppable) drawable).update();
-			}
-		}
+		/*for (Button button: buttons) {
+			button.display();
+		}*/
 			
 			
 
