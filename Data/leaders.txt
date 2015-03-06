@@ -1,4 +1,4 @@
 Name Score
+con 30.0
 Don 26.0
-DAZ 15.0
-DAZ 15.0
+Don 26.0

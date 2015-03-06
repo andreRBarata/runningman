@@ -16,7 +16,7 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 public class EndGame extends BasicGameState {
 	private ArrayList<Button> buttons;
 	private boolean hi = false;
-	private Context context;
+	public Context context;
 	private float score;
 	public float centX;
 	public float centY;
@@ -29,6 +29,8 @@ public class EndGame extends BasicGameState {
 	
 	EndGame(float score)  {
 		l.getScores();
+		
+		hi = false;
 		
 		if(l.beatScore(score) != -1)  {
 			hi = true;
@@ -100,7 +102,7 @@ public class EndGame extends BasicGameState {
 		}
 		
 		context.setImage(gc, g, "score.png",  halfHeight, halfWidth - 200, 200f,85f);
-		context.setImage(gc, g, "image.png",  halfHeight - 100, halfWidth - 100, 200f,85f);
+		//context.setImage(gc, g, "image.png",  halfHeight - 100, halfWidth - 100, 200f,85f);
 	    g.setColor(Color.black);
 		String playerScore = new String(Integer.toString((int)score));
 		g.drawString(playerScore, halfWidth + 40, halfHeight - 68);
@@ -109,6 +111,10 @@ public class EndGame extends BasicGameState {
 		
 		if(hi)  {
 			askName(gc, g);
+		}
+		else
+		{
+			g.drawString("Failed to achieve highscore \nbetter luck next time!", halfWidth - 110, halfHeight + 50);
 		}
 		//Leaderboards.showScores(gc, g);
 		
@@ -187,10 +193,6 @@ public class EndGame extends BasicGameState {
 			}
 	 */
 	
-	
-	public boolean getHi()  {
-		return hi;
-	}
 	
 	@Override
 	public int getID() {
