@@ -1,16 +1,14 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -28,6 +26,7 @@ public class EndGame extends BasicGameState {
 	float halfHeight; 
 	int location = 0;
 	private String playerName = new String("AAA");
+	TrueTypeFont font;
 	
 	Leaderboards l = new Leaderboards();
 	
@@ -42,6 +41,7 @@ public class EndGame extends BasicGameState {
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame game) throws SlickException {
+		
 		context = new Context(gc, gc.getGraphics());
 		buttons = new ArrayList<Button>();
 		
@@ -97,18 +97,18 @@ public class EndGame extends BasicGameState {
 		}
 		
 		//how can i run specific functions, here not just always the one
-		g.setColor(Color.orange);
-		String playerScore = new String(Float.toString(score));
-		g.drawString(playerScore, halfWidth, halfHeight);
-		
-		showPlayerScore(gc, g, playerScore);
-		//if(hi)  {
-			askName(gc, g);
 			
 	    context.setImage(gc, g, "score.png",  halfHeight, halfWidth - 200, 200f,85f);
+	    
+	    g.setColor(Color.black);
+		String playerScore = new String(Float.toString(score));
+		g.drawString(playerScore, halfWidth + 35, halfHeight - 60);
+		
+	//	showPlayerScore(gc, g, playerScore);
+		//if(hi)  {
+			askName(gc, g);
 
 	}
-	
 	
 	public void showScores()  {
 		
