@@ -17,14 +17,16 @@ public class Droppable extends Drawable {
 
 	public void update() {
 		Vector2f nextposition = new Vector2f(
-			this.getPosition()
+			this.getPosition().add(
+				this.getSpeed()
+			)
 		);
 		Shape localized = new MorphShape(super.getSprite());
 		localized.setLocation(nextposition);
 		
 		Polygon leftbound = new Polygon(
 			new float[] {
-					localized.getMinX() + this.getSpeed().x,
+					localized.getMinX(),
 					localized.getCenterY(),
 					localized.getCenterX(),
 					localized.getCenterY()
@@ -32,7 +34,7 @@ public class Droppable extends Drawable {
 		);
 		Polygon rightbound = new Polygon(
 			new float[] {
-					localized.getMaxX() + this.getSpeed().x,
+					localized.getMaxX(),
 					localized.getCenterY(),
 					localized.getCenterX(),
 					localized.getCenterY()
@@ -41,7 +43,7 @@ public class Droppable extends Drawable {
 		Polygon bottombound = new Polygon(
 			new float[] {
 					localized.getCenterX(),
-					localized.getMaxY() + this.getSpeed().y,
+					localized.getMaxY(),
 					localized.getCenterX(),
 					localized.getCenterY()
 			}
@@ -51,6 +53,15 @@ public class Droppable extends Drawable {
 			this.setSpeed(
 				new Vector2f(
 					this.getSpeed().x/1.2f,
+					this.getSpeed().y
+				)
+			);
+		}
+		
+		if (context.getMap().intersects(leftbound)) {
+			this.setSpeed(
+				new Vector2f(
+					0,
 					this.getSpeed().y
 				)
 			);
@@ -67,23 +78,12 @@ public class Droppable extends Drawable {
 			);
 		}
 		
-		if (context.getMap().intersects(leftbound)) {
-			this.setSpeed(
-				new Vector2f(
-					0,
-					this.getSpeed().y
-				)
-			);
-		}
-		
 		if (context.getMap().intersects(localized)) {
 			speed.y = -speed.y/2;
 		}
 		else {
 			speed.add(new Vector2f(0.0f,context.gravity));
 		}
-		
-		nextposition.add(speed);
 		
 		this.setPosition(
 			nextposition

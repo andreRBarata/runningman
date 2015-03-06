@@ -26,7 +26,7 @@ class Player extends Droppable {
 			context,
 			new Vector2f(
 				context.getGc().getWidth()/2,
-				0
+				context.getGc().getHeight()/3
 			),
 			new Polygon(
 				//new float[] {-30,-30,30,-30,30,30,-30,30}
