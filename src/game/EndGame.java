@@ -100,7 +100,7 @@ public class EndGame extends BasicGameState {
 		}
 		
 		context.setImage(gc, g, "score.png",  halfHeight, halfWidth - 200, 200f,85f);
-		context.setImage(gc, g, "image.png",  halfHeight, halfWidth - 200, 300f,85f);
+		context.setImage(gc, g, "image.png",  halfHeight - 100, halfWidth - 100, 200f,85f);
 	    g.setColor(Color.black);
 		String playerScore = new String(Integer.toString((int)score));
 		g.drawString(playerScore, halfWidth + 40, halfHeight - 68);

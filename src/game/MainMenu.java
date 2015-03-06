@@ -284,6 +284,7 @@ public class MainMenu extends BasicGameState {
 		
 		if(scores)
 		{
+			context.setImage(gc, g, "image.png",  halfHeight - 50 , halfWidth - 250, 300f,250f);
 			Leaderboards.showScores(gc, context.getG());
 		}
 

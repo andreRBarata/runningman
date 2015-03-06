@@ -2,6 +2,7 @@ package game;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 
@@ -88,13 +89,17 @@ public class Leaderboards {
 	}
 	
 	public static void showScores(GameContainer gc, Graphics g)  {
+		
+		float halfWidth = gc.getWidth() / 2;
+		float halfHeight = gc.getHeight() / 2 - 100;
+		g.setColor(Color.black);
 		Leaderboards s = new Leaderboards();
 		s.getScores();
-		for(int i=2; i<s.getDataSize(); i+=2)  {
-			g.drawString(s.getData(i), 10, 20+20*i);
+		for(int i=0; i<s.getDataSize(); i+=2)  {
+			g.drawString(s.getData(i), halfWidth - 80, halfHeight+20*i);
 		}
-		for(int i=3; i<s.getDataSize(); i+=2)  {
-			g.drawString(s.getData(i), 20, 20+20*i);
+		for(int i=1; i<s.getDataSize(); i+=2)  {
+			g.drawString(s.getData(i), halfWidth + 50, halfHeight+20*(i-1));
 		}
 	}
 	
