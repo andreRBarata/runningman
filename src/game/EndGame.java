@@ -93,14 +93,16 @@ public class EndGame extends BasicGameState {
 		
 		
 		context.background(gc, g, "testBackground.png");
-		context.background(gc, g, "testTitle.png");
+		context.title(gc, g, "testTitle.png");
 		
 		for (Button button : buttons) {
 			button.display();
 		}
 		
-		g.setColor(Color.orange);
-		String playerScore = new String(Float.toString(score));
+		context.setImage(gc, g, "score.png",  halfHeight, halfWidth - 200, 200f,85f);
+	    g.setColor(Color.black);
+		String playerScore = new String(Integer.toString((int)score));
+		g.drawString(playerScore, halfWidth + 40, halfHeight - 68);
 		
 		
 		showPlayerScore(gc, g, playerScore);
