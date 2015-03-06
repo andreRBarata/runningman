@@ -26,7 +26,7 @@ class Player extends Droppable {
 			context,
 			new Vector2f(
 				context.getGc().getWidth()/2,
-				0
+				context.getGc().getHeight()/3
 			),
 			new Polygon(
 				//new float[] {-30,-30,30,-30,30,30,-30,30}
@@ -63,7 +63,7 @@ class Player extends Droppable {
 		
 		Polygon leftbound = new Polygon(
 			new float[] {
-					localized.getMinX() + this.getSpeed().x,
+					localized.getMinX(),
 					localized.getCenterY(),
 					localized.getCenterX(),
 					localized.getCenterY()
@@ -71,7 +71,7 @@ class Player extends Droppable {
 		);
 		Polygon rightbound = new Polygon(
 			new float[] {
-					localized.getMaxX() + this.getSpeed().x,
+					localized.getMaxX(),
 					localized.getCenterY(),
 					localized.getCenterX(),
 					localized.getCenterY()
@@ -80,7 +80,7 @@ class Player extends Droppable {
 		Polygon bottombound = new Polygon(
 			new float[] {
 					localized.getCenterX(),
-					localized.getMaxY() + this.getSpeed().y,
+					localized.getMaxY(),
 					localized.getCenterX(),
 					localized.getCenterY()
 			}
