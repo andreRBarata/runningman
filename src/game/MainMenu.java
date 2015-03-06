@@ -237,20 +237,6 @@ public class MainMenu extends BasicGameState {
 
 	}
 
-	public void drawImage(GameContainer gc, org.newdawn.slick.Graphics g,
-			float x, final String url) throws SlickException {
-
-		Image img = new Image("/src/Images/" + url);
-		// MainMenu.class.getResourceAsStream("/Samples/" + url);
-		float imgWidth = img.getWidth();
-		float imgHeight = img.getHeight();
-		float scaleWidth = imgWidth * scale + 20;
-		float scaleHeight = imgHeight * scale;
-
-		img.draw((width / 2) - (scaleWidth / 2), (scaleHeight / 2) * x,
-				scaleWidth, scaleHeight);
-	}
-
 	@Override
 	public void render(GameContainer gc, StateBasedGame game,
 			org.newdawn.slick.Graphics g) throws SlickException {

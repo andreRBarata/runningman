@@ -110,10 +110,6 @@ public class Button extends Drawable {
 			float x, Image img) {
 
 		img.draw(getPosition().x, getPosition().y, scaleWidth, scaleHeight);
-		// get width and height of the image and multiply it by the scale,
-		// scale
-		// should be a global variable and should effect everything
-		// Image = new Image("image.png", false, Image.FILTER_NEAREST);
 	}
 
 	public void display() {
