@@ -44,7 +44,7 @@ public class Droppable extends Drawable {
 		bottombound = new Polygon(
 			new float[] {
 					localized.getCenterX(),
-					localized.getMaxY() + this.getSpeed().y,
+					localized.getMaxY() + Math.abs(this.getSpeed().y),
 					localized.getCenterX(),
 					localized.getCenterY()
 			}

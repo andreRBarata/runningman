@@ -147,12 +147,21 @@ public class MainGame extends BasicGameState {
 		g.setColor(Color.black);
 		
 		g.drawString(
+				"Score",
+				gc.getWidth()/2 - g.getFont().getWidth(
+					"Score"
+				)/2,
+				g.getFont().getLineHeight()
+			);
+		
+		g.drawString(
 			Integer.toString((int)gameTimer/1000),
 			gc.getWidth()/2 - g.getFont().getWidth(
 				Integer.toString((int)gameTimer/1000)
 			)/2,
-			g.getFont().getLineHeight()
+			g.getFont().getLineHeight() + 15
 		);
+		
 		
 		g.setColor(new Color(255, 140, 0));
 		
