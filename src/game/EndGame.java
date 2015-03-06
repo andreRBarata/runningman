@@ -105,11 +105,8 @@ public class EndGame extends BasicGameState {
 		//if(hi)  {
 			askName(gc, g);
 			
-	    context.setImage(gc, g, "back.png", 200f,200f,50f,50f);
-			
-		//}
-		
-		//showScores();
+	    context.setImage(gc, g, "score.png",  halfHeight, halfWidth - 200, 200f,85f);
+
 	}
 	
 	
@@ -118,7 +115,7 @@ public class EndGame extends BasicGameState {
 	}
 	
 	public void showPlayerScore(GameContainer gc, Graphics g, String playerScore)  {
-		g.drawString(playerScore, 120, 120);
+		g.drawString(playerScore, halfWidth + 50, halfHeight - 100);
 	}
 	
 	public void askName(GameContainer gc, Graphics g)  {
