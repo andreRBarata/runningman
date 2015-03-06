@@ -88,10 +88,10 @@ public class Context {
 		}
 		
 		mapPath.add(
-			new Vector2f(map.getMaxX(), map.getMinY() - random)
+			new Vector2f(map.getMaxX() + 7, map.getMinY() - random)
 		);
 		mapPath.add(
-			new Vector2f(map.getMaxX() + this.chunkSize, map.getMinY() - random)
+			new Vector2f(map.getMaxX() + this.chunkSize - 7, map.getMinY() - random)
 		);
 		
 		map = new Polygon();
