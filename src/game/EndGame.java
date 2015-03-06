@@ -24,6 +24,8 @@ public class EndGame extends BasicGameState {
 	private float score;
 	public float centX;
 	public float centY;
+	float halfWidth;
+	float halfHeight; 
 	int location = 0;
 	private String playerName = new String("AAA");
 	
@@ -58,6 +60,9 @@ public class EndGame extends BasicGameState {
 		
 		centX = gc.getWidth()/2;
 		centY = gc.getHeight()/2;
+		
+		halfHeight = gc.getHeight() /2 ;
+		halfWidth = gc.getWidth() /2 ;
 	}
 
 	@Override
@@ -94,11 +99,13 @@ public class EndGame extends BasicGameState {
 		//how can i run specific functions, here not just always the one
 		g.setColor(Color.orange);
 		String playerScore = new String(Float.toString(score));
-		g.drawString(playerScore, 120, 120);
+		g.drawString(playerScore, halfWidth, halfHeight);
 		
 		showPlayerScore(gc, g, playerScore);
 		//if(hi)  {
 			askName(gc, g);
+			
+	    context.setImage(gc, g, "back.png", 200f,200f,50f,50f);
 			
 		//}
 		
