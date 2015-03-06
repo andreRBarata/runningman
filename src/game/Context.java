@@ -98,7 +98,7 @@ public class Context {
 		
 		map.addPoint(
 			0,
-			gc.getHeight()
+			gc.getHeight()*2
 		);
 		
 		for (int i = 0; i < mapPath.size(); i++) {
@@ -110,7 +110,7 @@ public class Context {
 		
 		map.addPoint(
 			map.getMaxX(),
-			gc.getHeight()
+			gc.getHeight()*2
 		);
 	}
 	
