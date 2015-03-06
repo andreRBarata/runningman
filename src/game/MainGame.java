@@ -147,12 +147,21 @@ public class MainGame extends BasicGameState {
 		g.setColor(Color.black);
 		
 		g.drawString(
+				"Score",
+				gc.getWidth()/2 - g.getFont().getWidth(
+					"Score"
+				)/2,
+				g.getFont().getLineHeight() - 15
+			);
+		
+		g.drawString(
 			Integer.toString((int)gameTimer/1000),
 			gc.getWidth()/2 - g.getFont().getWidth(
 				Integer.toString((int)gameTimer/1000)
 			)/2,
-			g.getFont().getLineHeight()
+			g.getFont().getLineHeight() + 7
 		);
+		
 		
 		g.setColor(new Color(255, 140, 0));
 		
@@ -165,11 +174,22 @@ public class MainGame extends BasicGameState {
 				((Droppable) drawable).update();
 			}
 		}
-			
-			
-
 	}
 
+	public void keyPressed(int key, char c) {
+		if (player.getKeyBinds().get("jump") == key) {
+			player.jump();
+		}
+	}
+	
+	public void keyReleased(int key, char c) {
+		keyPressed(key, c);
+		
+		if (key == Keyboard.KEY_P) {
+			context.getGc().setPaused(!context.getGc().isPaused());
+		}
+	}
+	
 	public boolean isPlayerDead(){
 		
 		if (player.getPosition().x < 0) {

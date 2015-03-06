@@ -1,22 +1,11 @@
 package game;
 
-import java.awt.Font;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.swing.text.Position;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.util.FontUtils;
 
 /*
  Button button = new Button(

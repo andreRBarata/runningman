@@ -1,12 +1,8 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
-import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -26,8 +22,8 @@ public class EndGame extends BasicGameState {
 	public float centY;
 	float halfWidth;
 	float halfHeight; 
-	int location = 0;
-	private String playerName = new String("AAA");
+	int index = 0;
+	private char[] playerName = {'A','A','A'};
 	
 	Leaderboards l = new Leaderboards();
 	
@@ -52,8 +48,13 @@ public class EndGame extends BasicGameState {
 		backBtn.onClick(() -> {
 			Audio.playSound("testSample.wav");
 			
+			if(hi)  {
+				submit();
+			}
+			
 			game.enterState(0, new FadeOutTransition(Color.black),
 					new FadeInTransition(Color.black));
+			
 		});
 		
 		buttons.add(backBtn);
@@ -89,6 +90,8 @@ public class EndGame extends BasicGameState {
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
+		
+		
 		context.background(gc, g, "testBackground.png");
 		context.background(gc, g, "testTitle.png");
 		
@@ -96,45 +99,76 @@ public class EndGame extends BasicGameState {
 			button.display();
 		}
 		
-		//how can i run specific functions, here not just always the one
 		g.setColor(Color.orange);
 		String playerScore = new String(Float.toString(score));
-		g.drawString(playerScore, halfWidth, halfHeight);
+		
 		
 		showPlayerScore(gc, g, playerScore);
-		//if(hi)  {
+		
+		if(hi)  {
 			askName(gc, g);
-			
-	    context.setImage(gc, g, "back.png", 200f,200f,50f,50f);
-			
-		//}
+		}
+		Leaderboards.showScores(gc, g);
 		
-		//showScores();
+	    //context.setImage(gc, g, "back.png", 200f,200f,50f,50f);
 	}
+
 	
 	
-	public void showScores()  {
-		
-	}
 	
 	public void showPlayerScore(GameContainer gc, Graphics g, String playerScore)  {
-		g.drawString(playerScore, 120, 120);
+		
+		g.drawString(playerScore, centX, centY);
+		
 	}
 	
 	public void askName(GameContainer gc, Graphics g)  {
 		
-		
-		g.drawString(playerName, centX, centY-20);
+		for(int i=0; i<playerName.length; i++)  {
+			String c = Character.toString(playerName[i]);
+			g.drawString(c, centX+10*i, centY+20);
+		}
 		
 		
 	}
 	
 	public void keyPressed(int key, char c)  {
+		//String newName = 
+		
+		
+		char temp = playerName[index];
+		
+		temp = checkWhiteSpace(c, temp);
+	
+		playerName[index]=temp;
+		index = (index+1) % playerName.length;
 		
 		//203 LEFT
 		//205 RIGHT
 		//200 UP
 		//208 DOWN
+	}
+	
+	public void submit()  {
+		Leaderboards s = new Leaderboards();
+		
+		s.getScores();
+		String m = "";
+		for(int i=0; i<playerName.length; i++)  {
+			m = m + playerName[i];
+		}
+		
+		s.updateScore(score, m);
+	}
+	
+	public char checkWhiteSpace(char c, char temp)  {
+	
+		if(c >= 'a' && c <= 'Z')  {
+			return temp;
+		}
+		
+		
+		return c;
 	}
 	
 	

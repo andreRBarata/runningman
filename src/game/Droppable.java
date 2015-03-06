@@ -7,7 +7,10 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 public class Droppable extends Drawable {
-	private Vector2f speed;
+	protected Vector2f speed;
+	protected Polygon leftbound;
+	protected Polygon rightbound;
+	protected Polygon bottombound;
 	
 	public Droppable(Context context, Vector2f position, Shape sprite) {
 		super(context, position, sprite);
@@ -22,7 +25,7 @@ public class Droppable extends Drawable {
 		Shape localized = new MorphShape(super.getSprite());
 		localized.setLocation(nextposition);
 		
-		Polygon leftbound = new Polygon(
+		leftbound = new Polygon(
 			new float[] {
 					localized.getMinX() + this.getSpeed().x,
 					localized.getCenterY(),
@@ -30,7 +33,7 @@ public class Droppable extends Drawable {
 					localized.getCenterY()
 			}
 		);
-		Polygon rightbound = new Polygon(
+		rightbound = new Polygon(
 			new float[] {
 					localized.getMaxX() + this.getSpeed().x,
 					localized.getCenterY(),
@@ -38,10 +41,10 @@ public class Droppable extends Drawable {
 					localized.getCenterY()
 			}
 		);
-		Polygon bottombound = new Polygon(
+		bottombound = new Polygon(
 			new float[] {
 					localized.getCenterX(),
-					localized.getMaxY() + this.getSpeed().y,
+					localized.getMaxY() + Math.abs(this.getSpeed().y),
 					localized.getCenterX(),
 					localized.getCenterY()
 			}
@@ -77,7 +80,7 @@ public class Droppable extends Drawable {
 		}
 		
 		if (context.getMap().intersects(localized)) {
-			speed.y = -speed.y/2;
+			speed.y = -speed.y/3;
 		}
 		else {
 			speed.add(new Vector2f(0.0f,context.gravity));

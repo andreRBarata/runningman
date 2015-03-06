@@ -23,13 +23,14 @@ public class MainGameApplication extends StateBasedGame {
  int screenWidth = gd.getDisplayMode().getWidth();
  int screenHeight = gd.getDisplayMode().getHeight();*/
 		
-//		Audio.playSound("testMusic.wav");
+		Audio.playSound("testMusic.wav");
+		
 		try {
 			appgc = new AppGameContainer(
 					new MainGameApplication("Turtle Dash"));
 			appgc.setDisplayMode(800, 600, false);
 			appgc.setFullscreen(false);
-			// appgc.setShowFPS(false);
+			appgc.setShowFPS(false);
 			appgc.start();
 		} catch (SlickException ex) {
 			Logger.getLogger(MainGame.class.getName()).log(Level.SEVERE, null,

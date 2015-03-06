@@ -26,7 +26,7 @@ class Player extends Droppable {
 			context,
 			new Vector2f(
 				context.getGc().getWidth()/2,
-				0
+				context.getGc().getHeight()/3
 			),
 			new Polygon(
 				//new float[] {-30,-30,30,-30,30,30,-30,30}
@@ -63,7 +63,7 @@ class Player extends Droppable {
 		
 		Polygon leftbound = new Polygon(
 			new float[] {
-					localized.getMinX() + this.getSpeed().x,
+					localized.getMinX(),
 					localized.getCenterY(),
 					localized.getCenterX(),
 					localized.getCenterY()
@@ -71,16 +71,16 @@ class Player extends Droppable {
 		);
 		Polygon rightbound = new Polygon(
 			new float[] {
-					localized.getMaxX() + this.getSpeed().x,
+					localized.getMaxX(),
 					localized.getCenterY(),
 					localized.getCenterX(),
 					localized.getCenterY()
 			}
 		);
-		Polygon bottombound = new Polygon(
+		bottombound = new Polygon(
 			new float[] {
 					localized.getCenterX(),
-					localized.getMaxY() + this.getSpeed().y,
+					localized.getMaxY(),
 					localized.getCenterX(),
 					localized.getCenterY()
 			}
@@ -108,21 +108,7 @@ class Player extends Droppable {
 			}
 		}
 		
-		if (context.getMap().intersects(bottombound)) {
-			if (Keyboard.isKeyDown(keyBinds.get("jump"))) {
-				if (this.getSpeed().y <= 0) {
-					Audio.playSound("jump.wav");
-					this.setPosition(
-						this.getPosition().add(
-							new Vector2f(0,-5)
-						)
-					);
-					this.setSpeed(
-						new Vector2f(this.getSpeed().x, context.playerJump)
-					);
-				}
-			}
-		}	
+			
 		
 		if (this.getPosition().x > context.getGc().getWidth()/2) {
 			if (this.getSpeed().x > 0) {
@@ -136,6 +122,20 @@ class Player extends Droppable {
 		}
 		
 		super.update();
+	}
+	
+	public void jump() {
+		if (context.getMap().intersects(bottombound)) {
+			Audio.playSound("jump.wav");
+			this.setPosition(
+				this.getPosition().add(
+					new Vector2f(0,-5)
+				)
+			);
+			this.setSpeed(
+				new Vector2f(this.getSpeed().x, context.playerJump)
+			);
+		}
 	}
 	
 	public void display() {
@@ -157,5 +157,9 @@ class Player extends Droppable {
 		context.getG().popTransform();
 		
 		timer = ((timer + 1) % 30);
+	}
+
+	public TreeMap<String, Integer> getKeyBinds() {
+		return keyBinds;
 	}
 }

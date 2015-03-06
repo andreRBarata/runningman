@@ -88,10 +88,10 @@ public class Context {
 		}
 		
 		mapPath.add(
-			new Vector2f(map.getMaxX(), map.getMinY() - random)
+			new Vector2f(map.getMaxX() + 7, map.getMinY() - random)
 		);
 		mapPath.add(
-			new Vector2f(map.getMaxX() + this.chunkSize, map.getMinY() - random)
+			new Vector2f(map.getMaxX() + this.chunkSize - 7, map.getMinY() - random)
 		);
 		
 		map = new Polygon();
@@ -134,7 +134,7 @@ public class Context {
 		img.draw(x, y, h, w);
 	}
 	
-	public void background(GameContainer gc, org.newdawn.slick.Graphics g,
+	public void title(GameContainer gc, org.newdawn.slick.Graphics g,
 			final String url) throws SlickException {
 
 		Image img = new Image("/src/Tiles/" + url);
@@ -146,5 +146,19 @@ public class Context {
 		float scaleHeight = imgHeight * scale;
 
 		img.draw(0, 0, scaleWidth * 3, scaleHeight * 3);
+	}
+	
+	public void background(GameContainer gc, org.newdawn.slick.Graphics g,
+			final String url) throws SlickException {
+
+		Image img = new Image("/src/Tiles/" + url);
+
+		// MainMenu.class.getResourceAsStream("/Samples/" + url);
+		float imgWidth = img.getWidth();
+		float imgHeight = img.getHeight();
+		float scaleWidth = imgWidth * scale + 20;
+		float scaleHeight = imgHeight * scale;
+
+		img.draw(0, 0, scaleWidth * 1.8f, scaleHeight * 2.7f);
 	}
 }

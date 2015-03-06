@@ -2,6 +2,9 @@ package game;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+
 public class Leaderboards {
 	
 	private ArrayList<String> data = new ArrayList<String>();
@@ -26,16 +29,21 @@ public class Leaderboards {
 	
 	public void getScores()  {
 		
-		ReadFile r = new ReadFile("/Data/leaders.txt");
+		ReadFile r = new ReadFile("Data/leaders.txt");
 		
 		r.open();
-		data = r.read();
+		
+		r.read();
 		r.close();
+		
+		for(int i=0; i<r.getDataSize(); i++)  {
+			data.add(r.getData(i));
+		}
 	}
 	
 	public int beatScore(float curScore)  {
 		try  {
-			int i=2;//2 because this is where the HiScores start
+			int i=3;//2 because this is where the HiScores start
 			while(i<data.size())  {
 				
 				float hiScore = Float.parseFloat(data.get(i));
@@ -54,16 +62,20 @@ public class Leaderboards {
 		}
 	}
 	public void updateScore(float curScore, String name)  {
-		int i = beatScore(curScore);
+		int i = beatScore(curScore)+1-2;
 		
 		if(i>1)  {
 			String scurScore = Float.toString(curScore);
+			for(int j=i; j<getDataSize()-2; j++)  {
+				data.set(j+2, data.get(j));
+			}
+			
 			setData(i, name);
 			i++;
 			setData(i, scurScore);
 			
 			try {
-				WriteFile w = new WriteFile("/Data/leaders.txt");
+				WriteFile w = new WriteFile("Data/leaders.txt");
 				
 				w.open();
 				w.write(data);
@@ -72,6 +84,17 @@ public class Leaderboards {
 			catch(Exception e)  {
 				System.out.println("Could not write to leaders.txt");
 			}
+		}
+	}
+	
+	public static void showScores(GameContainer gc, Graphics g)  {
+		Leaderboards s = new Leaderboards();
+		s.getScores();
+		for(int i=2; i<s.getDataSize(); i+=2)  {
+			g.drawString(s.getData(i), 10, 20+20*i);
+		}
+		for(int i=3; i<s.getDataSize(); i+=2)  {
+			g.drawString(s.getData(i), 20, 20+20*i);
 		}
 	}
 	
