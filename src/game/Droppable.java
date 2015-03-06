@@ -80,7 +80,7 @@ public class Droppable extends Drawable {
 		}
 		
 		if (context.getMap().intersects(localized)) {
-			speed.y = -speed.y/2;
+			speed.y = -speed.y/3;
 		}
 		else {
 			speed.add(new Vector2f(0.0f,context.gravity));

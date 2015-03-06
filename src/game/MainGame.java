@@ -184,6 +184,10 @@ public class MainGame extends BasicGameState {
 	
 	public void keyReleased(int key, char c) {
 		keyPressed(key, c);
+		
+		if (key == Keyboard.KEY_P) {
+			context.getGc().setPaused(!context.getGc().isPaused());
+		}
 	}
 	
 	public boolean isPlayerDead(){
