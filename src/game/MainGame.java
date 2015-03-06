@@ -151,7 +151,7 @@ public class MainGame extends BasicGameState {
 				gc.getWidth()/2 - g.getFont().getWidth(
 					"Score"
 				)/2,
-				g.getFont().getLineHeight()
+				g.getFont().getLineHeight() - 15
 			);
 		
 		g.drawString(
@@ -159,7 +159,7 @@ public class MainGame extends BasicGameState {
 			gc.getWidth()/2 - g.getFont().getWidth(
 				Integer.toString((int)gameTimer/1000)
 			)/2,
-			g.getFont().getLineHeight() + 15
+			g.getFont().getLineHeight() + 7
 		);
 		
 		
