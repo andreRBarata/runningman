@@ -156,7 +156,7 @@ public class MainMenu extends BasicGameState {
 		});
 		
 		
-		Button audioBarBtn = new Button(context,
+		/*Button audioBarBtn = new Button(context,
 				new Vector2f(width / 2 - 75, 550f), Context.getImage("audioBar.png"),
 				Context.getImage("audioBar.png"));
 		audioBarBtn.onClick(() -> {
@@ -186,6 +186,19 @@ public class MainMenu extends BasicGameState {
 			//Context.fullScreen = true;
 			System.out.println("true");
 		});
+		*/
+		
+		Button closeBtn = new Button(context, new Vector2f(width / 2 + 340,
+				20f), Context.getImage("Exit.png"),
+				Context.getImage("highExit.png"));
+		closeBtn.onClick(() -> {
+			context.getGc().exit();
+			Audio.playSound("testSample.wav");
+			//Context.fullScreen = true;
+			System.out.println("true");
+		});
+		
+		
 		
 
 		// populate arraylist
@@ -194,14 +207,16 @@ public class MainMenu extends BasicGameState {
 		mainButtons.add(scoresBtn);
 		mainButtons.add(optionsBtn);
 		mainButtons.add(instructionsBtn);
+		mainButtons.add(closeBtn);
 
-		optionsButtons.add(audioBtn);
+	//	optionsButtons.add(audioBtn);
 		optionsButtons.add(screenBtn);
 		optionsButtons.add(optionsBackBtn);
+		optionsButtons.add(closeBtn);
 
-		audioButtons.add(audioBackBtn);
+	/*	audioButtons.add(audioBackBtn);
 		audioButtons.add(audioPlusBtn);
-		audioButtons.add(audioMinusBtn);
+		audioButtons.add(audioMinusBtn);*/
 	//	audioButtons.add(audioBarBtn);
 	}
 
@@ -245,7 +260,7 @@ public class MainMenu extends BasicGameState {
 		g.setBackground(Color.black);
 
 		context.background(gc, g, "testBackground.png");
-		context.background(gc, g, "testTitle.png");
+		context.title(gc, g, "testTitle.png");
 
 		for (Button button : currentButtons) {
 			button.display();
