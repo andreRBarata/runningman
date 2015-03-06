@@ -36,7 +36,7 @@ public class MainGame extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame game) throws SlickException {
 		context = new Context(gc, gc.getGraphics(), new Polygon(new float[] {
-				0, gc.getHeight() / 1.25f, 0, gc.getHeight() }));
+				0, gc.getHeight() / 1.5f, 0, gc.getHeight() }));
 		
 		
 		
