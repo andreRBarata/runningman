@@ -17,9 +17,7 @@ public class Droppable extends Drawable {
 
 	public void update() {
 		Vector2f nextposition = new Vector2f(
-			this.getPosition().add(
-				this.getSpeed()
-			)
+			this.getPosition()
 		);
 		Shape localized = new MorphShape(super.getSprite());
 		localized.setLocation(nextposition);
@@ -85,6 +83,10 @@ public class Droppable extends Drawable {
 			speed.add(new Vector2f(0.0f,context.gravity));
 		}
 		
+		nextposition = this.getPosition().add(
+			this.getSpeed()
+		);
+		 
 		this.setPosition(
 			nextposition
 		);
