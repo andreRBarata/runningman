@@ -165,11 +165,18 @@ public class MainGame extends BasicGameState {
 				((Droppable) drawable).update();
 			}
 		}
-			
-			
-
 	}
 
+	public void keyPressed(int key, char c) {
+		if (player.getKeyBinds().get("jump") == key) {
+			player.jump();
+		}
+	}
+	
+	public void keyReleased(int key, char c) {
+		keyPressed(key, c);
+	}
+	
 	public boolean isPlayerDead(){
 		
 		if (player.getPosition().x < 0) {
