@@ -42,7 +42,7 @@ public class EndGame extends BasicGameState {
 		buttons = new ArrayList<Button>();
 		
 		Button backBtn = new Button(context,
-				new Vector2f(gc.getWidth() / 2 - 75, 350f), Context.getImage("back.png"),
+				new Vector2f(gc.getWidth() / 2 - 75, 450f), Context.getImage("back.png"),
 				Context.getImage("highBack.png"));
 		
 		backBtn.onClick(() -> {
@@ -100,23 +100,20 @@ public class EndGame extends BasicGameState {
 		}
 		
 		context.setImage(gc, g, "score.png",  halfHeight, halfWidth - 200, 200f,85f);
+		context.setImage(gc, g, "image.png",  halfHeight, halfWidth - 200, 300f,85f);
 	    g.setColor(Color.black);
 		String playerScore = new String(Integer.toString((int)score));
 		g.drawString(playerScore, halfWidth + 40, halfHeight - 68);
 		
-		
-		showPlayerScore(gc, g, playerScore);
+		//showPlayerScore(gc, g, playerScore);
 		
 		if(hi)  {
 			askName(gc, g);
 		}
-		Leaderboards.showScores(gc, g);
+		//Leaderboards.showScores(gc, g);
 		
 	    //context.setImage(gc, g, "back.png", 200f,200f,50f,50f);
 	}
-
-	
-	
 	
 	public void showPlayerScore(GameContainer gc, Graphics g, String playerScore)  {
 		

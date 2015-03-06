@@ -109,9 +109,9 @@ public class Button extends Drawable {
 			drawImage(context.getGc(), context.getG(), 4, hoverImg);
 
 		if (!clicked) {
-			context.getG().setColor(new Color(255));
+			//context.getG().setColor(new Color(255));
 		} else {
-			context.getG().setColor(new Color(20, 20, 200));
+		//	context.getG().setColor(new Color(20, 20, 200));
 		}
 
 		/*

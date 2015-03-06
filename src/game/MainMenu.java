@@ -1,13 +1,10 @@
 package game;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Vector2f;
@@ -28,6 +25,7 @@ public class MainMenu extends BasicGameState {
 	ArrayList<Button> optionsButtons = new ArrayList<Button>();
 	ArrayList<Button> currentButtons = new ArrayList<Button>();
 	ArrayList<Button> audioButtons = new ArrayList<Button>();
+	ArrayList<Button> scoreButtons = new ArrayList<Button>();
 	TrueTypeFont font;
 
 	// void resize(500,500);
@@ -35,6 +33,7 @@ public class MainMenu extends BasicGameState {
 	boolean options = false;
 	boolean audioMenu = false;
 	boolean instructions = false;
+	boolean scores = false;
 	StateBasedGame game;
 
 	@Override
@@ -93,6 +92,21 @@ public class MainMenu extends BasicGameState {
 
 		});
 		
+		Button scoreBackBtn = new Button(context,
+				new Vector2f(width / 2 - 75, 450f), Context.getImage("back.png"),
+				Context.getImage("highBack.png"));
+		scoreBackBtn.onClick(() -> {
+			options = false;
+			mainMenu = true;
+			scores = false;
+			Audio.playSound("testSample.wav");
+			
+				currentButtons = mainButtons;
+			
+			// buttons.add(startBtn);
+
+		});
+		
 		Button audioBackBtn = new Button(context,
 				new Vector2f(width / 2 - 75, 350f), Context.getImage("back.png"),
 				Context.getImage("highBack.png"));
@@ -122,10 +136,13 @@ public class MainMenu extends BasicGameState {
 				250f), Context.getImage("highScores.png"),
 				Context.getImage("highHighScores.png"));
 		scoresBtn.onClick(() -> {
-			options = true;
+			options = false;
 			mainMenu = false;
+			scores = true;
+			
+			currentButtons = scoreButtons;
+			Leaderboards.showScores(gc, context.getG());
 			Audio.playSound("testSample.wav");
-			System.out.println("test");
 		});
 
 		Button optionsBtn = new Button(context, new Vector2f(width / 2 - 75,
@@ -198,9 +215,6 @@ public class MainMenu extends BasicGameState {
 			System.out.println("true");
 		});
 		
-		
-		
-
 		// populate arraylist
 
 		mainButtons.add(startBtn);
@@ -213,6 +227,8 @@ public class MainMenu extends BasicGameState {
 		optionsButtons.add(screenBtn);
 		optionsButtons.add(optionsBackBtn);
 		optionsButtons.add(closeBtn);
+		
+		scoreButtons.add(scoreBackBtn);
 
 	/*	audioButtons.add(audioBackBtn);
 		audioButtons.add(audioPlusBtn);
@@ -264,6 +280,11 @@ public class MainMenu extends BasicGameState {
 
 		for (Button button : currentButtons) {
 			button.display();
+		}
+		
+		if(scores)
+		{
+			Leaderboards.showScores(gc, context.getG());
 		}
 
 	}
