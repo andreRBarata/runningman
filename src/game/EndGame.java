@@ -1,7 +1,12 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
+import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -13,16 +18,16 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class EndGame extends BasicGameState {
-	//this is setting up variables
-	private boolean hi = false; //to dictate if the user has  ahi score
-	private Context context; //something
-	private float score; //the score the user got
-	public float centX;  //centre Width
-	public float centY;  //centre Height
-	private String playerName = new String("AAA");  //The players name
-	
-	
-	ArrayList<Button> buttons = new ArrayList<Button>();//button array lists
+	private ArrayList<Button> buttons;
+	private boolean hi = false;
+	private Context context;
+	private float score;
+	public float centX;
+	public float centY;
+	float halfWidth;
+	float halfHeight; 
+	int location = 0;
+	private String playerName = new String("AAA");
 	
 	Leaderboards l = new Leaderboards();
 	
@@ -31,88 +36,38 @@ public class EndGame extends BasicGameState {
 		
 		if(l.beatScore(score) != -1)  {
 			hi = true;
-			System.out.println("Hi Score was beat");
 		}
 		this.score = score;
-		
-		
 	}
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame game) throws SlickException {
 		context = new Context(gc, gc.getGraphics());
-		//buttons2 = new ArrayList<Button>();
+		buttons = new ArrayList<Button>();
 		
-		Button startBtn = new Button(context,
-				new Vector2f(gc.getWidth() / 2 - 75, 150f), Context.getImage("start.png"),
-				Context.getImage("highStart.png"));
+		Button backBtn = new Button(context,
+				new Vector2f(gc.getWidth() / 2 - 75, 350f), Context.getImage("back.png"),
+				Context.getImage("highBack.png"));
 		
-		startBtn.onClick(() -> {
+		backBtn.onClick(() -> {
 			Audio.playSound("testSample.wav");
+			
 			game.enterState(0, new FadeOutTransition(Color.black),
 					new FadeInTransition(Color.black));
 		});
 		
-		//buttons.add(startBtn);
+		buttons.add(backBtn);
 		
 		centX = gc.getWidth()/2;
 		centY = gc.getHeight()/2;
 		
-		
-		
-		
-		
-		
-		try  {
-			Vector2f position = new Vector2f();
-			//CallBack c = null;
-			
-			String imgUp = "triUp.png";
-			String imgUp2 = "triUp.png";
-			String imgDown = "triDown.png";
-			String imgDown2 = "triDown2.png";
-			
-			position.set(centX+10, centY-50);
-			buttons.add(new Button(context, position, Context.getImage(imgUp), Context.getImage(imgUp2)));
-			position.set(centX+15, centY-50);
-			buttons.add(new Button(context, position, Context.getImage(imgUp), Context.getImage(imgUp2)));
-			position.set(centX+20, centY-50);
-			buttons.add(new Button(context, position, Context.getImage(imgUp), Context.getImage(imgUp2)));
-			
-			position.set(centX+10, centY+50);
-			buttons.add(new Button(context, position, Context.getImage(imgDown), Context.getImage(imgDown2)));
-			position.set(centX+15, centY+50);
-			buttons.add(new Button(context, position, Context.getImage(imgDown), Context.getImage(imgDown2)));
-			position.set(centX+20, centY+50);
-			buttons.add(new Button(context, position, Context.getImage(imgDown), Context.getImage(imgDown2)));
-			
-		}
-		catch(Exception e)  {
-			System.out.println("Unable to load image");
-		}
+		halfHeight = gc.getHeight() /2 ;
+		halfWidth = gc.getWidth() /2 ;
 	}
-		
-		/*for(int j=1; j<=3; j++)  {
-			position.x = centX/2 + 10*j;
-			position.y = centY/2-30;
-			
-			
-			buttons.add(new Button(context, position, "", c));
-		}
-		for(int k=4; k<=6;k++)  {
-			position.x = centX/2;
-			position.y = centY/2+30;
-			
-			buttons.add(new Button(context, position, "", c));
-		}
-		
-		
-		
-	}
-	*/
+
 	@Override
 	public void update(GameContainer gc, StateBasedGame game, int i) throws SlickException {
-		/*for (Button button : buttons) {
+		for (Button button : buttons) {
 
 			if (button.containsPoint(Mouse.getX(), gc.getHeight() - Mouse.getY())) {
 				button.SetMouseOver(true);
@@ -129,82 +84,52 @@ public class EndGame extends BasicGameState {
 				button.SetMouseOver(false);
 				button.setClicked(false);
 			}
-		}*/
+		}
 	}
 
 	@Override
-	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {	
+	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
+		context.background(gc, g, "testBackground.png");
+		context.background(gc, g, "testTitle.png");
+		
+		for (Button button : buttons) {
+			button.display();
+		}
+		
+		//how can i run specific functions, here not just always the one
 		g.setColor(Color.orange);
-		g.setBackground(Color.white);
 		String playerScore = new String(Float.toString(score));
+		g.drawString(playerScore, halfWidth, halfHeight);
 		
 		showPlayerScore(gc, g, playerScore);
-		if(hi)  {
-			askName(gc,g);
-		}
+		//if(hi)  {
+			askName(gc, g);
+			
+	    context.setImage(gc, g, "back.png", 200f,200f,50f,50f);
+			
+		//}
 		
-		
-		showHiScores(gc, g);
+		//showScores();
 	}
 	
-	public void showHiScores(GameContainer gc, Graphics g)  {
-		Leaderboards read = new Leaderboards();
-		read.getScores();
+	
+	public void showScores()  {
 		
-		for(int i=2; i<read.getDataSize(); i++)  {
-		//System.out.println(read.getData(i));	
-			
-			if(i%2 == 0)  {
-				g.drawString(read.getData(i), 10, 10+30*i-2);
-			}
-			else  {
-				g.drawString(read.getData(i), 50, 10+30*(i-2));
-			}
-		}
 	}
 	
 	public void showPlayerScore(GameContainer gc, Graphics g, String playerScore)  {
-		g.drawString(playerScore, centX, centY / 3);
+		g.drawString(playerScore, 120, 120);
 	}
 	
 	public void askName(GameContainer gc, Graphics g)  {
 		
-		//g.setFont(font);
 		
-		
-		
-		for(int i=0; i<buttons.size(); i++)  {
-			buttons.get(i).display();
-			//System.out.println(buttons.get(i).getPosition());
-		}
-		buttons.get(1).display();
-		buttons.get(2).display();
-		//buttons.get(3).display();
-				//buttons.get(4).display();
-				//buttons.get(5).display();
-		
-		
-		
-		g.setColor(Color.orange);
 		g.drawString(playerName, centX, centY-20);
 		
 		
 	}
 	
-	/*
-	 * triU = new Arrow(centX, centY-40);
-		triD = new Arrow(centX, centY);
-		float[] fU = {triU.getX(), triU.getY(), triU.getW()/2+triU.getX(), triU.getH()/2-triU.getY(),triU.getW()/2-triU.getX(), triU.getH()/2-triU.getY()};
-		float[] fD = {triD.getX(), triD.getY(), triD.getW()/2+triD.getX(), triD.getH()/2+triD.getY(),triU.getW()/2-triU.getX(), triU.getH()/2-triU.getY()};
-		
-		
-	 * 
-	 * 
-	 */
-	
 	public void keyPressed(int key, char c)  {
-		
-		
 		
 		//203 LEFT
 		//205 RIGHT
@@ -238,7 +163,6 @@ public class EndGame extends BasicGameState {
 	public int getID() {
 		// TODO Auto-generated method stub
 		return 2;
-	}	
+	}
+	
 }
-
-

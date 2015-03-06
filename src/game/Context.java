@@ -126,6 +126,14 @@ public class Context {
 		}
 	}
 	
+	public void setImage(GameContainer gc, org.newdawn.slick.Graphics g,
+			final String url, float x, float y, float h, float w) throws SlickException {
+
+		Image img = new Image("/src/Images/" + url);
+
+		img.draw(x, y, h, w);
+	}
+	
 	public void background(GameContainer gc, org.newdawn.slick.Graphics g,
 			final String url) throws SlickException {
 

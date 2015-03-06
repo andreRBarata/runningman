@@ -26,21 +26,16 @@ public class Leaderboards {
 	
 	public void getScores()  {
 		
-		ReadFile r = new ReadFile("Data/leaders.txt");
+		ReadFile r = new ReadFile("/Data/leaders.txt");
 		
 		r.open();
-		
-		r.read();
+		data = r.read();
 		r.close();
-		
-		for(int i=0; i<r.getDataSize(); i++)  {
-			data.add(r.getData(i));
-		}
 	}
 	
 	public int beatScore(float curScore)  {
 		try  {
-			int i=3;//2 because this is where the HiScores start
+			int i=2;//2 because this is where the HiScores start
 			while(i<data.size())  {
 				
 				float hiScore = Float.parseFloat(data.get(i));
@@ -68,7 +63,7 @@ public class Leaderboards {
 			setData(i, scurScore);
 			
 			try {
-				WriteFile w = new WriteFile("leaders.txt");
+				WriteFile w = new WriteFile("/Data/leaders.txt");
 				
 				w.open();
 				w.write(data);
