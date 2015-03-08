@@ -95,7 +95,7 @@ public class EndGame extends BasicGameState {
 		
 		
 		context.background(gc, g, "testBackground.png");
-		context.title(gc, g, "testTitle.png");
+		//context.title(gc, g, "testTitle.png");
 		
 		for (Button button : buttons) {
 			button.display();
@@ -114,7 +114,7 @@ public class EndGame extends BasicGameState {
 		}
 		else
 		{
-			g.drawString("Failed to achieve highscore \nbetter luck next time!", halfWidth - 110, halfHeight + 50);
+			g.drawString("Failed to achieve highscore \n  better luck next time!", halfWidth - 110, halfHeight + 50);
 		}
 		//Leaderboards.showScores(gc, g);
 		

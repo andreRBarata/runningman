@@ -17,7 +17,7 @@ public class Context {
 	public final float gravity = 0.2f;
 	public final float chunkSize = 128;
 	public final float scale = 0.3f;
-
+	public boolean mute = false;
 	
 	public float playerSpeed = 2;
 	

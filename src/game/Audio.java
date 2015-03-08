@@ -6,20 +6,27 @@ import javax.sound.sampled.Clip;
 
 public class Audio {
 
+	public static boolean mute = false;
+
 	public static synchronized void playSound(final String url) {
-		  new Thread(new Runnable() {
+		new Thread(new Runnable() {
+
+			public void run() {
+				try {
+					Clip clip = AudioSystem.getClip();
+					AudioInputStream inputStream = AudioSystem
+							.getAudioInputStream(Audio.class
+									.getResourceAsStream("/Samples/" + url));
+					clip.open(inputStream);
+					clip.start();
+				} catch (Exception e) {
+					System.err.println(e.getMessage());
+				}
+			}
+	}).start();
 		
-		    public void run() {
-		      try {
-		        Clip clip = AudioSystem.getClip();
-		        AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-		          Audio.class.getResourceAsStream("/Samples/" + url));
-		        clip.open(inputStream);
-		        clip.start(); 
-		      } catch (Exception e) {
-		        System.err.println(e.getMessage());
-		      }
-		    }
-		  }).start();
-		}
+		
+		
+	}
+
 }
