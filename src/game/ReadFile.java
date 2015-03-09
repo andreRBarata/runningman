@@ -20,10 +20,7 @@ public class ReadFile {
 	
 	public void open()  {
 		try  {
-			if(x.canRead())  {
-				System.out.println("File exists, no need to create");
-			}
-			else  {
+			if(!x.canRead())  {
 				System.out.println("Creating the file because it does not exist");
 				x.createNewFile();
 			}
