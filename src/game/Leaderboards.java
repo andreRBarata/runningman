@@ -67,8 +67,8 @@ public class Leaderboards {
 		
 		if(i>1)  {
 			String scurScore = Float.toString(curScore);
-			for(int j=i; j<getDataSize()-2; j++)  {
-				data.set(j+2, data.get(j));
+			for(int j=data.size()-1; j>i; j--)  {
+				data.set(j, data.get(j-2));
 			}
 			
 			setData(i, name);
