@@ -1,0 +1,14 @@
+Run, and dont let the screen outrun you. Use the arrows keys to move left and right but never outside the screen and jump using space. The jump over the hills.
+Good luck.
+
+Keyboard:
+Left key - move left
+Right key - move right
+Space key - jump
+'P' key - pause
+
+PS3 Controller:
+Left D-Pad- move left
+Right D-Pad - move right
+X Button - jump
+Start Button - pause
