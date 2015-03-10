@@ -206,7 +206,7 @@ public class MainMenu extends BasicGameState {
 		*/
 		
 		Button closeBtn = new Button(context, new Vector2f(width / 2 + 340,
-				20f), Context.getImage("Exit.png"),
+				20f), Context.getImage("exit.png"),
 				Context.getImage("highExit.png"));
 		closeBtn.onClick(() -> {
 			context.getGc().exit();

@@ -106,7 +106,6 @@ public class MainGame extends BasicGameState {
 			}
 			
 			context.sideScroll();
-			player.update();
 	
 			
 			if (context.getMap().getMaxX() <= gc.getWidth()) {
@@ -165,7 +164,9 @@ public class MainGame extends BasicGameState {
 		
 		g.setColor(new Color(255, 140, 0));
 		
+		
 		player.display();
+		player.update();
 		
 		for (Drawable drawable: context.objects) {
 			drawable.display();
