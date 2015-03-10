@@ -26,6 +26,7 @@ public class MainMenu extends BasicGameState {
 	ArrayList<Button> currentButtons = new ArrayList<Button>();
 	ArrayList<Button> audioButtons = new ArrayList<Button>();
 	ArrayList<Button> scoreButtons = new ArrayList<Button>();
+	ArrayList<Button> instructionsButtons = new ArrayList<Button>();
 	TrueTypeFont font;
 
 	// void resize(500,500);
@@ -91,6 +92,21 @@ public class MainMenu extends BasicGameState {
 			// buttons.add(startBtn);
 
 		});
+		
+		Button instructionsBackBtn = new Button(context,
+				new Vector2f(width / 2 - 75, 450f), Context.getImage("back.png"),
+				Context.getImage("highBack.png"));
+		instructionsBackBtn.onClick(() -> {
+			options = false;
+			mainMenu = true;
+			Audio.playSound("testSample.wav");
+			
+				currentButtons = mainButtons;
+			
+			// buttons.add(startBtn);
+
+		});
+		
 		
 		Button scoreBackBtn = new Button(context,
 				new Vector2f(width / 2 - 75, 450f), Context.getImage("back.png"),
@@ -167,9 +183,10 @@ public class MainMenu extends BasicGameState {
 				Context.getImage("highInstructions.png"));
 		instructionsBtn.onClick(() -> {
 			System.out.println("testggg");
-			options = true;
+			options = false;
 			mainMenu = false;
 			Audio.playSound("test.wav");
+			currentButtons = instructionsButtons;
 		});
 		
 		
@@ -229,11 +246,15 @@ public class MainMenu extends BasicGameState {
 		optionsButtons.add(closeBtn);
 		
 		scoreButtons.add(scoreBackBtn);
+		
+		instructionsButtons.add(instructionsBackBtn);
 
 	/*	audioButtons.add(audioBackBtn);
 		audioButtons.add(audioPlusBtn);
 		audioButtons.add(audioMinusBtn);*/
 	//	audioButtons.add(audioBarBtn);
+		
+		
 	}
 
 	public void makeButtons(GameContainer gc) throws SlickException {

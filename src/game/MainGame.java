@@ -187,8 +187,9 @@ public class MainGame extends BasicGameState {
 		
 		if (key == Keyboard.KEY_P) {
 			context.getGc().setPaused(!context.getGc().isPaused());
+			Audio.playSound("testSample.wav");
 		}
-		Audio.playSound("testSample.wav");
+	
 		
 	}
 	
