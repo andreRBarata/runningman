@@ -156,10 +156,6 @@ class Player extends Droppable {
 		
 		context.getG().popTransform();
 		
-		if (rightbound != null) {
-			context.getG().fill(rightbound);
-		}
-		
 		timer = ((timer + 1) % 30);
 	}
 
