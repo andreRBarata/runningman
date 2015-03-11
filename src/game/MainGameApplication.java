@@ -31,7 +31,7 @@ public class MainGameApplication extends StateBasedGame {
 			GameContainer.enableSharedContext();
 			appgc.setDisplayMode(800, 600, false);
 			appgc.setMusicOn(
-					true
+					false
 				);
 			appgc.setFullscreen(false);
 			appgc.setShowFPS(false);

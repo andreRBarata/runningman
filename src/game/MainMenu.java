@@ -64,7 +64,8 @@ public class MainMenu extends BasicGameState {
 			options = true;
 			mainMenu = false;
 			audioMenu = true;
-			if(context.mute)
+			Context.mute = Context.mute = true;
+			if(Context.mute)
 			Audio.playSound("testSample.wav");
 
 				currentButtons = audioButtons;

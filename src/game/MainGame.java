@@ -73,7 +73,7 @@ public class MainGame extends BasicGameState {
 		Button gameOverBtn = new Button(context, new Vector2f(width / 2 - 75, 150f),
 				Context.getImage("start.png"), Context.getImage("highStart.png"));
 		gameOverBtn.onClick(() -> {
-			if(context.getGc().isMusicOn())
+			if(context.mute)
 			Audio.playSound("testSample.wav");
 			game.enterState(0, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
 				
@@ -163,8 +163,7 @@ public class MainGame extends BasicGameState {
 			)/2,
 			g.getFont().getLineHeight() + 7
 		);
-		
-		
+			
 		g.setColor(new Color(255, 140, 0));
 		
 		player.display();
@@ -189,7 +188,7 @@ public class MainGame extends BasicGameState {
 		
 		if (key == Keyboard.KEY_P) {
 			context.getGc().setPaused(!context.getGc().isPaused());
-			if(context.getGc().isMusicOn())
+			//if(context.getGc().isMusicOn())
 			Audio.playSound("testSample.wav");
 		}
 	
