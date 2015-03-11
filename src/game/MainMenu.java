@@ -66,7 +66,7 @@ public class MainMenu extends BasicGameState {
 			mainMenu = false;
 			audioMenu = true;
 			Context.mute = Context.mute = true;
-			if(Context.mute)
+			if(!Context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
 
 				currentButtons = audioButtons;
@@ -79,7 +79,7 @@ public class MainMenu extends BasicGameState {
 			options = true;
 			mainMenu = false;
 			Audio.playSound("testSample.wav", MainMenu.mute);
-			if(context.mute)
+			if(!context.mute)
 			MainGameApplication.toggleFullScreen();
 		});
 
@@ -89,7 +89,7 @@ public class MainMenu extends BasicGameState {
 		optionsBackBtn.onClick(() -> {
 			options = false;
 			mainMenu = true;
-			if(context.mute)
+			if(!context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
 			
 				currentButtons = mainButtons;
@@ -105,7 +105,7 @@ public class MainMenu extends BasicGameState {
 			options = false;
 			mainMenu = false;
 			instructions = false;
-			if(context.mute)
+			if(!context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
 			
 				currentButtons = mainButtons;
@@ -122,7 +122,7 @@ public class MainMenu extends BasicGameState {
 			options = false;
 			mainMenu = true;
 			scores = false;
-			if(context.mute)
+			if(!context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
 			
 				currentButtons = mainButtons;
@@ -137,7 +137,7 @@ public class MainMenu extends BasicGameState {
 		audioBackBtn.onClick(() -> {
 			options = false;
 			mainMenu = true;
-			if(context.mute)
+			if(!context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
 			
 			currentButtons = optionsButtons;
@@ -152,7 +152,7 @@ public class MainMenu extends BasicGameState {
 		startBtn.onClick(() -> {
 			options = true;
 			mainMenu = false;
-			if(context.mute)
+			if(!context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
 			game.enterState(1, new FadeOutTransition(Color.black),
 					new FadeInTransition(Color.black));
@@ -168,7 +168,7 @@ public class MainMenu extends BasicGameState {
 			
 			currentButtons = scoreButtons;
 			Leaderboards.showScores(gc, context.getG());
-			if(context.mute)
+			if(!context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
 		});
 
@@ -185,7 +185,7 @@ public class MainMenu extends BasicGameState {
 				currentButtons = optionsButtons;
 				// currentButtons = new ArrayList<Button>();
 			}
-			if(context.mute)
+			if(!context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
 			System.out.println("test");
 		});
@@ -260,6 +260,7 @@ public class MainMenu extends BasicGameState {
 				Context.getImage("highExit.png"));
 		closeBtn.onClick(() -> {
 			context.getGc().exit();
+			if(!context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
 			//Context.fullScreen = true;
 			System.out.println("true");
@@ -279,7 +280,6 @@ public class MainMenu extends BasicGameState {
 		optionsButtons.add(closeBtn);
 		optionsButtons.add(muteBtn);
 
-		
 		scoreButtons.add(scoreBackBtn);
 		
 		instructionsButtons.add(instructionsBackBtn);
@@ -351,7 +351,7 @@ public class MainMenu extends BasicGameState {
 			g.drawString("Run, and dont let the screen outrun you.", halfWidth - 250, halfHeight - 100);
 			g.drawString("Use the arrows keys to move left and right but never", halfWidth - 250, halfHeight - 80);
 			g.drawString("outside the screen and jump using space. " , halfWidth - 250, halfHeight - 60);
-			g.drawString("The jump over the hills. Good luck.", halfWidth - 250, halfHeight - 40);
+			g.drawString("The jump over the hills. Good luck!", halfWidth - 250, halfHeight - 40);
 			g.setColor(Color.red);
 			g.drawString("Keyboard:", halfWidth - 250, halfHeight - 0);
 			g.setColor(Color.black);

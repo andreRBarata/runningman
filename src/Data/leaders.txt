@@ -1,4 +1,3 @@
-Name Score
 ANI 0
 BEN 0
 ARE 0
