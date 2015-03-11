@@ -31,7 +31,9 @@ public class MainGame extends BasicGameState {
 	ArrayList<Button> buttons;
 	BackgroundObject skyBackground;
 	BackgroundObject grassBackground;
-
+	float halfWidth;
+	float halfHeight;
+	boolean paused = false;
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame game) throws SlickException {
@@ -39,6 +41,8 @@ public class MainGame extends BasicGameState {
 				0, gc.getHeight() / 1.5f, 0, gc.getHeight() }));
 		
 		
+		halfWidth = gc.getWidth() / 2;
+		halfHeight = gc.getHeight() / 2;
 		
 		buttons = new ArrayList<Button>();
 
@@ -175,6 +179,12 @@ public class MainGame extends BasicGameState {
 				((Droppable) drawable).update();
 			}
 		}
+		
+		if(paused)
+		{
+			g.setColor(Color.red);
+			g.drawString("Paused", halfWidth - 28, halfHeight - 150);
+		}
 	}
 
 	public void keyPressed(int key, char c) {
@@ -190,6 +200,8 @@ public class MainGame extends BasicGameState {
 			context.getGc().setPaused(!context.getGc().isPaused());
 			//if(context.getGc().isMusicOn())
 			Audio.playSound("testSample.wav",MainMenu.mute);
+			
+			paused = !paused;
 		}
 	
 		

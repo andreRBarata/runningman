@@ -78,8 +78,8 @@ public class MainMenu extends BasicGameState {
 		screenBtn.onClick(() -> {
 			options = true;
 			mainMenu = false;
-			Audio.playSound("testSample.wav", MainMenu.mute);
 			if(!context.mute)
+			Audio.playSound("testSample.wav", MainMenu.mute);
 			MainGameApplication.toggleFullScreen();
 		});
 
