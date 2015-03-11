@@ -6,7 +6,6 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -27,7 +26,7 @@ public class MainMenu extends BasicGameState {
 	ArrayList<Button> audioButtons = new ArrayList<Button>();
 	ArrayList<Button> scoreButtons = new ArrayList<Button>();
 	ArrayList<Button> instructionsButtons = new ArrayList<Button>();
-	TrueTypeFont font;
+	//TrueTypeFont font;
 
 	// void resize(500,500);
 	boolean mainMenu = true;
@@ -36,6 +35,7 @@ public class MainMenu extends BasicGameState {
 	boolean instructions = false;
 	boolean scores = false;
 	StateBasedGame game;
+	//Font font;
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame game)
@@ -64,6 +64,7 @@ public class MainMenu extends BasicGameState {
 			options = true;
 			mainMenu = false;
 			audioMenu = true;
+			if(context.mute)
 			Audio.playSound("testSample.wav");
 
 				currentButtons = audioButtons;
@@ -76,6 +77,7 @@ public class MainMenu extends BasicGameState {
 			options = true;
 			mainMenu = false;
 			Audio.playSound("testSample.wav");
+			if(context.mute)
 			MainGameApplication.toggleFullScreen();
 		});
 
@@ -85,6 +87,7 @@ public class MainMenu extends BasicGameState {
 		optionsBackBtn.onClick(() -> {
 			options = false;
 			mainMenu = true;
+			if(context.mute)
 			Audio.playSound("testSample.wav");
 			
 				currentButtons = mainButtons;
@@ -98,7 +101,9 @@ public class MainMenu extends BasicGameState {
 				Context.getImage("highBack.png"));
 		instructionsBackBtn.onClick(() -> {
 			options = false;
-			mainMenu = true;
+			mainMenu = false;
+			instructions = false;
+			if(context.mute)
 			Audio.playSound("testSample.wav");
 			
 				currentButtons = mainButtons;
@@ -115,6 +120,7 @@ public class MainMenu extends BasicGameState {
 			options = false;
 			mainMenu = true;
 			scores = false;
+			if(context.mute)
 			Audio.playSound("testSample.wav");
 			
 				currentButtons = mainButtons;
@@ -129,6 +135,7 @@ public class MainMenu extends BasicGameState {
 		audioBackBtn.onClick(() -> {
 			options = false;
 			mainMenu = true;
+			if(context.mute)
 			Audio.playSound("testSample.wav");
 			
 			currentButtons = optionsButtons;
@@ -143,6 +150,7 @@ public class MainMenu extends BasicGameState {
 		startBtn.onClick(() -> {
 			options = true;
 			mainMenu = false;
+			if(context.mute)
 			Audio.playSound("testSample.wav");
 			game.enterState(1, new FadeOutTransition(Color.black),
 					new FadeInTransition(Color.black));
@@ -158,6 +166,7 @@ public class MainMenu extends BasicGameState {
 			
 			currentButtons = scoreButtons;
 			Leaderboards.showScores(gc, context.getG());
+			if(context.mute)
 			Audio.playSound("testSample.wav");
 		});
 
@@ -174,19 +183,40 @@ public class MainMenu extends BasicGameState {
 				currentButtons = optionsButtons;
 				// currentButtons = new ArrayList<Button>();
 			}
+			if(context.mute)
 			Audio.playSound("testSample.wav");
 			System.out.println("test");
 		});
 
 		Button instructionsBtn = new Button(context, new Vector2f(
-				width / 2 - 75, 450f), Context.getImage("instructions.png"),
+				width / 2 - 385, 20f), Context.getImage("instructions.png"),
 				Context.getImage("highInstructions.png"));
 		instructionsBtn.onClick(() -> {
+		
 			System.out.println("testggg");
 			options = false;
 			mainMenu = false;
-			Audio.playSound("test.wav");
+			instructions = true;
 			currentButtons = instructionsButtons;
+			//Audio.playSound("test.wav");
+			
+		});
+		
+		Button muteBtn = new Button(context, new Vector2f(
+				width / 2 - 75, 150f), Context.getImage("audioMute.png"),
+				Context.getImage("highAudioMute.png"));
+		muteBtn.onClick(() -> {
+		
+			System.out.println("testggg");
+			options = false;
+			mainMenu = false;
+			//context.getGc().isMusicOn();
+			context.getGc().setMusicOn(
+				!context.getGc().isMusicOn()
+			);
+			//currentButtons = instructionsButtons;
+			Audio.playSound("test.wav");
+			
 		});
 		
 		
@@ -244,6 +274,8 @@ public class MainMenu extends BasicGameState {
 		optionsButtons.add(screenBtn);
 		optionsButtons.add(optionsBackBtn);
 		optionsButtons.add(closeBtn);
+		optionsButtons.add(muteBtn);
+
 		
 		scoreButtons.add(scoreBackBtn);
 		
@@ -307,6 +339,45 @@ public class MainMenu extends BasicGameState {
 		{
 			context.setImage(gc, g, "image.png",  halfHeight - 50 , halfWidth - 250, 300f,250f);
 			Leaderboards.showScores(gc, context.getG());
+		}
+		
+		if(instructions)
+		{
+			context.setImage(gc, g, "image.png",  halfHeight - 225 , halfWidth - 250, 650f,300f);
+			g.setColor(Color.black);
+			g.drawString("Run, and dont let the screen outrun you.", halfWidth - 250, halfHeight - 100);
+			g.drawString("Use the arrows keys to move left and right but never", halfWidth - 250, halfHeight - 80);
+			g.drawString("outside the screen and jump using space. " , halfWidth - 250, halfHeight - 60);
+			g.drawString("The jump over the hills. Good luck.", halfWidth - 250, halfHeight - 40);
+			g.setColor(Color.red);
+			g.drawString("Keyboard:", halfWidth - 250, halfHeight - 0);
+			g.setColor(Color.black);
+			g.drawString("Left key - move left", halfWidth - 250, halfHeight + 20);
+			g.drawString("Right key - move right", halfWidth - 250, halfHeight + 40);
+			g.drawString("Space key - jump", halfWidth - 250, halfHeight + 60);
+			g.drawString("'P' key - pause", halfWidth - 250, halfHeight + 80);
+			g.setColor(Color.red);
+			g.drawString("PS3 Controller:", halfWidth - 0, halfHeight - 0);
+			g.setColor(Color.black);
+			g.drawString("Left D-Pad- move left", halfWidth - 0, halfHeight + 20);
+			g.drawString("Right D-Pad - move right", halfWidth - 0, halfHeight + 40);
+			g.drawString("X Button - jump", halfWidth - 0, halfHeight + 60);
+			g.drawString("Start Button - pause", halfWidth - 0, halfHeight + 80);
+			
+			/*Run, and dont let the screen outrun you. Use the arrows keys to move left and right but never outside the screen and jump using space. The jump over the hills.
+			Good luck.
+
+			Keyboard:
+			Left key - move left
+			Right key - move right
+			Space key - jump
+			'P' key - pause
+
+			PS3 Controller:
+			Left D-Pad- move left
+			Right D-Pad - move right
+			X Button - jump
+			Start Button - pause*/
 		}
 
 	}

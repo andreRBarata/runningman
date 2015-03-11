@@ -6,8 +6,6 @@ import javax.sound.sampled.Clip;
 
 public class Audio {
 
-	public static boolean mute = false;
-
 	public static synchronized void playSound(final String url) {
 		new Thread(new Runnable() {
 
@@ -23,10 +21,8 @@ public class Audio {
 					System.err.println(e.getMessage());
 				}
 			}
-	}).start();
-		
-		
-		
+		}).start();
+
 	}
 
 }

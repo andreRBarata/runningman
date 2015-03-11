@@ -28,7 +28,11 @@ public class MainGameApplication extends StateBasedGame {
 		try {
 			appgc = new AppGameContainer(
 					new MainGameApplication("Turtle Dash"));
+			GameContainer.enableSharedContext();
 			appgc.setDisplayMode(800, 600, false);
+			appgc.setMusicOn(
+					true
+				);
 			appgc.setFullscreen(false);
 			appgc.setShowFPS(false);
 			appgc.start();

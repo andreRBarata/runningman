@@ -48,6 +48,7 @@ public class EndGame extends BasicGameState {
 				Context.getImage("highBack.png"));
 		
 		backBtn.onClick(() -> {
+			if(context.mute)
 			Audio.playSound("testSample.wav");
 			
 			if(hi)  {
