@@ -74,7 +74,7 @@ public class MainGame extends BasicGameState {
 				Context.getImage("start.png"), Context.getImage("highStart.png"));
 		gameOverBtn.onClick(() -> {
 			if(context.mute)
-			Audio.playSound("testSample.wav");
+			Audio.playSound("testSample.wav",MainMenu.mute);
 			game.enterState(0, new FadeOutTransition(Color.black), new FadeInTransition(Color.black));
 				
 		});
@@ -189,7 +189,7 @@ public class MainGame extends BasicGameState {
 		if (key == Keyboard.KEY_P) {
 			context.getGc().setPaused(!context.getGc().isPaused());
 			//if(context.getGc().isMusicOn())
-			Audio.playSound("testSample.wav");
+			Audio.playSound("testSample.wav",MainMenu.mute);
 		}
 	
 		

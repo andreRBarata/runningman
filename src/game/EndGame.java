@@ -49,7 +49,7 @@ public class EndGame extends BasicGameState {
 		
 		backBtn.onClick(() -> {
 			if(context.mute)
-			Audio.playSound("testSample.wav");
+			Audio.playSound("testSample.wav", MainMenu.mute);
 			
 			if(hi)  {
 				submit();

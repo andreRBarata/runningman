@@ -17,7 +17,7 @@ public class Droppable extends Drawable {
 		
 		speed = new Vector2f(0,0);
 	}
-
+	
 	public void update() {
 		Vector2f nextposition = new Vector2f(
 			this.getPosition()
@@ -27,26 +27,54 @@ public class Droppable extends Drawable {
 		
 		leftbound = new Polygon(
 			new float[] {
-					localized.getMinX() + this.getSpeed().x,
+					localized.getMinX(),
 					localized.getCenterY(),
 					localized.getCenterX(),
 					localized.getCenterY()
 			}
 		);
 		rightbound = new Polygon(
+			/*
 			new float[] {
-					localized.getMaxX() + this.getSpeed().x,
+					localized.getMaxX(),
 					localized.getCenterY(),
 					localized.getCenterX(),
 					localized.getCenterY()
 			}
-		);
-		bottombound = new Polygon(
+			*/
 			new float[] {
 					localized.getCenterX(),
-					localized.getMaxY() + Math.abs(this.getSpeed().y),
-					localized.getCenterX(),
+					localized.getCenterY(),
+					localized.getMaxX(),
 					localized.getCenterY()
+						+ (localized.getMaxY() - localized.getCenterY())/2,
+					localized.getMaxX(),
+					localized.getCenterY()
+						- (localized.getCenterY() - localized.getMinY())/2,
+			}
+		);
+		bottombound = new Polygon(
+			/*
+			 new float[] {
+						localized.getCenterX(),
+						localized.getMaxY(),
+						localized.getCenterX(),
+						localized.getCenterY()
+				}
+			*/	
+				
+			new float[] {
+					
+					localized.getCenterX(),
+					localized.getCenterY(),
+					
+					localized.getCenterX()
+						+ (localized.getMaxX() - localized.getCenterX())/2,
+					localized.getMaxY(),
+					
+					localized.getCenterX()
+						- (localized.getCenterX() - localized.getMinX())/2,
+					localized.getMaxY()
 			}
 		);
 		
@@ -79,7 +107,7 @@ public class Droppable extends Drawable {
 			);
 		}
 		
-		if (context.getMap().intersects(localized)) {
+		if (context.getMap().intersects(bottombound)) {
 			speed.y = -speed.y/3;
 		}
 		else {

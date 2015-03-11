@@ -126,7 +126,7 @@ class Player extends Droppable {
 	
 	public void jump() {
 		if (context.getMap().intersects(bottombound)) {
-			Audio.playSound("jump.wav");
+			Audio.playSound("jump.wav", MainMenu.mute);
 			this.setPosition(
 				this.getPosition().add(
 					new Vector2f(0,-5)
@@ -153,7 +153,7 @@ class Player extends Droppable {
 			img1.draw();
 			
 		}
-
+		
 		context.getG().popTransform();
 		
 		timer = ((timer + 1) % 30);
@@ -162,5 +162,4 @@ class Player extends Droppable {
 	public TreeMap<String, Integer> getKeyBinds() {
 		return keyBinds;
 	}
-	
 }

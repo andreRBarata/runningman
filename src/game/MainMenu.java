@@ -13,6 +13,7 @@ import org.newdawn.slick.state.transition.FadeInTransition;
 import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class MainMenu extends BasicGameState {
+	static boolean mute = false;
 	Context context;
 	int height;
 	int width;
@@ -66,7 +67,7 @@ public class MainMenu extends BasicGameState {
 			audioMenu = true;
 			Context.mute = Context.mute = true;
 			if(Context.mute)
-			Audio.playSound("testSample.wav");
+			Audio.playSound("testSample.wav", MainMenu.mute);
 
 				currentButtons = audioButtons;
 		});
@@ -77,7 +78,7 @@ public class MainMenu extends BasicGameState {
 		screenBtn.onClick(() -> {
 			options = true;
 			mainMenu = false;
-			Audio.playSound("testSample.wav");
+			Audio.playSound("testSample.wav", MainMenu.mute);
 			if(context.mute)
 			MainGameApplication.toggleFullScreen();
 		});
@@ -89,7 +90,7 @@ public class MainMenu extends BasicGameState {
 			options = false;
 			mainMenu = true;
 			if(context.mute)
-			Audio.playSound("testSample.wav");
+			Audio.playSound("testSample.wav", MainMenu.mute);
 			
 				currentButtons = mainButtons;
 			
@@ -105,7 +106,7 @@ public class MainMenu extends BasicGameState {
 			mainMenu = false;
 			instructions = false;
 			if(context.mute)
-			Audio.playSound("testSample.wav");
+			Audio.playSound("testSample.wav", MainMenu.mute);
 			
 				currentButtons = mainButtons;
 			
@@ -122,7 +123,7 @@ public class MainMenu extends BasicGameState {
 			mainMenu = true;
 			scores = false;
 			if(context.mute)
-			Audio.playSound("testSample.wav");
+			Audio.playSound("testSample.wav", MainMenu.mute);
 			
 				currentButtons = mainButtons;
 			
@@ -137,7 +138,7 @@ public class MainMenu extends BasicGameState {
 			options = false;
 			mainMenu = true;
 			if(context.mute)
-			Audio.playSound("testSample.wav");
+			Audio.playSound("testSample.wav", MainMenu.mute);
 			
 			currentButtons = optionsButtons;
 			
@@ -152,7 +153,7 @@ public class MainMenu extends BasicGameState {
 			options = true;
 			mainMenu = false;
 			if(context.mute)
-			Audio.playSound("testSample.wav");
+			Audio.playSound("testSample.wav", MainMenu.mute);
 			game.enterState(1, new FadeOutTransition(Color.black),
 					new FadeInTransition(Color.black));
 		});
@@ -168,7 +169,7 @@ public class MainMenu extends BasicGameState {
 			currentButtons = scoreButtons;
 			Leaderboards.showScores(gc, context.getG());
 			if(context.mute)
-			Audio.playSound("testSample.wav");
+			Audio.playSound("testSample.wav", MainMenu.mute);
 		});
 
 		Button optionsBtn = new Button(context, new Vector2f(width / 2 - 75,
@@ -185,7 +186,7 @@ public class MainMenu extends BasicGameState {
 				// currentButtons = new ArrayList<Button>();
 			}
 			if(context.mute)
-			Audio.playSound("testSample.wav");
+			Audio.playSound("testSample.wav", MainMenu.mute);
 			System.out.println("test");
 		});
 
@@ -211,12 +212,13 @@ public class MainMenu extends BasicGameState {
 			System.out.println("testggg");
 			options = false;
 			mainMenu = false;
+			MainMenu.mute = !MainMenu.mute;
 			//context.getGc().isMusicOn();
 			context.getGc().setMusicOn(
 				!context.getGc().isMusicOn()
 			);
 			//currentButtons = instructionsButtons;
-			Audio.playSound("test.wav");
+			Audio.playSound("test.wav", MainMenu.mute);
 			
 		});
 		
@@ -226,7 +228,7 @@ public class MainMenu extends BasicGameState {
 				Context.getImage("audioBar.png"));
 		audioBarBtn.onClick(() -> {
 		
-			Audio.playSound("testSample.wav");
+			Audio.playSound("testSample.wav", MainMenu.mute);
 
 		});
 		
@@ -236,7 +238,7 @@ public class MainMenu extends BasicGameState {
 		audioPlusBtn.onClick(() -> {
 			options = true;
 			mainMenu = false;
-			Audio.playSound("testSample.wav");
+			Audio.playSound("testSample.wav", MainMenu.mute);
 			//Context.fullScreen = true;
 			System.out.println("true");
 		});
@@ -247,18 +249,18 @@ public class MainMenu extends BasicGameState {
 		audioMinusBtn.onClick(() -> {
 			options = true;
 			mainMenu = false;
-			Audio.playSound("testSample.wav");
+			Audio.playSound("testSample.wav", MainMenu.mute);
 			//Context.fullScreen = true;
 			System.out.println("true");
 		});
 		*/
 		
 		Button closeBtn = new Button(context, new Vector2f(width / 2 + 340,
-				20f), Context.getImage("Exit.png"),
+				20f), Context.getImage("exit.png"),
 				Context.getImage("highExit.png"));
 		closeBtn.onClick(() -> {
 			context.getGc().exit();
-			Audio.playSound("testSample.wav");
+			Audio.playSound("testSample.wav", MainMenu.mute);
 			//Context.fullScreen = true;
 			System.out.println("true");
 		});
