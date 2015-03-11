@@ -100,6 +100,7 @@ public class MainGame extends BasicGameState {
 			}
 			
 			Display.sync(70);
+			player.update();
 			gameTimer += i;
 			
 			if ((int)(gameTimer/1000) > (int)((gameTimer - i)/1000)) {
@@ -107,7 +108,7 @@ public class MainGame extends BasicGameState {
 			}
 			
 			context.sideScroll();
-			player.update();
+			
 	
 			
 			if (context.getMap().getMaxX() <= gc.getWidth()) {

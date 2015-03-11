@@ -162,4 +162,5 @@ class Player extends Droppable {
 	public TreeMap<String, Integer> getKeyBinds() {
 		return keyBinds;
 	}
+	
 }
