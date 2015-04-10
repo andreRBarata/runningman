@@ -1,10 +1,13 @@
 package game;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Vector2f;
 import org.newdawn.slick.state.BasicGameState;
@@ -20,23 +23,24 @@ public class MainMenu extends BasicGameState {
 	int divideBy = 2;
 	int halfWidth;
 	int halfHeight;
+	int spriteModel = 1;
 	float scale = 0.3f;
+	
+	String spriteURL = null;
+	
 	ArrayList<Button> mainButtons = new ArrayList<Button>();
 	ArrayList<Button> optionsButtons = new ArrayList<Button>();
 	ArrayList<Button> currentButtons = new ArrayList<Button>();
 	ArrayList<Button> audioButtons = new ArrayList<Button>();
 	ArrayList<Button> scoreButtons = new ArrayList<Button>();
 	ArrayList<Button> instructionsButtons = new ArrayList<Button>();
-	//TrueTypeFont font;
 
-	// void resize(500,500);
 	boolean mainMenu = true;
 	boolean options = false;
 	boolean audioMenu = false;
 	boolean instructions = false;
 	boolean scores = false;
 	StateBasedGame game;
-	//Font font;
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame game)
@@ -56,8 +60,7 @@ public class MainMenu extends BasicGameState {
 		context = new Context(gc, gc.getGraphics());
 
 		currentButtons = mainButtons;
-		// buttons =
-
+		
 		Button audioBtn = new Button(context,
 				new Vector2f(width / 2 - 75, 150f), Context.getImage("audio.png"),
 				Context.getImage("highAudio.png"));
@@ -66,7 +69,7 @@ public class MainMenu extends BasicGameState {
 			mainMenu = false;
 			audioMenu = true;
 			Context.mute = Context.mute = true;
-			if(Context.mute)
+			if(!Context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
 
 				currentButtons = audioButtons;
@@ -78,8 +81,8 @@ public class MainMenu extends BasicGameState {
 		screenBtn.onClick(() -> {
 			options = true;
 			mainMenu = false;
+			if(!context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
-			if(context.mute)
 			MainGameApplication.toggleFullScreen();
 		});
 
@@ -89,12 +92,10 @@ public class MainMenu extends BasicGameState {
 		optionsBackBtn.onClick(() -> {
 			options = false;
 			mainMenu = true;
-			if(context.mute)
+			if(!context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
 			
 				currentButtons = mainButtons;
-			
-			// buttons.add(startBtn);
 
 		});
 		
@@ -105,12 +106,10 @@ public class MainMenu extends BasicGameState {
 			options = false;
 			mainMenu = false;
 			instructions = false;
-			if(context.mute)
+			if(!context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
 			
 				currentButtons = mainButtons;
-			
-			// buttons.add(startBtn);
 
 		});
 		
@@ -122,12 +121,10 @@ public class MainMenu extends BasicGameState {
 			options = false;
 			mainMenu = true;
 			scores = false;
-			if(context.mute)
+			if(!context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
 			
 				currentButtons = mainButtons;
-			
-			// buttons.add(startBtn);
 
 		});
 		
@@ -137,12 +134,10 @@ public class MainMenu extends BasicGameState {
 		audioBackBtn.onClick(() -> {
 			options = false;
 			mainMenu = true;
-			if(context.mute)
+			if(!context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
 			
 			currentButtons = optionsButtons;
-			
-			// buttons.add(startBtn);
 
 		});
 		
@@ -152,7 +147,7 @@ public class MainMenu extends BasicGameState {
 		startBtn.onClick(() -> {
 			options = true;
 			mainMenu = false;
-			if(context.mute)
+			if(!context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
 			game.enterState(1, new FadeOutTransition(Color.black),
 					new FadeInTransition(Color.black));
@@ -168,7 +163,7 @@ public class MainMenu extends BasicGameState {
 			
 			currentButtons = scoreButtons;
 			Leaderboards.showScores(gc, context.getG());
-			if(context.mute)
+			if(!context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
 		});
 
@@ -178,14 +173,9 @@ public class MainMenu extends BasicGameState {
 			options = true;
 			mainMenu = false;
 			if (options) {
-				/*
-				 * buttons = new ArrayList<Button>(); buttons.add(audioBtn);
-				 * buttons.add(screenBtn); buttons.add(backBtn);
-				 */
 				currentButtons = optionsButtons;
-				// currentButtons = new ArrayList<Button>();
 			}
-			if(context.mute)
+			if(!context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
 			System.out.println("test");
 		});
@@ -200,7 +190,7 @@ public class MainMenu extends BasicGameState {
 			mainMenu = false;
 			instructions = true;
 			currentButtons = instructionsButtons;
-			//Audio.playSound("test.wav");
+			Audio.playSound("testSample.wav", MainMenu.mute);
 			
 		});
 		
@@ -213,56 +203,39 @@ public class MainMenu extends BasicGameState {
 			options = false;
 			mainMenu = false;
 			MainMenu.mute = !MainMenu.mute;
-			//context.getGc().isMusicOn();
 			context.getGc().setMusicOn(
 				!context.getGc().isMusicOn()
 			);
-			//currentButtons = instructionsButtons;
 			Audio.playSound("test.wav", MainMenu.mute);
 			
 		});
-		
-		
-		/*Button audioBarBtn = new Button(context,
-				new Vector2f(width / 2 - 75, 550f), Context.getImage("audioBar.png"),
-				Context.getImage("audioBar.png"));
-		audioBarBtn.onClick(() -> {
-		
-			Audio.playSound("testSample.wav", MainMenu.mute);
-
-		});
-		
-		Button audioPlusBtn = new Button(context, new Vector2f(width / 2 - 150,
-				200f), Context.getImage("plus.png"),
-				Context.getImage("plus.png"));
-		audioPlusBtn.onClick(() -> {
-			options = true;
-			mainMenu = false;
-			Audio.playSound("testSample.wav", MainMenu.mute);
-			//Context.fullScreen = true;
-			System.out.println("true");
-		});
-		
-		Button audioMinusBtn = new Button(context, new Vector2f(width / 2 + 150,
-				200f), Context.getImage("minus.png"),
-				Context.getImage("minus.png"));
-		audioMinusBtn.onClick(() -> {
-			options = true;
-			mainMenu = false;
-			Audio.playSound("testSample.wav", MainMenu.mute);
-			//Context.fullScreen = true;
-			System.out.println("true");
-		});
-		*/
 		
 		Button closeBtn = new Button(context, new Vector2f(width / 2 + 340,
 				20f), Context.getImage("exit.png"),
 				Context.getImage("highExit.png"));
 		closeBtn.onClick(() -> {
 			context.getGc().exit();
+			if(!context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
 			//Context.fullScreen = true;
 			System.out.println("true");
+		});
+		
+		Button spriteSelectPlusBtn = new Button(context,
+				new Vector2f(width / 2 + 150, 150f), Context.getImage("arrowLeft.png"),
+				Context.getImage("highArrowLeft.png"));
+		spriteSelectPlusBtn.onClick(() -> {
+			
+		spriteModel = 1 +((spriteModel - 1) % 3);
+		
+		});
+		
+		Button spriteSelectMinusBtn = new Button(context,
+				new Vector2f(width / 2 + 200, 150f), Context.getImage("arrowRight.png"),
+				Context.getImage("highArrowRight.png"));
+		spriteSelectMinusBtn.onClick(() -> {
+			
+			spriteModel = 1 + ((spriteModel + 1) % 3);
 		});
 		
 		// populate arraylist
@@ -272,35 +245,68 @@ public class MainMenu extends BasicGameState {
 		mainButtons.add(optionsBtn);
 		mainButtons.add(instructionsBtn);
 		mainButtons.add(closeBtn);
+		mainButtons.add(spriteSelectPlusBtn);
+		mainButtons.add(spriteSelectMinusBtn);
 
-	//	optionsButtons.add(audioBtn);
 		optionsButtons.add(screenBtn);
 		optionsButtons.add(optionsBackBtn);
 		optionsButtons.add(closeBtn);
 		optionsButtons.add(muteBtn);
 
-		
 		scoreButtons.add(scoreBackBtn);
 		
 		instructionsButtons.add(instructionsBackBtn);
 
-	/*	audioButtons.add(audioBackBtn);
-		audioButtons.add(audioPlusBtn);
-		audioButtons.add(audioMinusBtn);*/
-	//	audioButtons.add(audioBarBtn);
-		
-		
 	}
 
 	public void makeButtons(GameContainer gc) throws SlickException {
 
 	}
+	
+	
+	public Image displayImage(){
+		
+	
+		Image img = null;
+		try {
+			img = new Image("/src/Images/" + spriteURL);
+			return img;
+		} catch (SlickException ex) {
+			Logger.getLogger(MainGame.class.getName()).log(Level.WARNING, null,
+					ex);
+			return null;
+		}
+	}
+	
+	public void selectSprite() throws SlickException
+	{
+	
+		if(spriteModel == 1) {
+			spriteURL = "player01.png";
+		}
+		
+		if(spriteModel == 2) {
+			spriteURL = "model2player01.png";
+		}
+		
+		if(spriteModel == 3) {
+			spriteURL = "model3player01.png";
+		}
+		
+	
+		
+		
+		System.out.println(spriteModel);
+		Image img = new Image("/src/Images/" + spriteURL);
 
+		img.draw(600, 275, 50, img.getHeight());
+		
+	}
+	
 	@Override
 	public void update(GameContainer gc, StateBasedGame game, int i)
 			throws SlickException {
-		// }
-
+		
 		int x = Mouse.getX();
 		int y = gc.getHeight() - Mouse.getY();
 
@@ -323,6 +329,30 @@ public class MainMenu extends BasicGameState {
 		}
 
 	}
+	
+	public void drawInsructions(org.newdawn.slick.Graphics g)
+	{
+		// displayed instructions text
+		g.setColor(Color.black);
+		g.drawString("Run, and dont let the screen outrun you.", halfWidth - 250, halfHeight - 100);
+		g.drawString("Use the arrows keys to move left and right but never", halfWidth - 250, halfHeight - 80);
+		g.drawString("outside the screen and jump using space. " , halfWidth - 250, halfHeight - 60);
+		g.drawString("The jump over the hills. Good luck!", halfWidth - 250, halfHeight - 40);
+		g.setColor(Color.red);
+		g.drawString("Keyboard:", halfWidth - 250, halfHeight - 0);
+		g.setColor(Color.black);
+		g.drawString("Left key - move left", halfWidth - 250, halfHeight + 20);
+		g.drawString("Right key - move right", halfWidth - 250, halfHeight + 40);
+		g.drawString("Space key - jump", halfWidth - 250, halfHeight + 60);
+		g.drawString("'P' key - pause", halfWidth - 250, halfHeight + 80);
+		g.setColor(Color.red);
+		g.drawString("PS3 Controller:", halfWidth - 0, halfHeight - 0);
+		g.setColor(Color.black);
+		g.drawString("Left D-Pad- move left", halfWidth - 0, halfHeight + 20);
+		g.drawString("Right D-Pad - move right", halfWidth - 0, halfHeight + 40);
+		g.drawString("X Button - jump", halfWidth - 0, halfHeight + 60);
+		g.drawString("Start Button - pause", halfWidth - 0, halfHeight + 80);
+	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame game,
@@ -330,7 +360,7 @@ public class MainMenu extends BasicGameState {
 
 		g.scale(1, 1);
 		g.setBackground(Color.black);
-
+		
 		context.background(gc, g, "testBackground.png");
 		context.title(gc, g, "testTitle.png");
 
@@ -347,42 +377,10 @@ public class MainMenu extends BasicGameState {
 		if(instructions)
 		{
 			context.setImage(gc, g, "image.png",  halfHeight - 225 , halfWidth - 250, 650f,300f);
-			g.setColor(Color.black);
-			g.drawString("Run, and dont let the screen outrun you.", halfWidth - 250, halfHeight - 100);
-			g.drawString("Use the arrows keys to move left and right but never", halfWidth - 250, halfHeight - 80);
-			g.drawString("outside the screen and jump using space. " , halfWidth - 250, halfHeight - 60);
-			g.drawString("The jump over the hills. Good luck.", halfWidth - 250, halfHeight - 40);
-			g.setColor(Color.red);
-			g.drawString("Keyboard:", halfWidth - 250, halfHeight - 0);
-			g.setColor(Color.black);
-			g.drawString("Left key - move left", halfWidth - 250, halfHeight + 20);
-			g.drawString("Right key - move right", halfWidth - 250, halfHeight + 40);
-			g.drawString("Space key - jump", halfWidth - 250, halfHeight + 60);
-			g.drawString("'P' key - pause", halfWidth - 250, halfHeight + 80);
-			g.setColor(Color.red);
-			g.drawString("PS3 Controller:", halfWidth - 0, halfHeight - 0);
-			g.setColor(Color.black);
-			g.drawString("Left D-Pad- move left", halfWidth - 0, halfHeight + 20);
-			g.drawString("Right D-Pad - move right", halfWidth - 0, halfHeight + 40);
-			g.drawString("X Button - jump", halfWidth - 0, halfHeight + 60);
-			g.drawString("Start Button - pause", halfWidth - 0, halfHeight + 80);
-			
-			/*Run, and dont let the screen outrun you. Use the arrows keys to move left and right but never outside the screen and jump using space. The jump over the hills.
-			Good luck.
-
-			Keyboard:
-			Left key - move left
-			Right key - move right
-			Space key - jump
-			'P' key - pause
-
-			PS3 Controller:
-			Left D-Pad- move left
-			Right D-Pad - move right
-			X Button - jump
-			Start Button - pause*/
+			drawInsructions(g);
 		}
-
+		
+		selectSprite();
 	}
 
 	@Override

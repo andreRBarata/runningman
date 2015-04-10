@@ -1,5 +1,10 @@
 package game;
 
+import game.sprites.AnimatedSprite;
+import game.sprites.ImgSprite;
+import game.sprites.Sprite;
+
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 import javafx.scene.shape.Rectangle;
@@ -15,38 +20,28 @@ import org.newdawn.slick.geom.Vector2f;
 
 class Player extends Droppable {
 	private TreeMap<String, Integer> keyBinds;
-	private Image img1;
-	private Image img2;
 	private int index;
 	private char[] name;
 	private float timer;
 	
 	public Player(Context context) {
 		super(
-			context,
 			new Vector2f(
 				context.getGc().getWidth()/2,
 				context.getGc().getHeight()/3
 			),
-			new Polygon(
-				//new float[] {-30,-30,30,-30,30,30,-30,30}
+			new AnimatedSprite(
+				30
 			)
 		);
+		this.context = context;
 		
-		img1 = Context.getImage("player01.png").getScaledCopy(0.5f);
-		img2 = Context.getImage("player02.png").getScaledCopy(0.5f);
-		
-		this.setSprite(
-			new Polygon(
-				new float[] {
-					0,0,
-					img1.getWidth(),0,
-					img1.getWidth(), img1.getHeight(),
-					0, img1.getHeight()
-				}
-			)
+		((AnimatedSprite)this.getSprite()).add(
+				new ImgSprite(context, Context.getImage("player01.png").getScaledCopy(0.5f))
 		);
-		
+		((AnimatedSprite)this.getSprite()).add(
+				new ImgSprite(context, Context.getImage("player02.png").getScaledCopy(0.5f))
+		);
 		
 		timer = 0;
 		keyBinds = new TreeMap<String, Integer>();
@@ -56,7 +51,7 @@ class Player extends Droppable {
 	}
 	
 	public void update() {
-		Shape localized = new MorphShape(this.getSprite());
+		Shape localized = new MorphShape(this.getSprite().getShape());
 		localized.setLocation(
 			this.getPosition()
 		);
@@ -139,24 +134,10 @@ class Player extends Droppable {
 	}
 	
 	public void display() {
-		context.getG().pushTransform();
-		
-		context.getG().translate(
+		this.getSprite().draw(
 			this.getPosition().x,
 			this.getPosition().y
 		);
-		
-		if (timer < 15) {
-			img2.draw();
-		}
-		else {
-			img1.draw();
-			
-		}
-		
-		context.getG().popTransform();
-		
-		timer = ((timer + 1) % 30);
 	}
 
 	public TreeMap<String, Integer> getKeyBinds() {

@@ -41,7 +41,7 @@ public class Context {
 		this.gc = gc;
 		this.g = g;
 	}
-	
+
 	public GameContainer getGc() {
 		return gc;
 	}
@@ -162,4 +162,5 @@ public class Context {
 
 		img.draw(0, 0, scaleWidth * 1.8f, scaleHeight * 2.7f);
 	}
+
 }
