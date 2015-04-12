@@ -37,10 +37,10 @@ class Player extends Droppable {
 		this.context = context;
 		
 		((AnimatedSprite)this.getSprite()).add(
-				new ImgSprite(context, Context.getImage("player01.png").getScaledCopy(0.5f))
+				new ImgSprite(context, Context.getSpriteImg("playerSprite0" + Context.spriteAnimOne + ".png").getScaledCopy(0.5f))
 		);
 		((AnimatedSprite)this.getSprite()).add(
-				new ImgSprite(context, Context.getImage("player02.png").getScaledCopy(0.5f))
+				new ImgSprite(context, Context.getSpriteImg("playerSprite0" + Context.spriteAnimTwo + ".png").getScaledCopy(0.5f))
 		);
 		
 		timer = 0;

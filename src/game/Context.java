@@ -18,6 +18,8 @@ public class Context {
 	public final float chunkSize = 128;
 	public final float scale = 0.3f;
 	public static boolean mute = false;
+	public static int spriteAnimOne = 1;
+	public static int spriteAnimTwo = 2;
 	
 	public float playerSpeed = 2;
 	
@@ -119,6 +121,18 @@ public class Context {
 		Image img = null;
 		try {
 			img = new Image("/src/Images/" + url);
+			return img;
+		} catch (SlickException ex) {
+			Logger.getLogger(MainGame.class.getName()).log(Level.WARNING, null,
+					ex);
+			return null;
+		}
+	}
+	
+	public static Image getSpriteImg(String url) {
+		Image img = null;
+		try {
+			img = new Image("/src/SpriteImages/" + url);
 			return img;
 		} catch (SlickException ex) {
 			Logger.getLogger(MainGame.class.getName()).log(Level.WARNING, null,

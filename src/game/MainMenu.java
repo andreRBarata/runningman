@@ -23,8 +23,10 @@ public class MainMenu extends BasicGameState {
 	int divideBy = 2;
 	int halfWidth;
 	int halfHeight;
-	int spriteModel = 1;
+	//int spriteNumber = 1;
 	float scale = 0.3f;
+	
+	String spriteName = "test";
 	
 	String spriteURL = null;
 	
@@ -222,20 +224,21 @@ public class MainMenu extends BasicGameState {
 		});
 		
 		Button spriteSelectPlusBtn = new Button(context,
-				new Vector2f(width / 2 + 150, 150f), Context.getImage("arrowLeft.png"),
+				new Vector2f(width / 2 + 150, 280f), Context.getImage("arrowLeft.png"),
 				Context.getImage("highArrowLeft.png"));
 		spriteSelectPlusBtn.onClick(() -> {
-			
-		spriteModel = 1 +((spriteModel - 1) % 3);
-		
+			Audio.playSound("testSample.wav", MainMenu.mute);
+			Context.spriteAnimOne = 1 + ((Context.spriteAnimOne + 1) % 5);	
+			Context.spriteAnimTwo = Context.spriteAnimOne + 1;
 		});
 		
 		Button spriteSelectMinusBtn = new Button(context,
-				new Vector2f(width / 2 + 200, 150f), Context.getImage("arrowRight.png"),
+				new Vector2f(width / 2 + 290, 280f), Context.getImage("arrowRight.png"),
 				Context.getImage("highArrowRight.png"));
 		spriteSelectMinusBtn.onClick(() -> {
-			
-			spriteModel = 1 + ((spriteModel + 1) % 3);
+			Audio.playSound("testSample.wav", MainMenu.mute);
+			Context.spriteAnimOne = 1 + ((Context.spriteAnimOne + 1) % 5);
+			Context.spriteAnimTwo = Context.spriteAnimOne + 1;
 		});
 		
 		// populate arraylist
@@ -281,25 +284,25 @@ public class MainMenu extends BasicGameState {
 	public void selectSprite() throws SlickException
 	{
 	
-		if(spriteModel == 1) {
-			spriteURL = "player01.png";
+		if(Context.spriteAnimOne == 1) {
+			spriteURL = "playerSprite01.png";
+			spriteName = "Default";
 		}
 		
-		if(spriteModel == 2) {
-			spriteURL = "model2player01.png";
+		if(Context.spriteAnimOne == 3) {
+			spriteURL = "playerSprite03.png";
+			spriteName = "Punk";
 		}
 		
-		if(spriteModel == 3) {
-			spriteURL = "model3player01.png";
+		if(Context.spriteAnimOne == 5) {
+			spriteURL = "playerSprite05.png";
+			spriteName = "Gangster";
 		}
 		
-	
-		
-		
-		System.out.println(spriteModel);
-		Image img = new Image("/src/Images/" + spriteURL);
+		//System.out.println(Context.spriteAnimOne);
+		Image img = new Image("/src/SpriteImages/" + spriteURL);
 
-		img.draw(600, 275, 50, img.getHeight());
+		img.draw(600, 275, 50, 70);
 		
 	}
 	
@@ -363,6 +366,9 @@ public class MainMenu extends BasicGameState {
 		
 		context.background(gc, g, "testBackground.png");
 		context.title(gc, g, "testTitle.png");
+		
+		g.drawString("select character!", width / 2 + 160, 220f);
+		g.drawString(spriteName, width / 2 + 200, 240f);
 
 		for (Button button : currentButtons) {
 			button.display();
@@ -382,6 +388,7 @@ public class MainMenu extends BasicGameState {
 		
 		selectSprite();
 	}
+	
 
 	@Override
 	public int getID() {
