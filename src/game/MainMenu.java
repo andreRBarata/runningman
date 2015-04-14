@@ -223,13 +223,26 @@ public class MainMenu extends BasicGameState {
 			System.out.println("true");
 		});
 		
+		Button resetBtn = new Button(context, new Vector2f(width / 2 + 240,
+				250f), Context.getImage("exit.png"),
+				Context.getImage("highExit.png"));
+		resetBtn.onClick(() -> {
+			if(!context.mute)
+			Audio.playSound("testSample.wav", MainMenu.mute);
+			Leaderboards.resetScores();
+			//Context.fullScreen = true;
+			System.out.println("true");
+		});
+		
+		
 		Button spriteSelectPlusBtn = new Button(context,
 				new Vector2f(width / 2 + 150, 280f), Context.getImage("arrowLeft.png"),
 				Context.getImage("highArrowLeft.png"));
 		spriteSelectPlusBtn.onClick(() -> {
 			Audio.playSound("testSample.wav", MainMenu.mute);
-			Context.spriteAnimOne = 1 + ((Context.spriteAnimOne + 1) % 5);	
+			Context.spriteAnimOne = 1 + ((Context.spriteAnimOne - 1) % 6);	
 			Context.spriteAnimTwo = Context.spriteAnimOne + 1;
+			System.out.println(Context.spriteAnimOne);
 		});
 		
 		Button spriteSelectMinusBtn = new Button(context,
@@ -237,7 +250,7 @@ public class MainMenu extends BasicGameState {
 				Context.getImage("highArrowRight.png"));
 		spriteSelectMinusBtn.onClick(() -> {
 			Audio.playSound("testSample.wav", MainMenu.mute);
-			Context.spriteAnimOne = 1 + ((Context.spriteAnimOne + 1) % 5);
+			Context.spriteAnimOne = 1 + ((Context.spriteAnimOne + 1) % 6);
 			Context.spriteAnimTwo = Context.spriteAnimOne + 1;
 		});
 		
@@ -257,6 +270,7 @@ public class MainMenu extends BasicGameState {
 		optionsButtons.add(muteBtn);
 
 		scoreButtons.add(scoreBackBtn);
+		scoreButtons.add(resetBtn);
 		
 		instructionsButtons.add(instructionsBackBtn);
 
@@ -301,8 +315,8 @@ public class MainMenu extends BasicGameState {
 		
 		//System.out.println(Context.spriteAnimOne);
 		Image img = new Image("/src/SpriteImages/" + spriteURL);
-
-		img.draw(600, 275, 50, 70);
+			
+		img.draw(605, 275, 50, 70);
 		
 	}
 	
@@ -367,9 +381,13 @@ public class MainMenu extends BasicGameState {
 		context.background(gc, g, "testBackground.png");
 		context.title(gc, g, "testTitle.png");
 		
+		if(mainMenu)
+		{
 		g.drawString("select character!", width / 2 + 160, 220f);
-		g.drawString(spriteName, width / 2 + 200, 240f);
-
+		g.drawString(spriteName, width / 2 + 197, 240f);
+		selectSprite();
+		}
+		
 		for (Button button : currentButtons) {
 			button.display();
 		}
@@ -386,7 +404,6 @@ public class MainMenu extends BasicGameState {
 			drawInsructions(g);
 		}
 		
-		selectSprite();
 	}
 	
 

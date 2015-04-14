@@ -103,4 +103,20 @@ public class Leaderboards {
 		}
 	}
 	
+	public static void resetScores()  {
+		ArrayList<String> data = new ArrayList<String>();
+		
+		WriteFile w = new WriteFile("leaders.txt");
+		ReadFile r = new ReadFile("defLeaders.txt");
+		
+		r.open();
+		r.read();
+		r.close();
+		data = r.data;
+		
+		w.open();
+		w.write(data);
+		w.close();
+	}
+	
 }
