@@ -5,18 +5,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ReadFile {
-	
+	//not much comments needed here, it's clear what this class is doing and the methods
 	final File x;
 	private Scanner r;
-	private String fileName;
 	ArrayList<String> data = new ArrayList<String>();
 	
 	ReadFile(String fileName)  {
-		this.fileName = new String(fileName);
 		x = new File(fileName);
 		
 	}
-	
 	
 	public void open()  {
 		try  {
@@ -27,24 +24,22 @@ public class ReadFile {
 			r = new Scanner(x);
 		}
 		catch(Exception e)  {
-			System.out.println("Some error existed and the file could not be created |" + fileName);
+			System.out.println("Some error existed and the file could not be created |" + x.getName());
 		}
 		
 	}
-	
+	//read the file and add the information to data ArrayList
 	public void read()  {
 		while(r.hasNext())  {
 			data.add(r.next());
 		}
 	}
-	
-	
-	
+	//close file
 	public void close()  {
 		r.close();
 	}
 	
-	
+	//getters for the data arraylist
 	public String getData(int i)  {
 		return data.get(i);
 	}
