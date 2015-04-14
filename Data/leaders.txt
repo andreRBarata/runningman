@@ -1,4 +1,10 @@
 Name Score
+<<<<<<< HEAD
 ABC 46.0
 Don 12.0
 con 10.0
+=======
+AAA 0
+AAA 0
+AAA 0
+>>>>>>> 314b966bfb04d27c30b58d311c192c1527f11e55

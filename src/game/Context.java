@@ -21,12 +21,11 @@ public class Context {
 	static boolean mute = false;
 =======
 	public static boolean mute = false;
-	public static int spriteAnimOne = 1;
+	public static int spriteAnimOne = 0;
 	public static int spriteAnimTwo = 2;
 >>>>>>> 8f937c6bf9b99d38bcfb58b71c21d9694e22adcb
 	
-	
-	public float playerSpeed = 2;
+	public static float playerSpeed = 2;
 	
 	private GameContainer gc;
 	private Graphics g;

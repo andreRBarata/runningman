@@ -42,12 +42,12 @@ public class Leaderboards {
 		}
 	}
 	
-	public int beatScore(float curScore)  {
+	public int beatScore(int curScore)  {
 		try  {
 			int i=3;//2 because this is where the HiScores start
 			while(i<data.size())  {
 				
-				float hiScore = Float.parseFloat(data.get(i));
+				int hiScore = Integer.parseInt(data.get(i));
 				
 				if(curScore > hiScore)  {
 					return i;
@@ -62,11 +62,11 @@ public class Leaderboards {
 			return -1;
 		}
 	}
-	public void updateScore(float curScore, String name)  {
+	public void updateScore(int curScore, String name)  {
 		int i = beatScore(curScore)+1-2;
 		
 		if(i>1)  {
-			String scurScore = Float.toString(curScore);
+			String scurScore = "" + curScore;
 			for(int j=data.size()-1; j>i; j--)  {
 				data.set(j, data.get(j-2));
 			}
@@ -104,19 +104,18 @@ public class Leaderboards {
 	}
 	
 	public static void resetScores()  {
-		ArrayList<String> data = new ArrayList<String>();
-		
-		WriteFile w = new WriteFile("leaders.txt");
-		ReadFile r = new ReadFile("defLeaders.txt");
+		ArrayList<String> data2 = new ArrayList<String>();
+		ReadFile r = new ReadFile("Data/defLeaders.txt");
+		WriteFile w = new WriteFile("Data/leaders.txt");
 		
 		r.open();
 		r.read();
 		r.close();
-		data = r.data;
-		
+		for(int i=0; i<r.getDataSize(); i++)  {
+			data2.add(r.getData(i));
+		}
 		w.open();
-		w.write(data);
+		w.write(data2);
 		w.close();
 	}
-	
 }

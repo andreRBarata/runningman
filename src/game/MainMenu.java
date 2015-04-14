@@ -47,8 +47,10 @@ public class MainMenu extends BasicGameState {
 	@Override
 	public void init(GameContainer gc, StateBasedGame game)
 			throws SlickException {
+		
 		buttons(gc);
 		this.game = game;
+		
 	}
 
 	public void buttons(GameContainer gc) throws SlickException {
@@ -106,7 +108,7 @@ public class MainMenu extends BasicGameState {
 				Context.getImage("highBack.png"));
 		instructionsBackBtn.onClick(() -> {
 			options = false;
-			mainMenu = false;
+			mainMenu = true;
 			instructions = false;
 			if(!context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
@@ -148,7 +150,7 @@ public class MainMenu extends BasicGameState {
 				Context.getImage("highStart.png"));
 		startBtn.onClick(() -> {
 			options = true;
-			mainMenu = false;
+
 			if(!context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
 			game.enterState(1, new FadeOutTransition(Color.black),
@@ -223,9 +225,9 @@ public class MainMenu extends BasicGameState {
 			System.out.println("true");
 		});
 		
-		Button resetBtn = new Button(context, new Vector2f(width / 2 + 240,
-				250f), Context.getImage("exit.png"),
-				Context.getImage("highExit.png"));
+		Button resetBtn = new Button(context, new Vector2f(width / 2 + 170,
+				230f), Context.getImage("resetScores.png"),
+				Context.getImage("highResetScores.png"));
 		resetBtn.onClick(() -> {
 			if(!context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
@@ -235,16 +237,17 @@ public class MainMenu extends BasicGameState {
 		});
 		
 		
-		Button spriteSelectPlusBtn = new Button(context,
+		Button spriteSelectMinusBtn = new Button(context,
 				new Vector2f(width / 2 + 150, 280f), Context.getImage("arrowLeft.png"),
 				Context.getImage("highArrowLeft.png"));
-		spriteSelectPlusBtn.onClick(() -> {
+		spriteSelectMinusBtn.onClick(() -> {
 			Audio.playSound("testSample.wav", MainMenu.mute);
-			Context.spriteAnimOne = 1 + ((Context.spriteAnimOne - 1) % 6);	
+			Context.spriteAnimOne = ((3 + Context.spriteAnimOne - 1) % 3);	
 			Context.spriteAnimTwo = Context.spriteAnimOne + 1;
 			System.out.println(Context.spriteAnimOne);
 		});
 		
+<<<<<<< HEAD
 <<<<<<< HEAD
 		Button closeBtn = new Button(context, new Vector2f(width / 2 + 340,
 				20f), Context.getImage("exit.png"),
@@ -258,8 +261,14 @@ public class MainMenu extends BasicGameState {
 				Context.getImage("highArrowRight.png"));
 		spriteSelectMinusBtn.onClick(() -> {
 >>>>>>> 8f937c6bf9b99d38bcfb58b71c21d9694e22adcb
+=======
+		Button spriteSelectPlusBtn = new Button(context,
+				new Vector2f(width / 2 + 290, 280f), Context.getImage("arrowRight.png"),
+				Context.getImage("highArrowRight.png"));
+		spriteSelectPlusBtn.onClick(() -> {
+>>>>>>> 314b966bfb04d27c30b58d311c192c1527f11e55
 			Audio.playSound("testSample.wav", MainMenu.mute);
-			Context.spriteAnimOne = 1 + ((Context.spriteAnimOne + 1) % 6);
+			Context.spriteAnimOne = ((3 + Context.spriteAnimOne + 1) % 3);
 			Context.spriteAnimTwo = Context.spriteAnimOne + 1;
 		});
 		
@@ -284,10 +293,6 @@ public class MainMenu extends BasicGameState {
 		instructionsButtons.add(instructionsBackBtn);
 
 	}
-
-	public void makeButtons(GameContainer gc) throws SlickException {
-
-	}
 	
 	
 	public Image displayImage(){
@@ -307,17 +312,17 @@ public class MainMenu extends BasicGameState {
 	public void selectSprite() throws SlickException
 	{
 	
-		if(Context.spriteAnimOne == 1) {
+		if(Context.spriteAnimOne == 0) {
 			spriteURL = "playerSprite01.png";
 			spriteName = "Default";
 		}
 		
-		if(Context.spriteAnimOne == 3) {
+		if(Context.spriteAnimOne == 1) {
 			spriteURL = "playerSprite03.png";
 			spriteName = "Punk";
 		}
 		
-		if(Context.spriteAnimOne == 5) {
+		if(Context.spriteAnimOne == 2) {
 			spriteURL = "playerSprite05.png";
 			spriteName = "Gangster";
 		}
@@ -392,9 +397,10 @@ public class MainMenu extends BasicGameState {
 		
 		if(mainMenu)
 		{
-		g.drawString("select character!", width / 2 + 160, 220f);
-		g.drawString(spriteName, width / 2 + 197, 240f);
-		selectSprite();
+			g.setColor(Color.black);
+			g.drawString("Select character!", ((width / 2) + 230) - g.getFont().getWidth("Select character!")/2, 220f);
+			g.drawString(spriteName, ((width / 2) + 230) - g.getFont().getWidth(spriteName)/2, 240f);
+			selectSprite();
 		}
 		
 		for (Button button : currentButtons) {
@@ -452,7 +458,6 @@ public class MainMenu extends BasicGameState {
 		
 	}
 	
-
 	@Override
 	public int getID() {
 		return 0;
