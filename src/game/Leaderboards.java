@@ -33,7 +33,6 @@ public class Leaderboards {
 		ReadFile r = new ReadFile("Data/leaders.txt");
 		
 		r.open();
-		
 		r.read();
 		r.close();
 		
@@ -43,8 +42,9 @@ public class Leaderboards {
 	}
 	
 	public int beatScore(int curScore)  {
+		//if score beat, returns int over boolean because wants multiple results and to use the integer returned
 		try  {
-			int i=3;//2 because this is where the HiScores start
+			int i=3;//3 because this is where the HiScores start
 			while(i<data.size())  {
 				
 				int hiScore = Integer.parseInt(data.get(i));
@@ -77,12 +77,13 @@ public class Leaderboards {
 			
 			try {
 				WriteFile w = new WriteFile("Data/leaders.txt");
-				
 				w.open();
 				w.write(data);
 				w.close();
 			}
-			catch(Exception e)  {
+			catch(Exception e)  {//Exceptions are done like this throughout because its not a big error and the extra work on here is not required, 
+								 //as the methods themselves solve the errors, its just more a console thing for the user to read and then 
+								 //fix themselves if they want to.
 				System.out.println("Could not write to leaders.txt");
 			}
 		}
@@ -92,18 +93,22 @@ public class Leaderboards {
 		
 		float halfWidth = gc.getWidth() / 2;
 		float halfHeight = gc.getHeight() / 2 - 100;
+		
 		g.setColor(Color.black);
 		Leaderboards s = new Leaderboards();
 		s.getScores();
+		
 		for(int i=0; i<s.getDataSize(); i+=2)  {
 			g.drawString(s.getData(i), halfWidth - 80, halfHeight+20*i);
 		}
+		
 		for(int i=1; i<s.getDataSize(); i+=2)  {
 			g.drawString(s.getData(i), halfWidth + 50, halfHeight+20*(i-1));
 		}
 	}
 	
 	public static void resetScores()  {
+		//use different variable to not conflict with the data in main Leaderboards class
 		ArrayList<String> data2 = new ArrayList<String>();
 		ReadFile r = new ReadFile("Data/defLeaders.txt");
 		WriteFile w = new WriteFile("Data/leaders.txt");
@@ -111,9 +116,11 @@ public class Leaderboards {
 		r.open();
 		r.read();
 		r.close();
+		
 		for(int i=0; i<r.getDataSize(); i++)  {
 			data2.add(r.getData(i));
 		}
+		
 		w.open();
 		w.write(data2);
 		w.close();
