@@ -20,8 +20,6 @@ public class EndGame extends BasicGameState {
 	private int score;
 	public float centX;
 	public float centY;
-	float halfWidth;
-	float halfHeight; 
 	int index = 0;
 	
 	private char[] playerName = {'A','A','A'};
@@ -65,9 +63,6 @@ public class EndGame extends BasicGameState {
 		
 		centX = gc.getWidth()/2;
 		centY = gc.getHeight()/2;
-		
-		halfHeight = gc.getHeight() /2 ;
-		halfWidth = gc.getWidth() /2 ;
 	}
 
 	@Override
@@ -163,21 +158,21 @@ public class EndGame extends BasicGameState {
 			button.display();
 		}
 		
-		context.setImage(gc, g, "score.png",  halfHeight, halfWidth - 200, 200f,85f);
+		context.setImage(gc, g, "score.png",  centY, centX - 200, 200f,85f);
 		//context.setImage(gc, g, "image.png",  halfHeight - 100, halfWidth - 100, 200f,85f);
 	    g.setColor(Color.black);
 		String playerScore = new String(Integer.toString((int)score));
-		g.drawString(playerScore, halfWidth + 40, halfHeight - 68);
+		g.drawString(playerScore, centX + 40, centY - 68);
 		
 		//showPlayerScore(gc, g, playerScore);
 		
 		if(hi)  {
-			g.drawString("You have achieve a highscore \n  please enter your name!", halfWidth - 110, halfHeight + 50);
+			g.drawString("You have achieve a highscore \n  please enter your name!", centX - 110, centY + 50);
 			askName(gc, g);
 		}
 		else
 		{
-			g.drawString("Failed to achieve highscore \n  better luck next time!", halfWidth - 110, halfHeight + 50);
+			g.drawString("Failed to achieve highscore \n  better luck next time!", centX - 110, centY + 50);
 		}
 	
 		
