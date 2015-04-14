@@ -49,10 +49,7 @@ public class EndGame extends BasicGameState {
 				Context.getImage("highBack.png"));
 		
 		backBtn.onClick(() -> {
-<<<<<<< HEAD
-			if(!context.mute)
-=======
->>>>>>> 8f937c6bf9b99d38bcfb58b71c21d9694e22adcb
+			if(!Context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
 			
 			if(hi)  {
@@ -118,12 +115,6 @@ public class EndGame extends BasicGameState {
 	}
 	
 	public void keyPressed(int key, char c)  {
-		//String newName = 
-
-		/*if(space < 4)
-		{
-			space = 1;
-		}*/
 		
 		char temp = checkWhiteSpace(c, playerName[index]);
 	
@@ -153,27 +144,8 @@ public class EndGame extends BasicGameState {
 		if(c >= 'a' && c <= 'Z')  {
 			return temp;
 		}
-		
-		
 		return c;
 	}
-	
-	
-	/*
-	    String output;
-			if(hi)  {
-				output = new String("You got a Highscore of: " + score);
-			}2
-			else  {
-				output = new String("You Scored: " + score);
-			}
-		
-			g.drawString(output, centX, centY/2);
-		
-			for(int i=3; i<=l.getDataSize(); ++i)  {
-				g.drawString(l.getData(i-1), centX, centY/2+i);
-			}
-	 */
 	
 	
 	@Override
@@ -184,11 +156,8 @@ public class EndGame extends BasicGameState {
 	
 	@Override
 	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
-		float width;
-		width = gc.getWidth();
 		
 		context.background(gc, g, "testBackground.png");
-		//context.title(gc, g, "testTitle.png");
 		
 		for (Button button : buttons) {
 			button.display();
