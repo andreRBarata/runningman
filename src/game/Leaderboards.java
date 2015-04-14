@@ -22,7 +22,7 @@ public class Leaderboards {
 		this.data.set(i, data);
 	}
 
-	Leaderboards(){}
+	
 	
 	//order:
 	//Get Scores,
