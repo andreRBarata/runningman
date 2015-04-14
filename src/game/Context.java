@@ -21,6 +21,7 @@ public class Context {
 	public static int spriteAnimOne = 1;
 	public static int spriteAnimTwo = 2;
 	
+	
 	public float playerSpeed = 2;
 	
 	private GameContainer gc;
