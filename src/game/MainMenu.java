@@ -225,9 +225,9 @@ public class MainMenu extends BasicGameState {
 			System.out.println("true");
 		});
 		
-		Button resetBtn = new Button(context, new Vector2f(width / 2 + 240,
-				250f), Context.getImage("exit.png"),
-				Context.getImage("highExit.png"));
+		Button resetBtn = new Button(context, new Vector2f(width / 2 + 170,
+				230f), Context.getImage("resetScores.png"),
+				Context.getImage("highResetScores.png"));
 		resetBtn.onClick(() -> {
 			if(!context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
