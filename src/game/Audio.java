@@ -6,7 +6,7 @@ import javax.sound.sampled.Clip;
 
 public class Audio {
 
-	public static synchronized void playSound(final String url, boolean muted) {
+	public static synchronized void playSound(final String url, final boolean muted) {
 		new Thread(new Runnable() {
 
 			public void run() {

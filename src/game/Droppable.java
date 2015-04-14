@@ -1,5 +1,7 @@
 package game;
 
+import game.sprites.Sprite;
+
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.geom.MorphShape;
 import org.newdawn.slick.geom.Polygon;
@@ -12,8 +14,8 @@ public class Droppable extends Drawable {
 	protected Polygon rightbound;
 	protected Polygon bottombound;
 	
-	public Droppable(Context context, Vector2f position, Shape sprite) {
-		super(context, position, sprite);
+	public Droppable(Vector2f position, Sprite sprite) {
+		super(position, sprite);
 		
 		speed = new Vector2f(0,0);
 	}
@@ -22,7 +24,7 @@ public class Droppable extends Drawable {
 		Vector2f nextposition = new Vector2f(
 			this.getPosition()
 		);
-		Shape localized = new MorphShape(super.getSprite());
+		Shape localized = new MorphShape(super.getSprite().getShape());
 		localized.setLocation(nextposition);
 		
 		leftbound = new Polygon(

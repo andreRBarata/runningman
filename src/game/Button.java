@@ -1,10 +1,14 @@
 package game;
 
+import game.sprites.ImgSprite;
+import game.sprites.StateBasedSprite;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 /*
@@ -28,31 +32,27 @@ public class Button extends Drawable {
 	private String text;
 	private boolean clicked;
 	private boolean hover;
-	private Image img;
-	private Image hoverImg;
 	private float width, height;
-	private float scaleWidth, scaleHeight;
 
 	public Button(Context context, Vector2f position, String text,
 			CallBack callback) {
-		super(context, position, new Polygon(new float[] { 0, 0,
-				context.getG().getFont().getWidth(text), 0,
-				context.getG().getFont().getWidth(text),
-				context.getG().getFont().getHeight(text), 0,
-				context.getG().getFont().getHeight(text) }));
+		super(position, new StateBasedSprite());
 		this.clicked = false;
-		this.callback = callback;
 		this.text = text;
 	}
 
 	public Button(Context context, Vector2f position, Image img, Image hoverImg) {
-		super(context, position, null);
-		this.img = img;
-		this.hoverImg = hoverImg;
+		super(position, new StateBasedSprite());
+		
+		((StateBasedSprite)this.getSprite()).setDefault(
+				new ImgSprite(context, img.getScaledCopy(context.scale))
+		);
+		((StateBasedSprite)this.getSprite()).put("hover",
+				new ImgSprite(context, hoverImg.getScaledCopy(context.scale))
+		);
 		this.width = img.getWidth();
 		this.height = img.getHeight();
-		this.scaleWidth = width * context.scale;
-		this.scaleHeight = height * context.scale;
+		
 	}
 
 	public void onClick(CallBack callback) {
@@ -78,8 +78,10 @@ public class Button extends Drawable {
 	}
 
 	public boolean containsPoint(Vector2f point) {
-		return new Rectangle(getPosition().x, getPosition().y, scaleWidth,
-				scaleHeight).contains(point.x, point.y);
+		Shape shape = this.getSprite().getShape();
+		shape.setLocation(this.getPosition());
+		
+		return shape.contains(point.x, point.y);
 	}
 
 	public boolean containsPoint(float x, float y) {
@@ -95,29 +97,17 @@ public class Button extends Drawable {
 		return text;
 	}
 
-	public void drawImage(GameContainer gc, org.newdawn.slick.Graphics g,
-			float x, Image img) {
-
-		img.draw(getPosition().x, getPosition().y, scaleWidth, scaleHeight);
-	}
-
 	public void display() {
 
-		if (img != null && !img.equals("") && !isMouseOver())
-			drawImage(context.getGc(), context.getG(), 4, img);
-		else if (hoverImg != null && !hoverImg.equals("") && isMouseOver())
-			drawImage(context.getGc(), context.getG(), 4, hoverImg);
-
-		if (!clicked) {
-			//context.getG().setColor(new Color(255));
-		} else {
-		//	context.getG().setColor(new Color(20, 20, 200));
+		if (!isMouseOver()) {
+			((StateBasedSprite)this.getSprite()).setState("default");
 		}
+		else {
+			((StateBasedSprite)this.getSprite()).setState("hover");
+		}
+		
+		this.getSprite().draw(getPosition().x, getPosition().y);
 
-		/*
-		 * context.getG() .getFont() .drawString((int) super.getPosition().x,
-		 * (int) super.getPosition().y - 10, text);
-		 */
 	}
 
 }

@@ -23,6 +23,7 @@ public class EndGame extends BasicGameState {
 	float halfWidth;
 	float halfHeight; 
 	int index = 0;
+	int space;
 	private char[] playerName = {'A','A','A'};
 	
 	Leaderboards l = new Leaderboards();
@@ -48,7 +49,10 @@ public class EndGame extends BasicGameState {
 				Context.getImage("highBack.png"));
 		
 		backBtn.onClick(() -> {
+<<<<<<< HEAD
 			if(!context.mute)
+=======
+>>>>>>> 8f937c6bf9b99d38bcfb58b71c21d9694e22adcb
 			Audio.playSound("testSample.wav", MainMenu.mute);
 			
 			if(hi)  {
@@ -91,36 +95,7 @@ public class EndGame extends BasicGameState {
 		}
 	}
 
-	@Override
-	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
-		
-		
-		context.background(gc, g, "testBackground.png");
-		//context.title(gc, g, "testTitle.png");
-		
-		for (Button button : buttons) {
-			button.display();
-		}
-		
-		context.setImage(gc, g, "score.png",  halfHeight, halfWidth - 200, 200f,85f);
-		//context.setImage(gc, g, "image.png",  halfHeight - 100, halfWidth - 100, 200f,85f);
-	    g.setColor(Color.black);
-		String playerScore = new String(Integer.toString((int)score));
-		g.drawString(playerScore, halfWidth + 40, halfHeight - 68);
-		
-		//showPlayerScore(gc, g, playerScore);
-		
-		if(hi)  {
-			askName(gc, g);
-		}
-		else
-		{
-			g.drawString("Failed to achieve highscore \n  better luck next time!", halfWidth - 110, halfHeight + 50);
-		}
-		//Leaderboards.showScores(gc, g);
-		
-	    //context.setImage(gc, g, "back.png", 200f,200f,50f,50f);
-	}
+	
 	
 	public void showPlayerScore(GameContainer gc, Graphics g, String playerScore)  {
 		
@@ -141,6 +116,13 @@ public class EndGame extends BasicGameState {
 	public void keyPressed(int key, char c)  {
 		//String newName = 
 		
+		space ++;
+		System.out.println(space);
+		
+		/*if(space < 4)
+		{
+			space = 1;
+		}*/
 		
 		char temp = playerName[index];
 		
@@ -199,6 +181,50 @@ public class EndGame extends BasicGameState {
 	public int getID() {
 		// TODO Auto-generated method stub
 		return 2;
+	}
+	
+	@Override
+	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
+		
+		
+		context.background(gc, g, "testBackground.png");
+		//context.title(gc, g, "testTitle.png");
+		
+		for (Button button : buttons) {
+			button.display();
+		}
+		
+		context.setImage(gc, g, "score.png",  halfHeight, halfWidth - 200, 200f,85f);
+		//context.setImage(gc, g, "image.png",  halfHeight - 100, halfWidth - 100, 200f,85f);
+	    g.setColor(Color.black);
+		String playerScore = new String(Integer.toString((int)score));
+		g.drawString(playerScore, halfWidth + 40, halfHeight - 68);
+		
+		//showPlayerScore(gc, g, playerScore);
+		
+		if(hi)  {
+			askName(gc, g);
+		}
+		else
+		{
+			g.drawString("Failed to achieve highscore \n  better luck next time!", halfWidth - 110, halfHeight + 50);
+		}
+		
+		if(space == 1)
+		{
+			g.drawLine(centX+10, centY+20, centX+40, centY+20);
+		}
+		if(space == 2)
+		{
+			g.drawLine(centX+10, centY+20, centX+60, centY+20);
+		}
+		if(space == 3)
+		{
+			g.drawLine(centX+10, centY+20, centX+80, centY+20);
+		}
+		//Leaderboards.showScores(gc, g);
+		
+	    //context.setImage(gc, g, "back.png", 200f,200f,50f,50f);
 	}
 	
 }

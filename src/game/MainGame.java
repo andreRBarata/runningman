@@ -26,6 +26,7 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 
 public class MainGame extends BasicGameState {
 	float gameTimer;
+	boolean paused;
 	Context context;
 	Player player;
 	ArrayList<Button> buttons;
@@ -122,21 +123,6 @@ public class MainGame extends BasicGameState {
 			if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 				context.getGc().exit();
 			}
-			
-			/*if (Math.random() < 0.001) {
-				context.objects.add(
-					new Catchable(
-						context,
-						new Vector2f(
-							gc.getWidth() - 40,
-							gc.getHeight()/2
-						),
-						new Rectangle(0,0,9,9),
-						"heart"
-					)
-				);
-			}*/
-
 		}
 	}
 
@@ -179,11 +165,17 @@ public class MainGame extends BasicGameState {
 				((Droppable) drawable).update();
 			}
 		}
+<<<<<<< HEAD
 		
 		if(paused)
 		{
 			g.setColor(Color.red);
 			g.drawString("Paused", halfWidth - 28, halfHeight - 150);
+=======
+		if(paused){
+		g.setColor(Color.red);
+		g.drawString("Paused", gc.getWidth() / 2 - 28, gc.getWidth() / 2 - 150);
+>>>>>>> 8f937c6bf9b99d38bcfb58b71c21d9694e22adcb
 		}
 	}
 
@@ -199,8 +191,12 @@ public class MainGame extends BasicGameState {
 		if (key == Keyboard.KEY_P) {
 			context.getGc().setPaused(!context.getGc().isPaused());
 			//if(context.getGc().isMusicOn())
+<<<<<<< HEAD
 			Audio.playSound("testSample.wav",MainMenu.mute);
 			
+=======
+			Audio.playSound("paused.wav",MainMenu.mute);
+>>>>>>> 8f937c6bf9b99d38bcfb58b71c21d9694e22adcb
 			paused = !paused;
 		}
 	
