@@ -8,11 +8,9 @@ public class WriteFile {
 	
 	final File x;
 	private Formatter r;
-	private String fileName;
 	
 	public WriteFile(String fileName)  {
-		this.fileName = fileName;
-		x = new File(this.fileName);
+		x = new File(fileName);
 	}
 	
 
@@ -32,7 +30,7 @@ public class WriteFile {
 			r = new Formatter(x);
 		}
 		catch(Exception e)  {
-			System.out.println("Some error existed and the file could not be created |" + fileName);
+			System.out.println("Some error existed and the file could not be created |" + x.getName());
 		}
 	}
 	
@@ -44,7 +42,7 @@ public class WriteFile {
 			}
 		}
 		catch(Exception e)  {
-			System.out.println("Writing error");
+			System.out.println("Writing error to " + x.getAbsolutePath());
 		}
 		
 	}
