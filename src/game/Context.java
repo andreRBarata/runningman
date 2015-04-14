@@ -18,11 +18,10 @@ public class Context {
 	public final float chunkSize = 128;
 	public final float scale = 0.3f;
 	public static boolean mute = false;
-	public static int spriteAnimOne = 1;
+	public static int spriteAnimOne = 0;
 	public static int spriteAnimTwo = 2;
 	
-	
-	public float playerSpeed = 2;
+	public static float playerSpeed = 2;
 	
 	private GameContainer gc;
 	private Graphics g;

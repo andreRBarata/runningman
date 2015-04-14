@@ -17,18 +17,18 @@ public class EndGame extends BasicGameState {
 	private ArrayList<Button> buttons;
 	private boolean hi = false;
 	public Context context;
-	private float score;
+	private int score;
 	public float centX;
 	public float centY;
 	float halfWidth;
 	float halfHeight; 
 	int index = 0;
-	int space;
+	
 	private char[] playerName = {'A','A','A'};
 	
 	Leaderboards l = new Leaderboards();
 	
-	EndGame(float score)  {
+	EndGame(int score)  {
 		l.getScores();
 		
 		hi = false;
@@ -36,7 +36,7 @@ public class EndGame extends BasicGameState {
 		if(l.beatScore(score) != -1)  {
 			hi = true;
 		}
-		this.score = score;
+		this.score = (int)score;
 	}
 	
 	@Override
@@ -103,7 +103,11 @@ public class EndGame extends BasicGameState {
 		
 		for(int i=0; i<playerName.length; i++)  {
 			String c = Character.toString(playerName[i]);
-			g.drawString(c, centX+10*i, centY+20);
+			g.setColor(Color.black);
+			if(index == i)  {
+				g.setColor(Color.red);
+			}
+			g.drawString(c, centX-10 +10*i, centY+20);
 		}
 		
 		
@@ -111,20 +115,15 @@ public class EndGame extends BasicGameState {
 	
 	public void keyPressed(int key, char c)  {
 		//String newName = 
-		
-		space ++;
-		System.out.println(space);
-		
+
 		/*if(space < 4)
 		{
 			space = 1;
 		}*/
 		
-		char temp = playerName[index];
-		
-		temp = checkWhiteSpace(c, temp);
+		char temp = checkWhiteSpace(c, playerName[index]);
 	
-		playerName[index]=temp;
+		playerName[index] = temp;
 		index = (index+1) % playerName.length;
 		
 		//203 LEFT
@@ -181,7 +180,8 @@ public class EndGame extends BasicGameState {
 	
 	@Override
 	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
-		
+		float width;
+		width = gc.getWidth();
 		
 		context.background(gc, g, "testBackground.png");
 		//context.title(gc, g, "testTitle.png");
@@ -199,25 +199,15 @@ public class EndGame extends BasicGameState {
 		//showPlayerScore(gc, g, playerScore);
 		
 		if(hi)  {
+			g.drawString("You have achieve a highscore \n  please enter your name!", halfWidth - 110, halfHeight + 50);
 			askName(gc, g);
 		}
 		else
 		{
 			g.drawString("Failed to achieve highscore \n  better luck next time!", halfWidth - 110, halfHeight + 50);
 		}
+	
 		
-		if(space == 1)
-		{
-			g.drawLine(centX+10, centY+20, centX+40, centY+20);
-		}
-		if(space == 2)
-		{
-			g.drawLine(centX+10, centY+20, centX+60, centY+20);
-		}
-		if(space == 3)
-		{
-			g.drawLine(centX+10, centY+20, centX+80, centY+20);
-		}
 		//Leaderboards.showScores(gc, g);
 		
 	    //context.setImage(gc, g, "back.png", 200f,200f,50f,50f);

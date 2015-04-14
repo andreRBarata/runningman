@@ -1,4 +1,4 @@
 Name Score
-klk 6.0
-fdd 4.0
-fff 3.0
+AAA 0
+AAA 0
+AAA 0

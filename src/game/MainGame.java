@@ -51,10 +51,11 @@ public class MainGame extends BasicGameState {
 		gameTimer = 0;
 		context.generateChunk();
 		player = new Player(context);
+		// reset playerSpeed
 		context.playerSpeed = 2f;
-		skyBackground = new BackgroundObject(gc, new Image("/src/Tiles/sky.png"), new Vector2f(0f, 0f), 1f);
-		grassBackground = new BackgroundObject(gc, new Image("/src/Tiles/grass.png"), new Vector2f(0f, 0f), 3f);
-
+		// background speed = playerSpeed * (n)
+		skyBackground = new BackgroundObject(gc, new Image("/src/Tiles/sky.png"), new Vector2f(0f, 0f), Context.playerSpeed * 0.7f);
+		grassBackground = new BackgroundObject(gc, new Image("/src/Tiles/grass.png"), new Vector2f(0f, 0f), Context.playerSpeed);
 		gc.setPaused(false);
 	   }
 
@@ -92,7 +93,7 @@ public class MainGame extends BasicGameState {
 			
 			if(isPlayerDead()){				
 				game.addState(new EndGame(
-						(float)Math.floor(gameTimer/1000)
+						(int)Math.floor(gameTimer/1000)
 					)
 				);
 				
