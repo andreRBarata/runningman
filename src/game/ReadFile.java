@@ -20,6 +20,7 @@ public class ReadFile {
 			if(!x.canRead())  {
 				System.out.println("Creating the file because it does not exist");
 				x.createNewFile();
+				Leaderboards.resetScores();
 			}
 			r = new Scanner(x);
 		}
