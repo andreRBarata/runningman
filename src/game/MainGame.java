@@ -34,7 +34,7 @@ public class MainGame extends BasicGameState {
 	BackgroundObject grassBackground;
 	float halfWidth;
 	float halfHeight;
-	boolean paused = false;
+	//boolean paused = false;
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame game) throws SlickException {
@@ -166,17 +166,17 @@ public class MainGame extends BasicGameState {
 				((Droppable) drawable).update();
 			}
 		}
-<<<<<<< HEAD
+
 		
-		if(paused)
+		/*if(paused)
 		{
 			g.setColor(Color.red);
 			g.drawString("Paused", halfWidth - 28, halfHeight - 150);
-=======
+*/
 		if(paused){
 		g.setColor(Color.red);
 		g.drawString("Paused", gc.getWidth() / 2 - 28, gc.getWidth() / 2 - 150);
->>>>>>> 8f937c6bf9b99d38bcfb58b71c21d9694e22adcb
+
 		}
 	}
 
@@ -192,12 +192,11 @@ public class MainGame extends BasicGameState {
 		if (key == Keyboard.KEY_P) {
 			context.getGc().setPaused(!context.getGc().isPaused());
 			//if(context.getGc().isMusicOn())
-<<<<<<< HEAD
+
 			Audio.playSound("testSample.wav",MainMenu.mute);
 			
-=======
 			Audio.playSound("paused.wav",MainMenu.mute);
->>>>>>> 8f937c6bf9b99d38bcfb58b71c21d9694e22adcb
+
 			paused = !paused;
 		}
 	
