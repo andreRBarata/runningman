@@ -20,8 +20,6 @@ public class EndGame extends BasicGameState {
 	private int score;
 	public float centX;
 	public float centY;
-	float halfWidth;
-	float halfHeight; 
 	int index = 0;
 	
 	private char[] playerName = {'A','A','A'};
@@ -49,6 +47,7 @@ public class EndGame extends BasicGameState {
 				Context.getImage("highBack.png"));
 		
 		backBtn.onClick(() -> {
+			if(!Context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
 			
 			if(hi)  {
@@ -64,9 +63,6 @@ public class EndGame extends BasicGameState {
 		
 		centX = gc.getWidth()/2;
 		centY = gc.getHeight()/2;
-		
-		halfHeight = gc.getHeight() /2 ;
-		halfWidth = gc.getWidth() /2 ;
 	}
 
 	@Override
@@ -114,12 +110,6 @@ public class EndGame extends BasicGameState {
 	}
 	
 	public void keyPressed(int key, char c)  {
-		//String newName = 
-
-		/*if(space < 4)
-		{
-			space = 1;
-		}*/
 		
 		char temp = checkWhiteSpace(c, playerName[index]);
 	
@@ -149,27 +139,8 @@ public class EndGame extends BasicGameState {
 		if(c >= 'a' && c <= 'Z')  {
 			return temp;
 		}
-		
-		
 		return c;
 	}
-	
-	
-	/*
-	    String output;
-			if(hi)  {
-				output = new String("You got a Highscore of: " + score);
-			}2
-			else  {
-				output = new String("You Scored: " + score);
-			}
-		
-			g.drawString(output, centX, centY/2);
-		
-			for(int i=3; i<=l.getDataSize(); ++i)  {
-				g.drawString(l.getData(i-1), centX, centY/2+i);
-			}
-	 */
 	
 	
 	@Override
@@ -180,31 +151,28 @@ public class EndGame extends BasicGameState {
 	
 	@Override
 	public void render(GameContainer gc, StateBasedGame game, Graphics g) throws SlickException {
-		float width;
-		width = gc.getWidth();
 		
 		context.background(gc, g, "testBackground.png");
-		//context.title(gc, g, "testTitle.png");
 		
 		for (Button button : buttons) {
 			button.display();
 		}
 		
-		context.setImage(gc, g, "score.png",  halfHeight, halfWidth - 200, 200f,85f);
+		context.setImage(gc, g, "score.png",  centY, centX - 200, 200f,85f);
 		//context.setImage(gc, g, "image.png",  halfHeight - 100, halfWidth - 100, 200f,85f);
 	    g.setColor(Color.black);
 		String playerScore = new String(Integer.toString((int)score));
-		g.drawString(playerScore, halfWidth + 40, halfHeight - 68);
+		g.drawString(playerScore, centX + 40, centY - 68);
 		
 		//showPlayerScore(gc, g, playerScore);
 		
 		if(hi)  {
-			g.drawString("You have achieve a highscore \n  please enter your name!", halfWidth - 110, halfHeight + 50);
+			g.drawString("You have achieve a highscore \n  please enter your name!", centX - 110, centY + 50);
 			askName(gc, g);
 		}
 		else
 		{
-			g.drawString("Failed to achieve highscore \n  better luck next time!", halfWidth - 110, halfHeight + 50);
+			g.drawString("Failed to achieve highscore \n  better luck next time!", centX - 110, centY + 50);
 		}
 	
 		

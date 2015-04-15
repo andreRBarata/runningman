@@ -250,10 +250,26 @@ public class MainMenu extends BasicGameState {
 			System.out.println(Context.spriteAnimOne);
 		});
 		
+<<<<<<< HEAD
+<<<<<<< HEAD
+		Button closeBtn = new Button(context, new Vector2f(width / 2 + 340,
+				20f), Context.getImage("exit.png"),
+				Context.getImage("highExit.png"));
+		closeBtn.onClick(() -> {
+			context.getGc().exit();
+			if(!context.mute)
+=======
+		Button spriteSelectMinusBtn = new Button(context,
+				new Vector2f(width / 2 + 290, 280f), Context.getImage("arrowRight.png"),
+				Context.getImage("highArrowRight.png"));
+		spriteSelectMinusBtn.onClick(() -> {
+>>>>>>> 8f937c6bf9b99d38bcfb58b71c21d9694e22adcb
+=======
 		Button spriteSelectPlusBtn = new Button(context,
 				new Vector2f(width / 2 + 290, 280f), Context.getImage("arrowRight.png"),
 				Context.getImage("highArrowRight.png"));
 		spriteSelectPlusBtn.onClick(() -> {
+>>>>>>> 314b966bfb04d27c30b58d311c192c1527f11e55
 			Audio.playSound("testSample.wav", MainMenu.mute);
 			Context.spriteAnimOne = ((3 + Context.spriteAnimOne + 1) % 3);
 			Context.spriteAnimTwo = Context.spriteAnimOne + 1;
@@ -413,7 +429,44 @@ public class MainMenu extends BasicGameState {
 		if(instructions)
 		{
 			context.setImage(gc, g, "image.png",  halfHeight - 225 , halfWidth - 250, 650f,300f);
+<<<<<<< HEAD
+			g.setColor(Color.black);
+			g.drawString("Run, and dont let the screen outrun you.", halfWidth - 250, halfHeight - 100);
+			g.drawString("Use the arrows keys to move left and right but never", halfWidth - 250, halfHeight - 80);
+			g.drawString("outside the screen and jump using space. " , halfWidth - 250, halfHeight - 60);
+			g.drawString("The jump over the hills. Good luck!", halfWidth - 250, halfHeight - 40);
+			g.setColor(Color.red);
+			g.drawString("Keyboard:", halfWidth - 250, halfHeight - 0);
+			g.setColor(Color.black);
+			g.drawString("Left key - move left", halfWidth - 250, halfHeight + 20);
+			g.drawString("Right key - move right", halfWidth - 250, halfHeight + 40);
+			g.drawString("Space key - jump", halfWidth - 250, halfHeight + 60);
+			g.drawString("'P' key - pause", halfWidth - 250, halfHeight + 80);
+			g.setColor(Color.red);
+			g.drawString("PS3 Controller:", halfWidth - 0, halfHeight - 0);
+			g.setColor(Color.black);
+			g.drawString("Left D-Pad- move left", halfWidth - 0, halfHeight + 20);
+			g.drawString("Right D-Pad - move right", halfWidth - 0, halfHeight + 40);
+			g.drawString("X Button - jump", halfWidth - 0, halfHeight + 60);
+			g.drawString("Start Button - pause", halfWidth - 0, halfHeight + 80);
+			
+			/*Run, and dont let the screen outrun you. Use the arrows keys to move left and right but never outside the screen and jump using space. The jump over the hills.
+			Good luck.
+
+			Keyboard:
+			Left key - move left
+			Right key - move right
+			Space key - jump
+			'P' key - pause
+
+			PS3 Controller:
+			Left D-Pad- move left
+			Right D-Pad - move right
+			X Button - jump
+			Start Button - pause*/
+=======
 			drawInsructions(g);
+>>>>>>> 8f937c6bf9b99d38bcfb58b71c21d9694e22adcb
 		}
 		
 	}
