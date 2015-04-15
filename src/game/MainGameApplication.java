@@ -22,8 +22,8 @@ public class MainGameApplication extends StateBasedGame {
 		.getDefaultScreenDevice();
  int screenWidth = gd.getDisplayMode().getWidth();
  int screenHeight = gd.getDisplayMode().getHeight();*/
-		
-		Audio.playSound("testMusic.wav", MainMenu.mute);
+	
+		//Audio.playSound("testMusic.wav", MainMenu.mute);
 		
 		try {
 			appgc = new AppGameContainer(
@@ -40,6 +40,7 @@ public class MainGameApplication extends StateBasedGame {
 			Logger.getLogger(MainGame.class.getName()).log(Level.SEVERE, null,
 					ex);
 		}
+
 	}
 	
 	public static void toggleFullScreen(){

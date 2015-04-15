@@ -103,8 +103,6 @@ class Player extends Droppable {
 			}
 		}
 		
-			
-		
 		if (this.getPosition().x > context.getGc().getWidth()/2) {
 			if (this.getSpeed().x > 0) {
 				this.setSpeed(

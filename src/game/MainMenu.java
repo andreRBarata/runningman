@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,14 +44,15 @@ public class MainMenu extends BasicGameState {
 	boolean instructions = false;
 	boolean scores = false;
 	StateBasedGame game;
+	
+	ArrayList<MuteListener> muteFired = new ArrayList<MuteListener>();
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame game)
 			throws SlickException {
-		
+		Audio.music(this);
 		buttons(gc);
-		this.game = game;
-		
+		this.game = game;	
 	}
 
 	public void buttons(GameContainer gc) throws SlickException {
@@ -59,8 +61,8 @@ public class MainMenu extends BasicGameState {
 		height = gc.getHeight();
 		width = gc.getWidth();
 
-		float heightOffset = 0;
-		float heightIncr = 100f;
+		//float heightOffset = 0;
+		//float heightIncr = 100f;
 		context = new Context(gc, gc.getGraphics());
 
 		currentButtons = mainButtons;
@@ -72,7 +74,7 @@ public class MainMenu extends BasicGameState {
 			options = true;
 			mainMenu = false;
 			audioMenu = true;
-			Context.mute = Context.mute = true;
+			//Context.mute = Context.mute = true;
 			if(!Context.mute)
 			Audio.playSound("testSample.wav", MainMenu.mute);
 
@@ -207,6 +209,7 @@ public class MainMenu extends BasicGameState {
 			options = false;
 			mainMenu = false;
 			MainMenu.mute = !MainMenu.mute;
+			fireMute();
 			context.getGc().setMusicOn(
 				!context.getGc().isMusicOn()
 			);
@@ -230,7 +233,7 @@ public class MainMenu extends BasicGameState {
 				Context.getImage("highResetScores.png"));
 		resetBtn.onClick(() -> {
 			if(!context.mute)
-			Audio.playSound("testSample.wav", MainMenu.mute);
+			Audio.playSound("delete.wav", MainMenu.mute);
 			Leaderboards.resetScores();
 			//Context.fullScreen = true;
 			System.out.println("true");
@@ -278,6 +281,16 @@ public class MainMenu extends BasicGameState {
 
 	}
 	
+	public void addMuteListener(MuteListener listener){
+		muteFired.add(listener);
+	}
+	
+	private void fireMute(){
+		if(muteFired.size() > 0)
+			for(MuteListener l : muteFired){
+				l.muteAction(mute);
+			}
+	}
 	
 	public Image displayImage(){
 		
